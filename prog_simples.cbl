@@ -1,0 +1,13 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. prog.
+
+       DATA DIVISION.
+       FILE SECTION.
+       WORKING-STORAGE SECTION.
+
+       PROCEDURE DIVISION.
+       MAIN-PROCEDURE.
+            DISPLAY ":D"
+            STOP RUN.
+
+       END PROGRAM prog.
