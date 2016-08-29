@@ -2,6 +2,7 @@
 Tem working
 Tem data division
 int main(){
+Tem Number
 printf(
  return 0;
 }

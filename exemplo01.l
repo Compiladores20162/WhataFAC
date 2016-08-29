@@ -18,6 +18,7 @@ real {integer}("."{integer})?{exponant}?
 }
 return(NUMBER);
 
+[0-9] return (NUMBER);
 "WORKING-STORAGE SECTION." return(WORKINGSTORAGE);
 "IDENTIFICATION DIVISION." return(INCLUDE_STDIO);
 "DATA DIVISION." return(DATADIVISION);

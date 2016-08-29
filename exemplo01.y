@@ -32,13 +32,13 @@ Line:
    | MAIN {printf("int main(){\n"); }
    | INCLUDE_STDIO {printf("#include<stdio.h>\n"); }
    | DATADIVISION Working{printf("Tem data division\n");}
+   | NUMBER {printf("Tem Number\n");}
    ;
 
 Working:
    END WORKINGSTORAGE Variables {printf("Tem working\n");}
    | END
-
-    ;
+   ;
 
 Variables:
    /* Empty */
