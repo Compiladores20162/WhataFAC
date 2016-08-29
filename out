@@ -1,5 +1,7 @@
 #include<stdio.h>
+Tem working
+Tem data division
 int main(){
-printf(""3.000000
+printf(
  return 0;
 }

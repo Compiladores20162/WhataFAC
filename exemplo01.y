@@ -10,8 +10,7 @@
 %token LEFT_PARENTHESIS RIGHT_PARENTHESIS
 %token END
 %token PRINT
-%token RETURN_0 MAIN INCLUDE_STDIO
-%token QUOTATION_MARKS
+%token RETURN_0 MAIN INCLUDE_STDIO WORKINGSTORAGE DATADIVISION
 
 %left PLUS MINUS
 %left TIMES DIVIDE
@@ -27,13 +26,26 @@ Input:
    | Input Line
    ;
 Line:
-   END {}
-   | Expression END { printf("%f\n",$1); }
+   END
+   | PRINT {printf("printf(\n");}
    | RETURN_0 {printf(" return 0;\n}\n"); exit(0);}
    | MAIN {printf("int main(){\n"); }
    | INCLUDE_STDIO {printf("#include<stdio.h>\n"); }
-   | PRINT {printf("printf(");}
+   | DATADIVISION Working{printf("Tem data division\n");}
    ;
+
+Working:
+   END WORKINGSTORAGE Variables {printf("Tem working\n");}
+   | END
+
+    ;
+
+Variables:
+   /* Empty */
+   | END
+   | NUMBER {printf("Tem Number");}
+
+/*
 Expression:
    NUMBER { $$=$1; }
    | QUOTATION_MARKS Expression QUOTATION_MARKS {printf("\nentrei\n");}
@@ -46,7 +58,7 @@ Expression:
    | LEFT_PARENTHESIS Expression RIGHT_PARENTHESIS { $$=$2; }
 
    ;
-
+*/
 %%
 
 int yyerror(char *s) {
