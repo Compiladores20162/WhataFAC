@@ -9,8 +9,9 @@
 %token PLUS MINUS TIMES DIVIDE POWER
 %token LEFT_PARENTHESIS RIGHT_PARENTHESIS
 %token END
-
+%token PRINT
 %token RETURN_0 MAIN INCLUDE_STDIO
+%token QUOTATION_MARKS
 
 %left PLUS MINUS
 %left TIMES DIVIDE
@@ -27,13 +28,15 @@ Input:
    ;
 Line:
    END {}
-   | Expression END { printf("Resultado: %f\n",$1); }
+   | Expression END { printf("%f\n",$1); }
    | RETURN_0 {printf(" return 0;\n}\n"); exit(0);}
    | MAIN {printf("int main(){\n"); }
    | INCLUDE_STDIO {printf("#include<stdio.h>\n"); }
+   | PRINT {printf("printf(");}
    ;
 Expression:
    NUMBER { $$=$1; }
+   | QUOTATION_MARKS Expression QUOTATION_MARKS {printf("\nentrei\n");}
    | Expression PLUS Expression { $$=$1+$3; }
    | Expression MINUS Expression { $$=$1-$3; }
    | Expression TIMES Expression { $$=$1*$3; }
@@ -41,6 +44,7 @@ Expression:
    | MINUS Expression %prec NEG { $$=-$2; }
    | Expression POWER Expression { $$=$1/$3; }
    | LEFT_PARENTHESIS Expression RIGHT_PARENTHESIS { $$=$2; }
+
    ;
 
 %%

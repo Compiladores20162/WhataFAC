@@ -54,10 +54,12 @@ extern int yydebug;
     LEFT_PARENTHESIS = 264,
     RIGHT_PARENTHESIS = 265,
     END = 266,
-    RETURN_0 = 267,
-    MAIN = 268,
-    INCLUDE_STDIO = 269,
-    NEG = 270
+    PRINT = 267,
+    RETURN_0 = 268,
+    MAIN = 269,
+    INCLUDE_STDIO = 270,
+    QUOTATION_MARKS = 271,
+    NEG = 272
   };
 #endif
 

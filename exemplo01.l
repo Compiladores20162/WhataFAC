@@ -21,6 +21,7 @@ return(NUMBER);
 "WORKING-STORAGE SECTION" return(INCLUDE_STDIO);
 "MAIN-PROCEDURE." return(MAIN);
 "END PROGRAM" return(RETURN_0);
+"DISPLAY" return (PRINT);
 "+" return(PLUS);
 "-" return(MINUS);
 "*" return(TIMES);
