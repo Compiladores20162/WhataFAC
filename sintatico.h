@@ -57,7 +57,9 @@ extern int yydebug;
     RETURN_0 = 267,
     MAIN = 268,
     INCLUDE_STDIO = 269,
-    NEG = 270
+    WORKINGSTORAGE = 270,
+    DATADIVISION = 271,
+    NEG = 272
   };
 #endif
 

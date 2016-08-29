@@ -10,7 +10,7 @@
 %token LEFT_PARENTHESIS RIGHT_PARENTHESIS
 %token END
 
-%token RETURN_0 MAIN INCLUDE_STDIO
+%token RETURN_0 MAIN INCLUDE_STDIO WORKINGSTORAGE DATADIVISION
 
 %left PLUS MINUS
 %left TIMES DIVIDE
@@ -27,11 +27,25 @@ Input:
    ;
 Line:
    END {}
-   | Expression END { printf("Resultado: %f\n",$1); }
+   | END { printf("Resultado: %f\n",$1); }
    | RETURN_0 {printf(" return 0;\n}\n"); exit(0);}
    | MAIN {printf("int main(){\n"); }
    | INCLUDE_STDIO {printf("#include<stdio.h>\n"); }
+   | DATADIVISION Working{printf("Tem data division\n");}
    ;
+
+Working:
+   END WORKINGSTORAGE Variables {printf("Tem working\n");}
+   | END
+
+    ;
+
+Variables:
+   /* Empty */
+   | END
+   | NUMBER {printf("Tem Number");}
+
+/*
 Expression:
    NUMBER { $$=$1; }
    | Expression PLUS Expression { $$=$1+$3; }
@@ -42,7 +56,7 @@ Expression:
    | Expression POWER Expression { $$=$1/$3; }
    | LEFT_PARENTHESIS Expression RIGHT_PARENTHESIS { $$=$2; }
    ;
-
+*/
 %%
 
 int yyerror(char *s) {

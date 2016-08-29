@@ -1,4 +1,6 @@
 #include<stdio.h>
+Tem working
+Tem data division
 int main(){
  return 0;
 }
