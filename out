@@ -3,6 +3,11 @@ Tem working
 Tem data division
 int main(){
 Tem Number
+Tem Number
+Tem Number
+Tem Number
+Tem Number
+cTem Number
 printf(
  return 0;
 }
