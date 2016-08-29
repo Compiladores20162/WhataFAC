@@ -51,11 +51,13 @@ extern int yydebug;
     TIMES = 261,
     DIVIDE = 262,
     POWER = 263,
-    RETURN0 = 264,
-    LEFT_PARENTHESIS = 265,
-    RIGHT_PARENTHESIS = 266,
-    END = 267,
-    NEG = 268
+    LEFT_PARENTHESIS = 264,
+    RIGHT_PARENTHESIS = 265,
+    END = 266,
+    RETURN_0 = 267,
+    MAIN = 268,
+    INCLUDE_STDIO = 269,
+    NEG = 270
   };
 #endif
 

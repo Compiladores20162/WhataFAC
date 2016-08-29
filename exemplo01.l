@@ -13,12 +13,14 @@ real {integer}("."{integer})?{exponant}?
 
 {white} { /* We ignore white characters */ }
 {real} {
-yylval=atof(yytext);
-return(NUMBER);
+    yylval=atof(yytext);
+    return(NUMBER);
 }
- return(NUMBER);
+return(NUMBER);
 
-"END PROGRAM" return(RETURN0);
+"WORKING-STORAGE SECTION" return(INCLUDE_STDIO);
+"MAIN-PROCEDURE." return(MAIN);
+"END PROGRAM" return(RETURN_0);
 "+" return(PLUS);
 "-" return(MINUS);
 "*" return(TIMES);
@@ -31,5 +33,5 @@ return(NUMBER);
 %%
 
 yywrap () {
-return 0;
+    return 0;
 }

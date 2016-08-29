@@ -6,9 +6,11 @@
 %}
 
 %token NUMBER
-%token PLUS MINUS TIMES DIVIDE POWER RETURN0
+%token PLUS MINUS TIMES DIVIDE POWER
 %token LEFT_PARENTHESIS RIGHT_PARENTHESIS
 %token END
+
+%token RETURN_0 MAIN INCLUDE_STDIO
 
 %left PLUS MINUS
 %left TIMES DIVIDE
@@ -24,14 +26,16 @@ Input:
    | Input Line
    ;
 Line:
-   END
+   END {}
    | Expression END { printf("Resultado: %f\n",$1); }
+   | RETURN_0 {printf(" return 0;\n}\n"); exit(0);}
+   | MAIN {printf("int main(){\n"); }
+   | INCLUDE_STDIO {printf("#include<stdio.h>\n"); }
    ;
 Expression:
-   RETURN0 {printf("return 0;\n"); }
-   | NUMBER { $$=$1; }
+   NUMBER { $$=$1; }
    | Expression PLUS Expression { $$=$1+$3; }
-   | Expression MINUS Expression { $$=$1-$3; printf("%.2lf", $1);}
+   | Expression MINUS Expression { $$=$1-$3; }
    | Expression TIMES Expression { $$=$1*$3; }
    | Expression DIVIDE Expression { $$=$1/$3; }
    | MINUS Expression %prec NEG { $$=-$2; }
