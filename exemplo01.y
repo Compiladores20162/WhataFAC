@@ -1,5 +1,6 @@
 %{
 #include "global.h"
+#include "functionsSyntatic.c"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -11,6 +12,7 @@
 %token END
 %token PRINT
 %token RETURN_0 MAIN INCLUDE_STDIO WORKINGSTORAGE DATADIVISION
+%token SIMBOL
 
 %left PLUS MINUS
 %left TIMES DIVIDE
@@ -27,7 +29,7 @@ Input:
    ;
 Line:
    END
-   | PRINT {printf("printf(\n");}
+   | PRINT SIMBOL {printf("printf("); printContents(); printf(");\n");}
    | RETURN_0 {printf(" return 0;\n}\n"); exit(0);}
    | MAIN {printf("int main(){\n"); }
    | INCLUDE_STDIO {printf("#include<stdio.h>\n"); }

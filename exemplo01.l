@@ -1,8 +1,10 @@
 %{
 #include "global.h"
 #include "sintatico.h"
+#include "functionsLexic.c"
 #include <stdlib.h>
 %}
+
 white [ \t]+
 digit [0-9]
 integer {digit}+
@@ -32,6 +34,10 @@ return(NUMBER);
 "(" return(LEFT_PARENTHESIS);
 ")" return(RIGHT_PARENTHESIS);
 "\n" return(END);
+[""a-zA-Z0-9]+ {{
+  savePrint(yytext);
+  return (SIMBOL);
+}}
 
 %%
 

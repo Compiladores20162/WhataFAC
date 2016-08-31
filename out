@@ -2,6 +2,7 @@
 Tem working
 Tem data division
 int main(){
-printf(
+printf("qualquercoisa1");
+printf("lalaia");
  return 0;
 }
