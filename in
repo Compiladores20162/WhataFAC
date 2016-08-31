@@ -2,6 +2,5 @@ IDENTIFICATION DIVISION.
 DATA DIVISION.
 WORKING-STORAGE SECTION.
 MAIN-PROCEDURE.
-DISPLAY "qualquercoisa1"
-DISPLAY "lalaia"
+DISPLAY "qualquercoisa1 Ola pessoal como vamos reprovar hoje"
 END PROGRAM

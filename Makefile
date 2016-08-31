@@ -7,7 +7,7 @@ cobol_c: exemplo01.l exemplo01.y
 	gcc -lm -o cobol_c.out sintatico.c lexico.c
 
 clean:
-	rm -f *.swp lexico.* sintatico.* cobol_c.out
+	rm -f *.swp lexico.* sintatico.* cobol_c.out printContent.txt
 
 run:
 	./cobol_c.out < in > out

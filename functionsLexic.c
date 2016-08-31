@@ -5,9 +5,10 @@ void savePrint (char content[50])
 {
   FILE *fp;
 
-  fp = fopen("printContent.txt", "w+");
+  fp = fopen("printContent.txt", "a+");
   if(fp == NULL)
       printf("\n\n\nNão abriu!\n\n\n");
+
 
   fprintf(fp, "%s", content);
   fclose(fp);

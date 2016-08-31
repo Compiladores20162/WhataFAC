@@ -12,7 +12,7 @@
 %token END
 %token PRINT WORD
 %token RETURN_0 MAIN INCLUDE_STDIO WORKINGSTORAGE DATADIVISION
-%token SIMBOL
+%token SIMBOL WHITE
 
 
 %left PLUS MINUS
@@ -30,7 +30,7 @@ Input:
    ;
 Line:
    END
-   | PRINT SIMBOL {printf("printf("); printContents(); printf(");\n");}
+   | PRINT Simbol {printf("printf("); printContents(); printf(");\n");}
    | RETURN_0 {printf(" return 0;\n}\n"); exit(0);}
    | MAIN {printf("int main(){\n"); }
    | INCLUDE_STDIO {printf("#include<stdio.h>\n"); }
@@ -38,6 +38,11 @@ Line:
    | NUMBER {printf("numero: %lf", $1);}
  ;
 
+Simbol:
+   SIMBOL END
+   | SIMBOL Simbol END
+   | END
+   ;
 
 Working:
    END WORKINGSTORAGE {printf("Tem working\n");}

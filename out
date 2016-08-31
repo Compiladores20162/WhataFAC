@@ -2,7 +2,4 @@
 Tem working
 Tem data division
 int main(){
-printf("qualquercoisa1");
-printf("lalaia");
- return 0;
-}
+       syntax error
