@@ -9,8 +9,9 @@
 %token PLUS MINUS TIMES DIVIDE POWER
 %token LEFT_PARENTHESIS RIGHT_PARENTHESIS
 %token END
-%token PRINT
+%token PRINT WORD 
 %token RETURN_0 MAIN INCLUDE_STDIO WORKINGSTORAGE DATADIVISION
+
 
 %left PLUS MINUS
 %left TIMES DIVIDE
@@ -27,25 +28,28 @@ Input:
    ;
 Line:
    END
-   | PRINT {printf("printf(\n");}
+   | PRINT {printf("printf(");}
+   | WORD {printf("Tem letra ou palavra\n");}
    | RETURN_0 {printf(" return 0;\n}\n"); exit(0);}
    | MAIN {printf("int main(){\n"); }
    | INCLUDE_STDIO {printf("#include<stdio.h>\n"); }
    | DATADIVISION Working{printf("Tem data division\n");}
-   | NUMBER {printf("Tem Number\n");}
-   ;
+   | NUMBER {printf("numero: %lf", $1);}  
+ ;
+
 
 Working:
-   END WORKINGSTORAGE Variables {printf("Tem working\n");}
+   END WORKINGSTORAGE {printf("Tem working\n");}
    | END
    ;
 
+/*
 Variables:
-   /* Empty */
+ 
    | END
    | NUMBER {printf("Tem Number");}
 
-/*
+
 Expression:
    NUMBER { $$=$1; }
    | QUOTATION_MARKS Expression QUOTATION_MARKS {printf("\nentrei\n");}

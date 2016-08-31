@@ -2,6 +2,7 @@
 #include "global.h"
 #include "sintatico.h"
 #include <stdlib.h>
+#include <string.h>
 %}
 white [ \t]+
 digit [0-9]
@@ -9,16 +10,14 @@ integer {digit}+
 exponant [eE][+-]?{integer}
 real {integer}("."{integer})?{exponant}?
 
-%%
 
+%% 
 {white} { /* We ignore white characters */ }
 {real} {
     yylval=atof(yytext);
     return(NUMBER);
-}
-return(NUMBER);
+};                                                             
 
-[0-9] return (NUMBER);
 "WORKING-STORAGE SECTION." return(WORKINGSTORAGE);
 "IDENTIFICATION DIVISION." return(INCLUDE_STDIO);
 "DATA DIVISION." return(DATADIVISION);
@@ -33,6 +32,7 @@ return(NUMBER);
 "(" return(LEFT_PARENTHESIS);
 ")" return(RIGHT_PARENTHESIS);
 "\n" return(END);
+[a-z]* return(WORD); 
 
 %%
 
