@@ -3,6 +3,7 @@
 #include "sintatico.h"
 #include "functionsLexic.c"
 #include <stdlib.h>
+#include <string.h>
 %}
 
 white [ \t]+
@@ -11,14 +12,13 @@ integer {digit}+
 exponant [eE][+-]?{integer}
 real {integer}("."{integer})?{exponant}?
 
-%%
 
+%%
 {white} { /* We ignore white characters */ }
 {real} {
     yylval=atof(yytext);
     return(NUMBER);
-}
-return(NUMBER);
+};
 
 "WORKING-STORAGE SECTION." return(WORKINGSTORAGE);
 "IDENTIFICATION DIVISION." return(INCLUDE_STDIO);
@@ -38,6 +38,7 @@ return(NUMBER);
   savePrint(yytext);
   return (SIMBOL);
 }}
+
 
 %%
 
