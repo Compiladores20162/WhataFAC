@@ -1,0 +1,10 @@
+#include<stdio.h>
+
+Tem working
+Tem data division
+
+int main(){
+printf("saporra aqui");
+printf("issae amicos");
+return 0;
+}
