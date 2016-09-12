@@ -26,7 +26,13 @@ real {integer}("."{integer})?{exponant}?
 "MAIN-PROCEDURE." return(MAIN);
 "END PROGRAM" return(RETURN_0);
 "DISPLAY" return (PRINT);
-"PIC" return (PIC);
+
+"PIC"  {{
+	printf("\nencontrou PIC\n");
+	return (PIC);
+}};
+
+"." return (POINT);
 "+" return(PLUS);
 "-" return(MINUS);
 "*" return(TIMES);
@@ -35,7 +41,7 @@ real {integer}("."{integer})?{exponant}?
 "(" return(LEFT_PARENTHESIS);
 ")" return(RIGHT_PARENTHESIS);
 "\n" return(END);
-[""a-zA-Z0-9]+ {{
+[""a-zA-Z0-9()]+ {{
   savePrint(yytext);
   return (SIMBOL);
 }}

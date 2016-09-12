@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void savePrint (char content[50])
+void savePrint (char content[500])
 {
   FILE *fp;
 

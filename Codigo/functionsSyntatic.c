@@ -4,7 +4,7 @@
 void printContents ()
 {
   FILE *fp;
-  char content[50];
+  char content[500];
 
   fp = fopen("printContent.txt", "a+");
   if(fp == NULL)

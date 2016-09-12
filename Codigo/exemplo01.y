@@ -14,6 +14,7 @@
 %token RETURN_0 MAIN INCLUDE_STDIO WORKINGSTORAGE DATADIVISION
 %token SIMBOL
 %token PIC
+%token POINT
 
 
 %left PLUS MINUS
@@ -30,7 +31,7 @@ Input:
    | Input Line
    ;
 Line:
-   END
+   END {printf("\ntem /n\n");}
    | NUMBER SIMBOL PIC {printContents(); printf("\n\n\n\n\n\n\n\n");}
    | PRINT Sentense {printf("\n");}
    | RETURN_0 {printf("return 0;\n}\n"); exit(0);}
@@ -43,7 +44,7 @@ Line:
 Sentense:
    END {printf("printf("); printContents(); printf(");");}
    | SIMBOL Sentense 
-
+   | POINT Sentense
 
 Working:
    END WORKINGSTORAGE {printf("Tem working\n");}
