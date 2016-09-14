@@ -3,5 +3,8 @@ DATA DIVISION.
 WORKING-STORAGE SECTION.
 MAIN-PROCEDURE.
 1.2
-DISPLAY "qualquercoisa1 Ola pessoal como vamos reprovar hoje"
+9
+.
+.
+DISPLAY " vamos passar hoje"
 END PROGRAM

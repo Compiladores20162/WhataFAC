@@ -2,4 +2,8 @@
 Tem working
 Tem data division
 int main(){
-numero: 1.200000       syntax error
+1.200000
+9.000000
+    printf(" vamos passar hoje"
+); return 0;
+}

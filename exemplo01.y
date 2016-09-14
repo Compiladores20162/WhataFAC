@@ -17,6 +17,7 @@
 
 %type <flutuante> NUMBER
 
+%token POINT
 %token NUMBER
 %token PLUS MINUS TIMES DIVIDE POWER
 %token LEFT_PARENTHESIS RIGHT_PARENTHESIS
@@ -24,7 +25,7 @@
 %token PRINT WORD
 %token RETURN_0 MAIN INCLUDE_STDIO WORKINGSTORAGE DATADIVISION
 %token SIMBOL WHITE
-
+%type <letra> SIMBOL
 
 %left PLUS MINUS
 %left TIMES DIVIDE
@@ -41,13 +42,21 @@ Input:
    ;
 Line:
    END
-   | PRINT Simbol {printf("printf(\"");}
+   | PRINT Simbol  {printf("printf(");
+                   printf("%s);" , $<letra>2);}		   
    | RETURN_0 {printf(" return 0;\n}\n"); exit(0);}
    | MAIN {printf("int main(){\n"); }
    | INCLUDE_STDIO {printf("#include<stdio.h>\n"); }
    | DATADIVISION Working{printf("Tem data division\n");}
-   | NUMBER {printf("numero: %lf", $<flutuante>1);} 
+   | NUMBER {printf("%lf\n", $<flutuante>1);} 
+   | POINT {/* NOTHING TO DO HERE */ }
 ;
+
+Simbol:
+    SIMBOL Simbol
+    | END
+  
+   ;
 
 Working:
    END WORKINGSTORAGE {printf("Tem working\n");}
@@ -74,15 +83,10 @@ Expression:
    | Expression POWER Expression { $$=$1/$3; }
    | LEFT_PARENTHESIS Expression RIGHT_PARENTHESIS { $$=$2; }
 
-Simbol:
-   SIMBOL END
-   | SIMBOL Simbol END
-   | END
-   ;
-
-
-   ;
 */
+
+  
+
 %%
 
 int yyerror(char *s) {

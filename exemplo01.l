@@ -18,7 +18,6 @@ real {integer}("."{integer})?{exponant}?
     yylval.flutuante=atof(yytext);
     return(NUMBER);
 };
-" "return(WHITE);
 "WORKING-STORAGE SECTION." return(WORKINGSTORAGE);
 "IDENTIFICATION DIVISION." return(INCLUDE_STDIO);
 "DATA DIVISION." return(DATADIVISION);
@@ -34,10 +33,12 @@ real {integer}("."{integer})?{exponant}?
 ")" return(RIGHT_PARENTHESIS);
 "\n" return(END);
 
-[""a-zA-Z0-9()]+ {{
+[!""a-zA-Z0-9()\/&@#]+ {{
   yylval.letra = yytext;  
   return (SIMBOL);
 }}
+
+"." return (POINT);
 
 
 %%
