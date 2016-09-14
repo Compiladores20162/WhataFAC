@@ -1,5 +1,5 @@
 %{
-#include "global.h"
+
 #include "sintatico.h"
 #include "functionsLexic.c"
 #include <stdlib.h>
@@ -15,7 +15,7 @@ real {integer}("."{integer})?{exponant}?
 %%
 
 {real} {
-    yylval=atof(yytext);
+    yylval.flutuante=atof(yytext);
     return(NUMBER);
 };
 " "return(WHITE);
@@ -35,7 +35,7 @@ real {integer}("."{integer})?{exponant}?
 "\n" return(END);
 
 [""a-zA-Z0-9()]+ {{
-  savePrint(yytext);
+  yylval.letra = yytext;  
   return (SIMBOL);
 }}
 

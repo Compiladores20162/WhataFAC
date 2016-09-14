@@ -1,2 +1,2 @@
-#define YYSTYPE double
-extern YYSTYPE yylval;
+#define YYSTYPE 
+extern YYSTYPE yylval ;
