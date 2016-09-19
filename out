@@ -2,13 +2,18 @@
 Tem working
 Tem data division
 int main(){
-  > 3.000000
-
+   if (x > y) {
+   if (x < 16) {
+ printf("aqui");
 }
-
+}
 else {
-if (x > 3) {
-
+   if (x < 16) {
+ printf("aqui");
+}
+else {
+ printf("aqui2");
+}
 }
  return 0;
 }

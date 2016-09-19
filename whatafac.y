@@ -51,12 +51,13 @@ Line:
 		 char* new_sentense;
 		 new_sentense = getTillLineBreak($<letra>2);
 		 printf("printf(");
-    printf("%s);", new_sentense);
+    printf("%s);\n", new_sentense);
 		}
-	 | IF_TOKEN Conditional_if If_function  {printf("\n}\n");}
-   | RETURN_0 {printf(" return 0;\n}\n"); exit(0);}
+	 | IF_TOKEN Conditional_if If_function
+	 | ELSE_TOKEN {printf("}\nelse {\n");} Else_function {printf("}\n");}
+	 | RETURN_0 {printf(" return 0;\n}\n"); exit(0);}
    | MAIN {printf("int main(){\n"); }
-   | INCLUDE_STDIO {printf("#include<stdio.h>\n"); }
+   | INCLUDE_STDIO {printf("#include<stdio.h>\n");}
    | DATADIVISION Working{printf("Tem data division\n");}
    | NUMBER {printf("%lf\n", $<flutuante>1);}
    | POINT {/* NOTHING TO DO HERE */ }
@@ -65,20 +66,23 @@ Line:
 If_function:
 	END If_function
 	| Line If_function
-	| ELSE_TOKEN If_function {printf("\nelse {\n");};
-	| END_IF END {printf("\n}\n");}
+	| END_IF END {printf("}\n");}
+	;
+
+Else_function:
+	END Else_function
+	| Line Else_function
+	| END_IF END
 	| Line
 	;
 
 Conditional_if:
-	| SIMBOL SIMBOL NUMBER  {printf("if (%s) {\n", $<letra>1);}
-	| SIMBOL SIMBOL SIMBOL /*If_function*/ {
-		char* new_sentense;
-		//new_sentense = getTillLineBreak($<letra>1);
-		//printf("if (%s) {\n", new_sentense);
+	 SIMBOL SIMBOL NUMBER  {
 		printf("if (%s) {\n", $<letra>1);
 	}
-
+	| SIMBOL SIMBOL SIMBOL /*If_function*/ {
+		printf("if (%s) {\n", $<letra>1);
+	}
 	;
 
 Simbol:
