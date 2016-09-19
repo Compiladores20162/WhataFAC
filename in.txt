@@ -3,9 +3,7 @@ DATA DIVISION.
 WORKING-STORAGE SECTION.
 01 sksdfsdf
 MAIN-PROCEDURE.
-1.2
-9
-.
-.
-DISPLAY " vamos passar hoje"
+IF x > 3
+ELSE
+END-IF
 END PROGRAM

@@ -31,6 +31,9 @@ real {integer}("."{integer})?{exponant}?
 
 "END PROGRAM" return(RETURN_0);
 "DISPLAY" return (PRINT);
+"IF" return (IF_TOKEN);
+"ELSE" return (ELSE_TOKEN);
+"END-IF" return (END_IF);
 "+" return(PLUS);
 "-" return(MINUS);
 "*" return(TIMES);
@@ -40,7 +43,7 @@ real {integer}("."{integer})?{exponant}?
 ")" return(RIGHT_PARENTHESIS);
 "\n" return(END);
 
-[!""a-zA-Z0-9()\/&@#]+ {{
+[!?""a-zA-Z0-9()\/&@#=]+ {{
   yylval.letra = yytext;
   return (SIMBOL);
 }}

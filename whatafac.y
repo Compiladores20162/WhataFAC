@@ -28,7 +28,9 @@
 %token PRINT WORD
 %token RETURN_0 MAIN INCLUDE_STDIO WORKINGSTORAGE DATADIVISION
 %token SIMBOL WHITE
-
+%token IF_TOKEN ELSE_TOKEN
+%token END_IF
+%type <letra> SIMBOL
 
 %left PLUS MINUS
 %left TIMES DIVIDE
@@ -45,20 +47,36 @@ Input:
    ;
 Line:
    END
-   | PRINT Simbol  {printf("printf(");
-                   printf("%s);" , $<letra>2);}
+   | PRINT Simbol  {
+		 char* new_sentense;
+		 new_sentense = getTillLineBreak($<letra>2);
+		 printf("printf(");
+    printf("%s);", $<letra>2);
+		}
+	 | IF_TOKEN If_function  {printf("\n}\n");}
    | RETURN_0 {printf(" return 0;\n}\n"); exit(0);}
    | MAIN {printf("int main(){\n"); }
    | INCLUDE_STDIO {printf("#include<stdio.h>\n"); }
-   | DATADIVISION Working
+   | DATADIVISION Working{printf("Tem data division\n");}
    | NUMBER {printf("%lf\n", $<flutuante>1);}
    | POINT {/* NOTHING TO DO HERE */ }
 ;
 
+If_function:
+	END If_function
+	| Line If_function
+	| ELSE_TOKEN If_function {printf("\nelse {\n");};
+	| END_IF END {printf("\n}\n");}
+	| SIMBOL If_function {
+		char* new_sentense;
+		new_sentense = getTillLineBreak($<letra>1);
+		printf("if (%s) {\n", new_sentense);
+	}
+	;
+
 Simbol:
     SIMBOL Simbol
     | END
-
    ;
 
 Working:
