@@ -1,20 +1,33 @@
 %{
-#include "global.h"
 #include "functionsSyntatic.c"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+
 %}
 
+%union{
+   int num;
+   float numero;
+   char *letra;
+   double flutuante;
+   int declaration;
+}
+
+%type <flutuante> NUMBER
+%type <declaration> WINTEIRO
+%type <letra> SIMBOL
+
+%token WINTEIRO
+%token INTNOVE
+%token POINT
 %token NUMBER
 %token PLUS MINUS TIMES DIVIDE POWER
 %token LEFT_PARENTHESIS RIGHT_PARENTHESIS
 %token END
 %token PRINT WORD
 %token RETURN_0 MAIN INCLUDE_STDIO WORKINGSTORAGE DATADIVISION
-%token SIMBOL
-%token PIC
-%token POINT
+%token SIMBOL WHITE
 
 
 %left PLUS MINUS
@@ -31,27 +44,35 @@ Input:
    | Input Line
    ;
 Line:
-   END {printf("\ntem /n\n");}
-   | NUMBER SIMBOL PIC {printContents(); printf("\n\n\n\n\n\n\n\n");}
-   | PRINT Sentense {printf("\n");}
-   | RETURN_0 {printf("return 0;\n}\n"); exit(0);}
+   END
+   | PRINT Simbol  {printf("printf(");
+                   printf("%s);" , $<letra>2);}
+   | RETURN_0 {printf(" return 0;\n}\n"); exit(0);}
    | MAIN {printf("int main(){\n"); }
-   | INCLUDE_STDIO {printf("#include<stdio.h>\n\n"); }
-   | DATADIVISION Working{printf("Tem data division\n\n");}
-   | NUMBER {printf("numero: %lf", $1);}
- ;
+   | INCLUDE_STDIO {printf("#include<stdio.h>\n"); }
+   | DATADIVISION Working
+   | NUMBER {printf("%lf\n", $<flutuante>1);}
+   | POINT {/* NOTHING TO DO HERE */ }
+;
 
-Sentense:
-   END {printf("printf("); printContents(); printf(");");}
-   | SIMBOL Sentense 
-   | POINT Sentense
+Simbol:
+    SIMBOL Simbol
+    | END
+
+   ;
 
 Working:
-   END WORKINGSTORAGE {printf("Tem working\n");}
+   END WORKINGSTORAGE Variable
    | END
    ;
 
+Variable:
+   WINTEIRO Simbol {printf("%02d %s", $<declaration>1, $<letra>2);}
+   | END{printf("END\n");}
+
 /*
+
+
 Variables:
 
    | END
@@ -69,8 +90,10 @@ Expression:
    | Expression POWER Expression { $$=$1/$3; }
    | LEFT_PARENTHESIS Expression RIGHT_PARENTHESIS { $$=$2; }
 
-   ;
 */
+
+
+
 %%
 
 int yyerror(char *s) {

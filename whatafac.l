@@ -1,5 +1,4 @@
 %{
-
 #include "sintatico.h"
 #include "functionsLexic.c"
 #include <stdlib.h>
@@ -14,14 +13,22 @@ real {integer}("."{integer})?{exponant}?
 
 %%
 
+"DATA DIVISION." return(DATADIVISION);
+"IDENTIFICATION DIVISION." return(INCLUDE_STDIO);
+"WORKING-STORAGE SECTION.\n" return(WORKINGSTORAGE);
+
+"01" {
+    yylval.declaration = atoi(yytext);
+    return(WINTEIRO);
+};
+
+"MAIN-PROCEDURE." return(MAIN);
+
 {real} {
     yylval.flutuante=atof(yytext);
     return(NUMBER);
 };
-"WORKING-STORAGE SECTION." return(WORKINGSTORAGE);
-"IDENTIFICATION DIVISION." return(INCLUDE_STDIO);
-"DATA DIVISION." return(DATADIVISION);
-"MAIN-PROCEDURE." return(MAIN);
+
 "END PROGRAM" return(RETURN_0);
 "DISPLAY" return (PRINT);
 "+" return(PLUS);
@@ -34,7 +41,7 @@ real {integer}("."{integer})?{exponant}?
 "\n" return(END);
 
 [!""a-zA-Z0-9()\/&@#]+ {{
-  yylval.letra = yytext;  
+  yylval.letra = yytext;
   return (SIMBOL);
 }}
 
