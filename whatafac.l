@@ -43,7 +43,7 @@ real {integer}("."{integer})?{exponant}?
 ")" return(RIGHT_PARENTHESIS);
 "\n" return(END);
 
-[!?""a-zA-Z0-9()\/&@#=]+ {{
+[!?""a-zA-Z0-9()\/&@#=><]+ {{
   yylval.letra = yytext;
   return (SIMBOL);
 }}

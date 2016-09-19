@@ -51,9 +51,9 @@ Line:
 		 char* new_sentense;
 		 new_sentense = getTillLineBreak($<letra>2);
 		 printf("printf(");
-    printf("%s);", $<letra>2);
+    printf("%s);", new_sentense);
 		}
-	 | IF_TOKEN If_function  {printf("\n}\n");}
+	 | IF_TOKEN Conditional_if If_function  {printf("\n}\n");}
    | RETURN_0 {printf(" return 0;\n}\n"); exit(0);}
    | MAIN {printf("int main(){\n"); }
    | INCLUDE_STDIO {printf("#include<stdio.h>\n"); }
@@ -67,11 +67,18 @@ If_function:
 	| Line If_function
 	| ELSE_TOKEN If_function {printf("\nelse {\n");};
 	| END_IF END {printf("\n}\n");}
-	| SIMBOL If_function {
+	| Line
+	;
+
+Conditional_if:
+	| SIMBOL SIMBOL NUMBER  {printf("if (%s) {\n", $<letra>1);}
+	| SIMBOL SIMBOL SIMBOL /*If_function*/ {
 		char* new_sentense;
-		new_sentense = getTillLineBreak($<letra>1);
-		printf("if (%s) {\n", new_sentense);
+		//new_sentense = getTillLineBreak($<letra>1);
+		//printf("if (%s) {\n", new_sentense);
+		printf("if (%s) {\n", $<letra>1);
 	}
+
 	;
 
 Simbol:
