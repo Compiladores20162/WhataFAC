@@ -9,7 +9,7 @@ whatafac: whatafac.l whatafac.y
 	gcc -lm -o whatafac.out sintatico.c lexico.c
 
 clean:
-	rm -f *.swp lexico.* sintatico.* out.txt whatafac.out
+	rm -f *.swp lexico.* sintatico.* out.txt whatafac.out printNameVariables.txt printTypeVariables.txt
 
 run:
 	./whatafac.out < in.txt > out.txt

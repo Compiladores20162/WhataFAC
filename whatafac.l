@@ -7,9 +7,10 @@
 
 digit [0-9]
 integer {digit}+
+type9 "9("{integer}")"
+typeAX "A("?"X("?{integer}")"
 exponant [eE][+-]?{integer}
 real {integer}("."{integer})?{exponant}?
-
 
 %%
 
@@ -38,14 +39,40 @@ real {integer}("."{integer})?{exponant}?
 "^" return(POWER);
 "(" return(LEFT_PARENTHESIS);
 ")" return(RIGHT_PARENTHESIS);
-"\n" return(END);
+"." return (POINT);
 
-[!""a-zA-Z0-9()\/&@#]+ {{
+[!""a-zA-Z0-9&@#]+ {{
   yylval.letra = yytext;
   return (SIMBOL);
-}}
+}};
 
-"." return (POINT);
+
+{type9} {
+    yylval.variableType=yytext;
+    if(yytext[0]=='9'){
+      saveTypeVariables("int\n");
+      return(POINT);
+    }
+};
+
+{typeAX} {
+    yylval.variableType=yytext;
+    if(yytext[0]=='A' || yytext[0]=='X' ){
+      saveTypeVariables("char\n");
+      return(POINT);
+    }
+};
+
+
+[a-z_A-Z]+ {{
+  yylval.variable = yytext;
+   saveNameVariables(yytext);
+   saveNameVariables("\n");
+  return (VARIABLE);
+}};
+
+
+"\n" return(END);
 
 
 %%

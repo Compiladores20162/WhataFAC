@@ -46,7 +46,7 @@ extern int yydebug;
   enum yytokentype
   {
     WINTEIRO = 258,
-    INTNOVE = 259,
+    INTNINE = 259,
     POINT = 260,
     NUMBER = 261,
     PLUS = 262,
@@ -66,7 +66,8 @@ extern int yydebug;
     DATADIVISION = 276,
     SIMBOL = 277,
     WHITE = 278,
-    NEG = 279
+    VARIABLE = 279,
+    NEG = 280
   };
 #endif
 
@@ -82,8 +83,10 @@ union YYSTYPE
    char *letra;
    double flutuante;
    int declaration;
+   char *variable;
+   char *variableType;
 
-#line 87 "whatafac.tab.h" /* yacc.c:1909  */
+#line 90 "whatafac.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;
