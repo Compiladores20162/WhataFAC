@@ -6,5 +6,15 @@ WORKING-STORAGE SECTION.
 01 variavel_A A(6).
 01 variavel_X X(7).
 MAIN-PROCEDURE.
-DISPLAY "#vamos bla bla bla"
+IF x > y
+IF x < 16
+DISPLAY "aqui"
+END-IF
+ELSE
+IF x < 16
+DISPLAY "aqui"
+ELSE
+DISPLAY "aqui2"
+END-IF
+END-IF
 END PROGRAM

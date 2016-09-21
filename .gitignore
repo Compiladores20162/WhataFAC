@@ -1,3 +1,5 @@
 out.txt
 *.swp
 whatafac.out
+lexico.c
+lexico.h

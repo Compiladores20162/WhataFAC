@@ -31,8 +31,10 @@
 %token END
 %token PRINT WORD
 %token RETURN_0 MAIN INCLUDE_STDIO WORKINGSTORAGE DATADIVISION
-%token SIMBOL WHITE VARIABLE
 
+%token SIMBOL WHITE
+%token IF_TOKEN ELSE_TOKEN
+%token END_IF VARIABLE
 
 %left PLUS MINUS
 %left TIMES DIVIDE
@@ -49,12 +51,18 @@ Input:
    ;
 Line:
    END
-   | DATADIVISION Working
-   | PRINT Simbol  {printf("printf(");
-                   printf("%s);" , $<letra>2);}
+   | DATADIVISION Working{printf("Tem data division\n");}
+   | PRINT Simbol  {
+      char* new_sentense;
+      new_sentense = getTillLineBreak($<letra>2);
+      printf("printf(");
+      printf("%s);\n", new_sentense);
+      }
+   | IF_TOKEN Conditional_if If_function
+   | ELSE_TOKEN {printf("}\nelse {\n");} Else_function {printf("}\n");}
    | RETURN_0 {printf(" return 0;\n}\n"); exit(0);}
    | MAIN {printf("int main(){\n"); }
-   | INCLUDE_STDIO {printf("#include<stdio.h>\n"); }
+   | INCLUDE_STDIO {printf("#include<stdio.h>\n");}
    | NUMBER {printf("%lf\n", $<flutuante>1);}
    | POINT {/* NOTHING TO DO HERE */ }
 ;
@@ -72,6 +80,30 @@ Variable:
 DefineType:
     POINT
     ;
+
+If_function:
+	END If_function
+	| Line If_function
+	| END_IF END {printf("}\n");}
+	;
+
+Else_function:
+	END Else_function
+	| Line Else_function
+	| END_IF END
+	| Line
+	;
+
+Conditional_if:
+	 SIMBOL SIMBOL NUMBER  {
+		printf("if (%s) {\n", $<letra>1);
+	}
+	| SIMBOL SIMBOL SIMBOL /*If_function*/ {
+		printf("if (%s) {\n", $<letra>1);
+	}
+	;
+
+
 Simbol:
     SIMBOL Simbol
     | END

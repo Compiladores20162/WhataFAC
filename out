@@ -1,0 +1,19 @@
+#include<stdio.h>
+Tem working
+Tem data division
+int main(){
+   if (x > y) {
+   if (x < 16) {
+ printf("aqui");
+}
+}
+else {
+   if (x < 16) {
+ printf("aqui");
+}
+else {
+ printf("aqui2");
+}
+}
+ return 0;
+}
