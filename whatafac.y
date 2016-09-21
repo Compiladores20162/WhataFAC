@@ -30,7 +30,6 @@
 %token SIMBOL WHITE
 %token IF_TOKEN ELSE_TOKEN
 %token END_IF
-%type <letra> SIMBOL
 
 %left PLUS MINUS
 %left TIMES DIVIDE

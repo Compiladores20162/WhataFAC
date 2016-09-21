@@ -66,7 +66,10 @@ extern int yydebug;
     DATADIVISION = 276,
     SIMBOL = 277,
     WHITE = 278,
-    NEG = 279
+    IF_TOKEN = 279,
+    ELSE_TOKEN = 280,
+    END_IF = 281,
+    NEG = 282
   };
 #endif
 
@@ -83,7 +86,7 @@ union YYSTYPE
    double flutuante;
    int declaration;
 
-#line 87 "whatafac.tab.h" /* yacc.c:1909  */
+#line 90 "whatafac.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;
