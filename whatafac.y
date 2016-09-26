@@ -51,7 +51,7 @@ Input:
    ;
 Line:
    END
-   | DATADIVISION Working{printf("Tem data division\n");}
+   | DATADIVISION Working
    | PRINT Simbol  {
       char* new_sentense;
       new_sentense = getTillLineBreak($<letra>2);
@@ -61,12 +61,15 @@ Line:
    | IF_TOKEN Conditional_if If_function
    | ELSE_TOKEN {printf("}\nelse {\n");} Else_function {printf("}\n");}
    | RETURN_0 {printf(" return 0;\n}\n"); exit(0);}
-   | MAIN {printf("int main(){\n"); }
-   | INCLUDE_STDIO {printf("#include<stdio.h>\n");}
+   | MAIN  {printf("int main(){\n"); } Print_variables;
+   | INCLUDE_STDIO {printf("#include <stdio.h>\n#include <stdlib.h>\n#include <math.h>\n");}
    | NUMBER {printf("%lf\n", $<flutuante>1);}
    | POINT {/* NOTHING TO DO HERE */ }
 ;
 
+Print_variables:
+  {print_variables();}
+  ;
 Working:
    END WORKINGSTORAGE Variable
 
@@ -95,10 +98,10 @@ Else_function:
 	;
 
 Conditional_if:
-	 SIMBOL SIMBOL NUMBER  {
+	 VARIABLE SIMBOL NUMBER  {
 		printf("if (%s) {\n", $<letra>1);
 	}
-	| SIMBOL SIMBOL SIMBOL /*If_function*/ {
+	| VARIABLE SIMBOL VARIABLE /*If_function*/ {
 		printf("if (%s) {\n", $<letra>1);
 	}
 	;

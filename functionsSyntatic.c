@@ -17,6 +17,33 @@ void printContents ()
   printf("%s", content);
 }
 
+void print_variables(){
+
+  FILE *NameVariables;
+  FILE *TypeVariables;
+  char contentType[50];
+  char contentName[50];
+
+  NameVariables = fopen("printNameVariables.txt", "r");
+  TypeVariables = fopen("printTypeVariables.txt", "r");
+
+    if(NameVariables == NULL || TypeVariables == NULL )
+      printf("Não abriu um arquivo de entrada de variaveis\n");
+
+    while(!feof(NameVariables)){
+      fscanf(NameVariables,"%s",contentName);
+      fscanf(TypeVariables,"%s",contentType);
+      //fgets(contentType, 50, TypeVariables);
+      //fgets(contentName, 50, NameVariables);
+      if(feof(NameVariables))
+        break;
+      printf("%s ",contentType);
+      printf("%s;\n",contentName);
+    }
+
+}
+
+
 
 char* getTillLineBreak(char* sentense)
 {
