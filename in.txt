@@ -7,12 +7,12 @@ WORKING-STORAGE SECTION.
 01 variavel_X X(7).
 MAIN-PROCEDURE.
 
-DISPLAY "amigo"
+DISPLAY "Amigo estou "
 IF conta_carro < conta_dois
 
-DISPLAY "amigo estou aqui"
+DISPLAY "eu"
 ELSE
-DISPLAY "aqui2"
+DISPLAY "aqui"
 END-IF
 
 END PROGRAM

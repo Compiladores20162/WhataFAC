@@ -52,29 +52,29 @@ Input:
    ;
 Line:
    END
+   | INCLUDE_STDIO {printf("#include <stdio.h>\n#include <stdlib.h>\n#include <math.h>\n\n");}
    | DATADIVISION Working
+   | MAIN  {printf("int main() {\n"); } Print_variables;
    | PRINT Simbol  {
       char* new_sentense;
       new_sentense = getTillLineBreak($<letra>2);
-      printf("printf(");
+      printf("\tprintf(");
       printf("%s);\n", new_sentense);
       }
    | IF_TOKEN Conditional_if If_function
-   | ELSE_TOKEN {printf("}\nelse {\n");} Else_function {printf("}\n");}
-   | RETURN_0 {printf(" return 0;\n}\n"); exit(0);}
-   | MAIN  {printf("int main(){\n"); } Print_variables;
-   | INCLUDE_STDIO {printf("#include <stdio.h>\n#include <stdlib.h>\n#include <math.h>\n");}
+   | ELSE_TOKEN {printf("\t}\n\telse {\n");} Else_function {printf("\t}\n");}
    | NUMBER {printf("%lf\n", $<flutuante>1);}
    | POINT {/* NOTHING TO DO HERE */ }
    | WHILE Conditional_while While_function
+   | RETURN_0 {printf("\treturn 0;\n}\n"); exit(0);}
 ;
 
 Print_variables:
   {print_variables();}
   ;
+
 Working:
    END WORKINGSTORAGE Variable
-
    ;
 
 Variable:
@@ -86,22 +86,19 @@ DefineType:
     POINT
     ;
 
-
-
-                        // IF ELSE
 Conditional_if:
    VARIABLE SIMBOL NUMBER  {
-  	printf("if (%s) {\n", $<letra>1);
+  	printf("\tif (%s) {\n", $<letra>1);
   }
   | VARIABLE SIMBOL VARIABLE /*If_function*/ {
-  	printf("if (%s) {\n", $<letra>1);
+  	printf("\tif (%s) {\n", $<letra>1);
   }
   ;
 
 If_function:
 	END If_function
 	| Line If_function
-	| END_IF END {printf("}\n");}
+	| END_IF END {printf("\t}\n");}
 	;
 
 Else_function:
@@ -111,27 +108,17 @@ Else_function:
 	| Line
 	;
 
-
-
-              // WHILE
-
 Conditional_while:
-  VARIABLE SIMBOL NUMBER  {
-   printf("while (%s) {\n", $<letra>1);
-  }
-  | VARIABLE SIMBOL VARIABLE /*If_function*/ {
-   printf("while (%s) {\n", $<letra>1);
+  VARIABLE SIMBOL NUMBER {printf("\twhile (%s) {\n", $<letra>1);}
+  | VARIABLE SIMBOL VARIABLE /*If_function*/ {printf("\twhile (%s) {\n", $<letra>1);
   }
   ;
 
 While_function:
 	END While_function
 	| Line While_function
-	| END_WHILE END {printf("}\n");}
+	| END_WHILE END {printf("\t}\n");}
 	;
-
-
-          // SIMBOL
 
 Simbol:
     SIMBOL Simbol

@@ -37,7 +37,7 @@ void print_variables(){
       //fgets(contentName, 50, NameVariables);
       if(feof(NameVariables))
         break;
-      printf("%s ",contentType);
+      printf("\t%s ",contentType);
       printf("%s;\n",contentName);
     }
 
