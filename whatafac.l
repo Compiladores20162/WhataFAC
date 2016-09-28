@@ -35,6 +35,8 @@ real {integer}("."{integer})?{exponant}?
 "IF" return (IF_TOKEN);
 "ELSE" return (ELSE_TOKEN);
 "END-IF" return (END_IF);
+"PERFORM UNTIL" return (WHILE);
+"END-PERFORM" return (END_WHILE);
 "+" return(PLUS);
 "-" return(MINUS);
 "*" return(TIMES);

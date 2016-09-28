@@ -35,6 +35,7 @@
 %token SIMBOL WHITE
 %token IF_TOKEN ELSE_TOKEN
 %token END_IF VARIABLE
+%token WHILE END_WHILE
 
 %left PLUS MINUS
 %left TIMES DIVIDE
@@ -65,6 +66,7 @@ Line:
    | INCLUDE_STDIO {printf("#include <stdio.h>\n#include <stdlib.h>\n#include <math.h>\n");}
    | NUMBER {printf("%lf\n", $<flutuante>1);}
    | POINT {/* NOTHING TO DO HERE */ }
+   | WHILE Conditional_while While_function
 ;
 
 Print_variables:
@@ -84,6 +86,18 @@ DefineType:
     POINT
     ;
 
+
+
+                        // IF ELSE
+Conditional_if:
+   VARIABLE SIMBOL NUMBER  {
+  	printf("if (%s) {\n", $<letra>1);
+  }
+  | VARIABLE SIMBOL VARIABLE /*If_function*/ {
+  	printf("if (%s) {\n", $<letra>1);
+  }
+  ;
+
 If_function:
 	END If_function
 	| Line If_function
@@ -97,15 +111,27 @@ Else_function:
 	| Line
 	;
 
-Conditional_if:
-	 VARIABLE SIMBOL NUMBER  {
-		printf("if (%s) {\n", $<letra>1);
-	}
-	| VARIABLE SIMBOL VARIABLE /*If_function*/ {
-		printf("if (%s) {\n", $<letra>1);
-	}
+
+
+              // WHILE
+
+Conditional_while:
+  VARIABLE SIMBOL NUMBER  {
+   printf("while (%s) {\n", $<letra>1);
+  }
+  | VARIABLE SIMBOL VARIABLE /*If_function*/ {
+   printf("while (%s) {\n", $<letra>1);
+  }
+  ;
+
+While_function:
+	END While_function
+	| Line While_function
+	| END_WHILE END {printf("}\n");}
 	;
 
+
+          // SIMBOL
 
 Simbol:
     SIMBOL Simbol
