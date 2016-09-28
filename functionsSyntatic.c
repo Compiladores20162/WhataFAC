@@ -40,7 +40,8 @@ void print_variables(){
       printf("\t%s ",contentType);
       printf("%s;\n",contentName);
     }
-
+  fclose(NameVariables);
+  fclose(TypeVariables);
 }
 
 

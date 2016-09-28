@@ -18,8 +18,8 @@
 
 %type <flutuante> NUMBER
 %type <declaration> WINTEIRO
-%type <letra> SIMBOL
-%type <variable> VARIABLE
+%type <letra> STRINGASPAS
+%type <variable> STRING
 %type <variableType> INTNINE
 
 %token WINTEIRO
@@ -32,10 +32,10 @@
 %token PRINT WORD
 %token RETURN_0 MAIN INCLUDE_STDIO WORKINGSTORAGE DATADIVISION
 
-%token SIMBOL WHITE
+%token STRINGASPAS WHITE
 %token IF_TOKEN ELSE_TOKEN
-%token END_IF VARIABLE
-%token WHILE END_WHILE
+%token END_IF STRING
+%token WHILE END_WHILE DONOTHING
 
 %left PLUS MINUS
 %left TIMES DIVIDE
@@ -55,18 +55,11 @@ Line:
    | INCLUDE_STDIO {printf("#include <stdio.h>\n#include <stdlib.h>\n#include <math.h>\n\n");}
    | DATADIVISION Working
    | MAIN  {printf("int main() {\n"); } Print_variables;
-   | PRINT Simbol  {
-      char* new_sentense;
-      new_sentense = getTillLineBreak($<letra>2);
-      printf("\tprintf(");
-      printf("%s);\n", new_sentense);
-      }
-   | IF_TOKEN Conditional_if If_function
-   | ELSE_TOKEN {printf("\t}\n\telse {\n");} Else_function {printf("\t}\n");}
+   | PRINT StringAspas
    | NUMBER {printf("%lf\n", $<flutuante>1);}
    | POINT {/* NOTHING TO DO HERE */ }
-   | WHILE Conditional_while While_function
    | RETURN_0 {printf("\treturn 0;\n}\n"); exit(0);}
+   | IF_TOKEN  Conditional_if //If_function
 ;
 
 Print_variables:
@@ -78,52 +71,28 @@ Working:
    ;
 
 Variable:
-   WINTEIRO VARIABLE DefineType POINT END Variable
-   | WINTEIRO VARIABLE DefineType POINT END
+   WINTEIRO STRING DONOTHING POINT END Variable
+   | WINTEIRO STRING DONOTHING POINT END
    ;
 
-DefineType:
-    POINT
-    ;
+StringAspas:
+     STRINGASPAS {printf("\tprintf(" );
+                  printf("%s", $<letra>1);
+                  printf(");\n"); }
+    | END
+   ;
 
 Conditional_if:
-   VARIABLE SIMBOL NUMBER  {
-  	printf("\tif (%s) {\n", $<letra>1);
-  }
-  | VARIABLE SIMBOL VARIABLE /*If_function*/ {
-  	printf("\tif (%s) {\n", $<letra>1);
-  }
+    //{printf("entrou\n"); }
+    
+   | END
   ;
 
 If_function:
-	END If_function
-	| Line If_function
-	| END_IF END {printf("\t}\n");}
-	;
-
-Else_function:
-	END Else_function
-	| Line Else_function
-	| END_IF END
-	| Line
-	;
-
-Conditional_while:
-  VARIABLE SIMBOL NUMBER {printf("\twhile (%s) {\n", $<letra>1);}
-  | VARIABLE SIMBOL VARIABLE /*If_function*/ {printf("\twhile (%s) {\n", $<letra>1);
-  }
+  END If_function
+  | Line If_function
+  | END_IF END {printf("\t}\n");}
   ;
-
-While_function:
-	END While_function
-	| Line While_function
-	| END_WHILE END {printf("\t}\n");}
-	;
-
-Simbol:
-    SIMBOL Simbol
-    | END
-   ;
 
 %%
 

@@ -10,7 +10,7 @@ void saveNameVariables (char content[50])
       printf("\n\n\nNão abriu!\n\n\n");
 
 
-  fprintf(fp, "%s", content);
+  fprintf(fp, "%s\n", content);
   fclose(fp);
 }
 
@@ -22,7 +22,7 @@ void saveTypeVariables(char content[50])
   if(fp == NULL)
       printf("\n\n\nNão abriu!\n\n\n");
 
-  fprintf(fp, "%s", content);
+  fprintf(fp, "%s\n", content);
   fclose(fp);
 }
 
