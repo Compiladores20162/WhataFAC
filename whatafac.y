@@ -14,6 +14,7 @@
    int declaration;
    char *variable;
    char *variableType;
+   char bigsmall
 }
 
 %type <flutuante> NUMBER
@@ -29,13 +30,14 @@
 %token PLUS MINUS TIMES DIVIDE POWER
 %token LEFT_PARENTHESIS RIGHT_PARENTHESIS
 %token END
-%token PRINT WORD
+%token PRINT WORD 
 %token RETURN_0 MAIN INCLUDE_STDIO WORKINGSTORAGE DATADIVISION
 
 %token STRINGASPAS WHITE
 %token IF_TOKEN ELSE_TOKEN
 %token END_IF STRING
 %token WHILE END_WHILE DONOTHING
+%token BIGSMALL
 
 %left PLUS MINUS
 %left TIMES DIVIDE
@@ -59,7 +61,7 @@ Line:
    | NUMBER {printf("%lf\n", $<flutuante>1);}
    | POINT {/* NOTHING TO DO HERE */ }
    | RETURN_0 {printf("\treturn 0;\n}\n"); exit(0);}
-   | IF_TOKEN  Conditional_if //If_function
+   | IF_TOKEN Conditional_if //If_function
 ;
 
 Print_variables:
@@ -80,18 +82,12 @@ StringAspas:
                   printf("%s", $<letra>1);
                   printf(");\n"); }
     | END
-   ;
+;
 
 Conditional_if:
-    //{printf("entrou\n"); }
-    
-   | END
-  ;
-
-If_function:
-  END If_function
-  | Line If_function
-  | END_IF END {printf("\t}\n");}
+   STRING BIGSMALL STRING  {printf("if (%s){\n\t" , $<letra>1 );}    
+   END 
+   
   ;
 
 %%

@@ -12,4 +12,8 @@ IF conta_carro < conta_dois
 
 DISPLAY "eu"
 
+ELSE
+DISPLAY "aqui"
+END-IF
+
 END PROGRAM

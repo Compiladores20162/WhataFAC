@@ -9,6 +9,7 @@ digit [0-9]
 integer {digit}+
 zeroum "01"
 point "."
+biggersmaller [><][=]?
 manystring [<>=!+()._0-9a-zA-Z ]+
 type9 "9("{integer}")"
 typeAX "A("?"X("?{integer}")"
@@ -24,9 +25,13 @@ string [_0-9a-zA-Z]+
 "WORKING-STORAGE SECTION.\n" return(WORKINGSTORAGE);
 {point} return(POINT);
 
+{biggersmaller} {
+  yylval.bigsmall = yytext;
+  return (BIGSMALL);
+};
+
 {zeroum} {
     yylval.declaration = atoi(yytext);
-    
     return(WINTEIRO);
 };
 
@@ -80,6 +85,8 @@ string [_0-9a-zA-Z]+
       return(DONOTHING);
     }
 };
+
+
 
 "\n" return(END);
 
