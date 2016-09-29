@@ -39,6 +39,11 @@ string [_0-9a-zA-Z]+
 "DISPLAY" return (PRINT);
 
 "IF" return  (IF_TOKEN);
+"ELSE"  return (ELSE_TOKEN);
+"END PROGRAM" return(RETURN_0);
+"END-IF"  return (END_IF);
+"PERFORM UNTIL" return (WHILE);
+"END-PERFORM" return (END_WHILE);
 
 {stringcomaspas} {
   yylval.letra = yytext;
@@ -57,11 +62,6 @@ string [_0-9a-zA-Z]+
     return(NUMBER);
 };
 
-"END PROGRAM" return(RETURN_0);
-"ELSE" return (ELSE_TOKEN);
-"END-IF" return (END_IF);
-"PERFORM UNTIL" return (WHILE);
-"END-PERFORM" return (END_WHILE);
 "+" return(PLUS);
 "-" return(MINUS);
 "*" return(TIMES);

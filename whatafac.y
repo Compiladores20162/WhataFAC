@@ -85,10 +85,22 @@ StringAspas:
 ;
 
 Conditional_if:
-   STRING BIGSMALL STRING  {printf("if (%s){\n\t" , $<letra>1 );}    
-   END 
-   
+   STRING BIGSMALL STRING  
+   {printf("if (%s){\n\t" , $<letra>1 );}  
+   DecideIf 
   ;
+
+DecideIf:
+   END  DecideIf 
+  | END_IF {printf("}\n");}
+  | ELSE_TOKEN {printf("}\nelse{\n");}  DecideIf
+  | Line DecideIf  
+
+
+  Else:
+    {printf("entrou no else\n");}
+
+  
 
 %%
 
