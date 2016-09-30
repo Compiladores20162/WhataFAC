@@ -17,12 +17,15 @@ exponant [eE][+-]?{integer}
 real {integer}("."{integer})?{exponant}?
 aspas "\""
 stringcomaspas {aspas}{manystring}{aspas}
-string [_0-9a-zA-Z]+
+string [-_0-9a-zA-Z]+
 %%
 
-"DATA DIVISION." return(DATADIVISION);
 "IDENTIFICATION DIVISION." return(INCLUDE_STDIO);
-"WORKING-STORAGE SECTION.\n" return(WORKINGSTORAGE);
+"PROGRAM-ID." return (PROGRAMNAME);
+"DATA DIVISION."  return(DATADIVISION);
+"WORKING-STORAGE SECTION.\n"  return(WORKINGSTORAGE);
+"PIC" return (PIC);
+"PROCEDURE DIVISION." return (PROCEDURE);
 {point} return(POINT);
 
 {biggersmaller} {
@@ -44,6 +47,7 @@ string [_0-9a-zA-Z]+
 "END-IF"  return (END_IF);
 "PERFORM UNTIL"  return (WHILE);
 "END-PERFORM" return (END_WHILE);
+"STOP RUN."  return (STOP);
 
 {stringcomaspas} {
   yylval.letra = yytext;
@@ -52,7 +56,7 @@ string [_0-9a-zA-Z]+
 
 {string} {
   yylval.letra = yytext;
-   saveNameVariables(yytext);
+  saveNameVariables(yytext);
   return(STRING);
 };
 

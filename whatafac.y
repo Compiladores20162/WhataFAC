@@ -37,7 +37,7 @@
 %token IF_TOKEN ELSE_TOKEN
 %token END_IF STRING
 %token WHILE END_WHILE DONOTHING
-%token BIGSMALL
+%token BIGSMALL PROGRAMNAME PIC PROCEDURE STOP
 
 %left PLUS MINUS
 %left TIMES DIVIDE
@@ -55,14 +55,17 @@ Input:
 Line:
    END
    | INCLUDE_STDIO {printf("#include <stdio.h>\n#include <stdlib.h>\n#include <math.h>\n\n");}
-   | DATADIVISION Working
-   | MAIN  {printf("int main() {\n"); } Print_variables;
+   | PROGRAMNAME STRING {/* DO NOTHING HERE */}
+   | DATADIVISION  Working 
+   | PROCEDURE {/* DO NOTHING IN HERE*/}
+   | MAIN  {printf("\nint main() {\n"); } Print_variables;
    | PRINT StringAspas
    | NUMBER {printf("%lf\n", $<flutuante>1);}
    | POINT {/* NOTHING TO DO HERE */ }
    | RETURN_0 {printf("\treturn 0;\n}\n"); exit(0);}
    | IF_TOKEN Conditional_if //If_function
    | WHILE {printf("while(" );} While
+   | STOP {/* DO NOTHING HERE */}
 ;
 
 Print_variables:
@@ -70,12 +73,12 @@ Print_variables:
   ;
 
 Working:
-   END WORKINGSTORAGE Variable
+   END WORKINGSTORAGE  Variable 
    ;
 
 Variable:
-   WINTEIRO STRING DONOTHING POINT END Variable
-   | WINTEIRO STRING DONOTHING POINT END
+   WINTEIRO STRING PIC DONOTHING POINT END Variable 
+   | WINTEIRO STRING PIC DONOTHING POINT END 
    ;
 
 StringAspas:
