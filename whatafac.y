@@ -14,7 +14,7 @@
    int declaration;
    char *variable;
    char *variableType;
-   char bigsmall
+   char *bigsmall
 }
 
 %type <flutuante> NUMBER
@@ -101,7 +101,6 @@ While:
 
 DecideIf:
    END_WHILE {printf("}\n");}
-   | END DecideIf
    | Line
    
 
