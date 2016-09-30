@@ -8,14 +8,15 @@ WORKING-STORAGE SECTION.
 MAIN-PROCEDURE.
 
 DISPLAY "Amigo estou "
-IF conta_carro < conta_dois
-DISPLAY "eu"
-ELSE
-IF conta_carro < conta_dois
-DISPLAY "eu"
+IF 9 < 14
+PERFORM UNTIL conta_carro < variavel_A
+DISPLAY "aqui"
+
+END-PERFORM
+
 ELSE
 DISPLAY "aqui"
 END-IF
-END-IF
+
 
 END PROGRAM

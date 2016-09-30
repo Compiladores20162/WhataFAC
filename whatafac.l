@@ -42,7 +42,7 @@ string [_0-9a-zA-Z]+
 "ELSE"  return (ELSE_TOKEN);
 "END PROGRAM" return(RETURN_0);
 "END-IF"  return (END_IF);
-"PERFORM UNTIL" return (WHILE);
+"PERFORM UNTIL"  return (WHILE);
 "END-PERFORM" return (END_WHILE);
 
 {stringcomaspas} {

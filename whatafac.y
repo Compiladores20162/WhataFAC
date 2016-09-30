@@ -62,6 +62,7 @@ Line:
    | POINT {/* NOTHING TO DO HERE */ }
    | RETURN_0 {printf("\treturn 0;\n}\n"); exit(0);}
    | IF_TOKEN Conditional_if //If_function
+   | WHILE {printf("while(" );} While
 ;
 
 Print_variables:
@@ -85,9 +86,7 @@ StringAspas:
 ;
 
 Conditional_if:
-   STRING BIGSMALL STRING  
-   {printf("if (%s){\n\t" , $<letra>1 );}  
-   DecideIf 
+   STRING BIGSMALL STRING {printf("if (%s){\n\t" , $<letra>1 );} DecideIf 
   ;
 
 DecideIf:
@@ -96,9 +95,15 @@ DecideIf:
   | ELSE_TOKEN {printf("}\nelse{\n");}  DecideIf
   | Line DecideIf  
 
+While:
+  STRING BIGSMALL STRING 
+  {printf("%s){\n", $<letra>1 );} DecideIf 
 
-  Else:
-    {printf("entrou no else\n");}
+DecideIf:
+   END_WHILE {printf("}\n");}
+   | END DecideIf
+   | Line
+   
 
   
 
