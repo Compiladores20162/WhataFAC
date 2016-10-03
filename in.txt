@@ -1,24 +1,43 @@
- IDENTIFICATION DIVISION.
-       PROGRAM-ID. MEUPROGRAMA.
-       DATA DIVISION.
-       WORKING-STORAGE SECTION.
-       01  conta_carro PIC 9(4).
-       01 conta_dois PIC 9(5).
-       01 variavel_A PIC A(6).
-       01 variavel_X PIC X(7).
-       PROCEDURE DIVISION.
-       MAIN-PROCEDURE.
-       
-       DISPLAY "Amigo estou "
-       IF 9 < 14
-       PERFORM UNTIL conta_carro < variavel_A
-       DISPLAY "aqui"
-       
-       END-PERFORM
-       
-       ELSE
-       DISPLAY "aqui"
-       END-IF
-       STOP RUN.
-       
-       END PROGRAM MEUPROGRAMA.
+IDENTIFICATION DIVISION.
+PROGRAM-ID. MEUPROGRAMA.
+DATA DIVISION.
+WORKING-STORAGE SECTION.
+01  conta_carro PIC 9(4).
+01 conta_dois PIC 9(5).
+01 variavel_A PIC A(6).
+01 variavel_X PIC X(7).
+PROCEDURE DIVISION.
+MAIN-PROCEDURE.
+
+DISPLAY "Amigo estou "
+
+
+EVALUATE variavel_um
+
+WHEN 1
+COMPUTE
+variavel_A = (variavel_X + variavel_A) * 5
+END-COMPUTE
+
+WHEN 2
+
+IF 9 < 14
+DISPLAY "9 eh maior que 14"
+ELSE
+DISPLAY "nem vai entrar"
+END-IF
+
+WHEN 3
+PERFORM UNTIL conta_carro < variavel_A
+DISPLAY "aqui"
+END-PERFORM
+
+
+
+WHEN OTHER
+DISPLAY "nao a 1 nem 2 nem 3"
+
+END-EVALUATE
+
+STOP RUN.
+END PROGRAM MEUPROGRAMA.

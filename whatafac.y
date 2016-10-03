@@ -27,11 +27,13 @@
 %token INTNINE
 %token POINT
 %token NUMBER
-%token PLUS MINUS TIMES DIVIDE POWER
+%token PLUS MINUS TIMES DIVIDE POWER EQUALS
 %token LEFT_PARENTHESIS RIGHT_PARENTHESIS
 %token END
 %token PRINT WORD
 %token RETURN_0 MAIN INCLUDE_STDIO WORKINGSTORAGE DATADIVISION
+%token COMPUTE END_COMPUTE DEFAULT CASE_SWITCH SWITCH END_SWITCH
+
 
 %token STRINGASPAS WHITE
 %token IF_TOKEN ELSE_TOKEN
@@ -66,6 +68,10 @@ Line:
    | IF_TOKEN Conditional_if //If_function
    | WHILE {printf("while(" );} While
    | STOP {/* DO NOTHING HERE */}
+
+   | COMPUTE Compute_variable END_COMPUTE {printf(";\n");}
+   | SWITCH Switch_value Switch_function
+   | CASE_SWITCH STRING {printf("case: %s\n", $<letra>2);} Case_function  {printf("}\n");}
 ;
 
 Print_variables:
@@ -76,14 +82,11 @@ Working:
    END WORKINGSTORAGE  Variable
    ;
 
-              // VARIABLE
 Variable:
    WINTEIRO STRING PIC DONOTHING POINT END Variable
    | WINTEIRO STRING PIC DONOTHING POINT END
    ;
 
-
-            // OUTPUT
 StringAspas:
      STRINGASPAS {printf("\tprintf(" );
                   printf("%s", $<letra>1);
@@ -91,8 +94,6 @@ StringAspas:
     | END
 ;
 
-
-          // IF FUNCTION
 Conditional_if:
    STRING BIGSMALL STRING {printf("if (%s){\n\t" , $<letra>1 );} DecideIf
   ;
@@ -103,16 +104,65 @@ DecideIf:
   | ELSE_TOKEN {printf("}\nelse{\n");}  DecideIf
   | Line DecideIf
 
-        // WHILE FUNCTION
 While:
   STRING BIGSMALL STRING
-  {printf("%s){\n", $<letra>1 );} DecideWhile
+  {printf("%s){\n", $<letra>1 );} DecideIf
 
-DecideWhile:
+DecideIf:
    END_WHILE {printf("}\n");}
    | Line
 
+            //  COMPUTE
+Compute_variable:
+    END Compute_variable
+    | STRING EQUALS Compute_sequence {
+      char* this = getTillLineBreak($<letra>1);
+      printf("%s", this);
+    }
+    ;
 
+Compute_sequence:
+    END
+    | STRING Compute_sequence
+    | NUMBER Compute_sequence
+    | Signs Compute_sequence
+    | LEFT_PARENTHESIS Compute_sequence
+    | RIGHT_PARENTHESIS Compute_sequence
+    ;
+
+Signs:
+    PLUS
+    | MINUS
+    | TIMES
+    | DIVIDE
+    ;
+
+                // SWITCH
+    Switch_function:
+      END Switch_function
+      | Line Switch_function
+      | END_SWITCH END {printf("}\n");}
+      ;
+
+
+    Case_function:
+      END CASE_SWITCH STRING {printf("break;\ncase: %s\n", $<letra>3);} Case_function
+      | Line Case_function
+      | DEFAULT {printf("break;\ndefault:\n");} Default
+      | END_SWITCH END
+      ;
+
+    Default:
+      END Default
+      | Line Default
+      | END_SWITCH END
+      ;
+
+      Switch_value:
+        STRING {
+        printf("switch (%s) {\n", $<letra>1);
+      }
+      ;
 
 
 %%

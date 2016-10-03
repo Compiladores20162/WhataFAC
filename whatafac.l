@@ -47,6 +47,12 @@ string [-_0-9a-zA-Z]+
 "END-IF"  return (END_IF);
 "PERFORM UNTIL"  return (WHILE);
 "END-PERFORM" return (END_WHILE);
+"COMPUTE" return (COMPUTE);
+"END-COMPUTE" return (END_COMPUTE);
+"WHEN OTHER" return (DEFAULT);
+"WHEN" return (CASE_SWITCH);
+"EVALUATE" return (SWITCH);
+"END-EVALUATE" return (END_SWITCH);
 "STOP RUN."  return (STOP);
 
 {stringcomaspas} {
@@ -71,6 +77,7 @@ string [-_0-9a-zA-Z]+
 "*" return(TIMES);
 "/" return(DIVIDE);
 "^" return(POWER);
+"=" return(EQUALS);
 "(" return(LEFT_PARENTHESIS);
 ")" return(RIGHT_PARENTHESIS);
 

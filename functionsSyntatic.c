@@ -48,8 +48,10 @@ void print_variables(){
 
 char* getTillLineBreak(char* sentense)
 {
-  char new_sentense[100];
+  char* new_sentense;
   int count;
+
+  new_sentense =(char*) calloc(strlen(sentense), sizeof(char));
 
   for(count = 0; count<strlen(sentense); count++)
   {
