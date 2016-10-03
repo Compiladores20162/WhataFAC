@@ -12,7 +12,7 @@ MAIN-PROCEDURE.
 DISPLAY "Amigo estou "
 
 
-EVALUATE variavel_um
+EVALUATE variavel_A
 
 WHEN 1
 COMPUTE

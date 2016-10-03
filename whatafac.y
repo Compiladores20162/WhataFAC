@@ -71,7 +71,7 @@ Line:
 
    | COMPUTE Compute_variable END_COMPUTE {printf(";\n");}
    | SWITCH Switch_value Switch_function
-   | CASE_SWITCH STRING {printf("case: %s\n", $<letra>2);} Case_function  {printf("}\n");}
+   | CASE_SWITCH STRING {printf("case %s:\n", $<letra>2);} Case_function  {printf("}\n");}
 ;
 
 Print_variables:
@@ -146,7 +146,7 @@ Signs:
 
 
     Case_function:
-      END CASE_SWITCH STRING {printf("break;\ncase: %s\n", $<letra>3);} Case_function
+      END CASE_SWITCH STRING {printf("break;\ncase %s:\n", $<letra>3);} Case_function
       | Line Case_function
       | DEFAULT {printf("break;\ndefault:\n");} Default
       | END_SWITCH END
