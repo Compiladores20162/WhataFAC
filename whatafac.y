@@ -30,7 +30,7 @@
 %token PLUS MINUS TIMES DIVIDE POWER
 %token LEFT_PARENTHESIS RIGHT_PARENTHESIS
 %token END
-%token PRINT WORD 
+%token PRINT WORD
 %token RETURN_0 MAIN INCLUDE_STDIO WORKINGSTORAGE DATADIVISION
 
 %token STRINGASPAS WHITE
@@ -56,7 +56,7 @@ Line:
    END
    | INCLUDE_STDIO {printf("#include <stdio.h>\n#include <stdlib.h>\n#include <math.h>\n\n");}
    | PROGRAMNAME STRING {/* DO NOTHING HERE */}
-   | DATADIVISION  Working 
+   | DATADIVISION  Working
    | PROCEDURE {/* DO NOTHING IN HERE*/}
    | MAIN  {printf("\nint main() {\n"); } Print_variables;
    | PRINT StringAspas
@@ -73,14 +73,17 @@ Print_variables:
   ;
 
 Working:
-   END WORKINGSTORAGE  Variable 
+   END WORKINGSTORAGE  Variable
    ;
 
+              // VARIABLE
 Variable:
-   WINTEIRO STRING PIC DONOTHING POINT END Variable 
-   | WINTEIRO STRING PIC DONOTHING POINT END 
+   WINTEIRO STRING PIC DONOTHING POINT END Variable
+   | WINTEIRO STRING PIC DONOTHING POINT END
    ;
 
+
+            // OUTPUT
 StringAspas:
      STRINGASPAS {printf("\tprintf(" );
                   printf("%s", $<letra>1);
@@ -88,26 +91,29 @@ StringAspas:
     | END
 ;
 
+
+          // IF FUNCTION
 Conditional_if:
-   STRING BIGSMALL STRING {printf("if (%s){\n\t" , $<letra>1 );} DecideIf 
+   STRING BIGSMALL STRING {printf("if (%s){\n\t" , $<letra>1 );} DecideIf
   ;
 
 DecideIf:
-   END  DecideIf 
+   END  DecideIf
   | END_IF {printf("}\n");}
   | ELSE_TOKEN {printf("}\nelse{\n");}  DecideIf
-  | Line DecideIf  
+  | Line DecideIf
 
+        // WHILE FUNCTION
 While:
-  STRING BIGSMALL STRING 
-  {printf("%s){\n", $<letra>1 );} DecideIf 
+  STRING BIGSMALL STRING
+  {printf("%s){\n", $<letra>1 );} DecideWhile
 
-DecideIf:
+DecideWhile:
    END_WHILE {printf("}\n");}
    | Line
-   
 
-  
+
+
 
 %%
 
