@@ -24,7 +24,7 @@
 %type <letra> STRING
 %type <variableType> INTNINE
 
-%token WINTEIRO
+%token WINTEIRO VALUE INTEGER_POINT
 %token INTNINE
 %token POINT
 %token NUMBER
@@ -84,9 +84,14 @@ Working:
    ;
 
 Variable: 
-    WINTEIRO STRING  PIC DONOTHING POINT END {  saveNameVariables($<letra>2);} Variable 
-   | WINTEIRO STRING  PIC DONOTHING POINT  END   {  saveNameVariables($<letra>2) ;}
+    WINTEIRO STRING  PIC DONOTHING {  saveNameVariables($<letra>2);} Value  END  Variable 
+   | /* DO NOTHING IN HERE */ 
    ;
+
+Value:
+   VALUE NUMBER POINT {saveFloatDataVariables ($<flutuante>2);}
+   | POINT {printPointComma();}
+   | VALUE INTEGER_POINT {saveIntDataVariables ($<flutuante>2);}
 
 StringAspas:
      STRINGASPAS {printf("\tprintf(" );

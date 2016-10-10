@@ -2,24 +2,26 @@ IDENTIFICATION DIVISION.
 PROGRAM-ID. MEUPROGRAMA.
 DATA DIVISION.
 WORKING-STORAGE SECTION.
-01  conta_carro PIC 9(4).
-01 conta_dois PIC 9(5).
-01 variavel_A PIC A(6).
-01 variavel_X PIC X(7).
+01 conta_carro PIC 9(4) VALUE 50.
+01 mediaCarros PIC 9(5).
+01 contador PIC 9(5) VALUE 0.
+01 valorInicial PIC 9(5)V99999 VALUE 12.5.
+01 somaTotal PIC A(6).
+01 mediaAritmetica PIC X(7).
 PROCEDURE DIVISION.
 MAIN-PROCEDURE.
 
-DISPLAY "Amigo estou "
+DISPLAY "Amigo estou trabalhando"
 
 
-EVALUATE variavel_A
+EVALUATE conta_carro
 
 WHEN 1
 COMPUTE
-variavel_A = (variavel_X + variavel_A) * 5
+contador = (conta_carro + valorInicial) * 5
 END-COMPUTE
 
-WHEN 2
+WHEN 50
 
 IF 9 < 14
 DISPLAY "9 eh maior que 14"
@@ -28,7 +30,7 @@ DISPLAY "nem vai entrar"
 END-IF
 
 WHEN 3
-PERFORM UNTIL conta_carro < variavel_A
+PERFORM UNTIL conta_carro < valorInicial
 DISPLAY "aqui"
 END-PERFORM
 

@@ -13,8 +13,11 @@ biggersmaller [><][=]?
 manystring [<>=!+()._0-9a-zA-Z ]+
 type9 "9("{integer}")"
 typeAX "A("?"X("?{integer}")"
+type9_decimal "9("{integer}")V"[9]+
 exponant [eE][+-]?{integer}
 real {integer}("."{integer})?{exponant}?
+
+integer_point {integer}"."
 aspas "\""
 stringcomaspas {aspas}{manystring}{aspas}
 string [-_0-9a-zA-Z]+
@@ -54,6 +57,7 @@ string [-_0-9a-zA-Z]+
 "EVALUATE" return (SWITCH);
 "END-EVALUATE" return (END_SWITCH);
 "STOP RUN."  return (STOP);
+"VALUE" return VALUE;
 
 {stringcomaspas} {
   yylval.letra = yytext;
@@ -66,14 +70,17 @@ string [-_0-9a-zA-Z]+
   return(STRING);
 };
 
-
 {real} {
     yylval.flutuante=atof(yytext);
     return(NUMBER);
 };
 
+{integer_point} {
+	yylval.flutuante=atof(yytext);
+	return(INTEGER_POINT);
+};
+
 "+" return(PLUS);
-"-" return(MINUS);
 "*" return(TIMES);
 "/" return(DIVIDE);
 "^" return(POWER);
@@ -81,10 +88,19 @@ string [-_0-9a-zA-Z]+
 "(" return(LEFT_PARENTHESIS);
 ")" return(RIGHT_PARENTHESIS);
 
+
 {type9} {
     yylval.variableType=yytext;
     if(yytext[0]=='9'){
       saveTypeVariables("int");
+      return(DONOTHING);
+    }
+};
+
+{type9_decimal} {
+    yylval.variableType=yytext;
+    if(yytext[0]=='9'){
+      saveTypeVariables("double");
       return(DONOTHING);
     }
 };

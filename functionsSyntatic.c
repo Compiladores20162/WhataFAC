@@ -59,6 +59,46 @@ void saveNameVariables (char content[50])
     fprintf(fp, "%c", content[qtdLetras]);
     qtdLetras++;
   }
+  fclose(fp);
+}
+
+void saveFloatDataVariables (double numero)
+{
+  FILE *fp;
+
+  fp = fopen("SimbolsTable.txt", "a+");
+  if(fp == NULL)
+      printf("\n\n\nNão abriu!\n\n\n");
+
+
+  fprintf(fp, " = %lf", numero);
+    
+  fprintf(fp, ";\n");
+  fclose(fp);
+}
+
+void saveIntDataVariables (int numero)
+{
+  FILE *fp;
+
+  fp = fopen("SimbolsTable.txt", "a+");
+  if(fp == NULL)
+      printf("\n\n\nNão abriu!\n\n\n");
+
+
+  fprintf(fp, " = %d", numero);
+    
+  fprintf(fp, ";\n");
+  fclose(fp);
+}
+
+void printPointComma(){
+   FILE *fp;
+
+  fp = fopen("SimbolsTable.txt", "a+");
+  if(fp == NULL)
+      printf("\n\n\nNão abriu!\n\n\n");
+    
   fprintf(fp, ";\n");
   fclose(fp);
 }
