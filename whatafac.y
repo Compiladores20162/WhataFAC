@@ -82,9 +82,9 @@ Working:
    END WORKINGSTORAGE  Variable
    ;
 
-Variable:
-   WINTEIRO STRING PIC DONOTHING POINT END Variable
-   | WINTEIRO STRING PIC DONOTHING POINT END
+Variable: 
+    WINTEIRO STRING  PIC DONOTHING POINT END Variable { printf("o numero: %d\n" , $<num>2);  saveNameVariables($<letra>2) ;}
+   | WINTEIRO STRING  PIC DONOTHING POINT  END  
    ;
 
 StringAspas:
