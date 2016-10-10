@@ -2,6 +2,7 @@
 #include "functionsSyntatic.c"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <math.h>
 
 %}
@@ -20,7 +21,7 @@
 %type <flutuante> NUMBER
 %type <declaration> WINTEIRO
 %type <letra> STRINGASPAS
-%type <variable> STRING
+%type <letra> STRING
 %type <variableType> INTNINE
 
 %token WINTEIRO
@@ -83,8 +84,8 @@ Working:
    ;
 
 Variable: 
-    WINTEIRO STRING  PIC DONOTHING POINT END Variable { printf("o numero: %d\n" , $<num>2);  saveNameVariables($<letra>2) ;}
-   | WINTEIRO STRING  PIC DONOTHING POINT  END  
+    WINTEIRO STRING  PIC DONOTHING POINT END {  saveNameVariables($<letra>2);} Variable 
+   | WINTEIRO STRING  PIC DONOTHING POINT  END   {  saveNameVariables($<letra>2) ;}
    ;
 
 StringAspas:

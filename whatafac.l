@@ -62,10 +62,7 @@ string [-_0-9a-zA-Z]+
 
 {string} {
   int qtdLetras = strlen(yytext);
-  yylval.num = qtdLetras;
   yylval.letra = yytext;
-  printf("valores: %d e %d\n", &yylval.num , qtdLetras );
-  
   return(STRING);
 };
 

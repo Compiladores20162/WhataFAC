@@ -6,13 +6,14 @@ void saveTypeVariables(char content[50])
 {
   FILE *fp;
 
-  fp = fopen("printTypeVariables.txt", "a+");
+  fp = fopen("printNameVariables.txt", "a+");
   if(fp == NULL)
       printf("\n\n\nNão abriu!\n\n\n");
 
-  fprintf(fp, "%s\n", content);
+  fprintf(fp, "%s ", content);
   fclose(fp);
 }
+
 
 
 

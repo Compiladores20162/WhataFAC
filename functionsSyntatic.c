@@ -25,23 +25,19 @@ void print_variables(){
   char contentName[50];
 
   NameVariables = fopen("printNameVariables.txt", "r");
-  TypeVariables = fopen("printTypeVariables.txt", "r");
 
-    if(NameVariables == NULL || TypeVariables == NULL )
+    if(NameVariables == NULL)
       printf("Não abriu um arquivo de entrada de variaveis\n");
 
     while(!feof(NameVariables)){
       fscanf(NameVariables,"%s",contentName);
-      fscanf(TypeVariables,"%s",contentType);
       //fgets(contentType, 50, TypeVariables);
       //fgets(contentName, 50, NameVariables);
       if(feof(NameVariables))
         break;
-      printf("\t%s ",contentType);
       printf("%s;\n",contentName);
     }
   fclose(NameVariables);
-  fclose(TypeVariables);
 }
 
 
@@ -74,7 +70,24 @@ void saveNameVariables (char content[50])
   if(fp == NULL)
       printf("\n\n\nNão abriu!\n\n\n");
 
-
-  fprintf(fp, "%s\n", content);
+  int qtdLetras = 0;
+  while(content[qtdLetras] != ' '){
+    fprintf(fp, "%c", content[qtdLetras]);
+    qtdLetras++;
+  }
+  fprintf(fp, "\n");
   fclose(fp);
+}
+
+void returnNameVariable(char letra[50]){
+  int qtdLetras = 0;
+
+  while(letra[qtdLetras] != ' '){
+    printf("%c\n", letra[qtdLetras] );
+    qtdLetras++;
+  }
+  char *palavra;
+  palavra = calloc(qtdLetras , sizeof(char));
+  
+
 }
