@@ -54,6 +54,7 @@ string [-_0-9a-zA-Z]+
 "EVALUATE" return (SWITCH);
 "END-EVALUATE" return (END_SWITCH);
 "STOP RUN."  return (STOP);
+"AND" return(AND_TOKEN);
 
 {stringcomaspas} {
   yylval.letra = yytext;
@@ -61,7 +62,7 @@ string [-_0-9a-zA-Z]+
 };
 
 {string} {
-  yylval.letra = yytext;
+  yylval.variable= yytext;
   saveNameVariables(yytext);
   return(STRING);
 };

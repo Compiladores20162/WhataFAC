@@ -3,3 +3,8 @@ out.txt
 whatafac.out
 lexico.c
 lexico.h
+printNameVariables.txt
+printTypeVariables.txt
+sintatica.c
+sintatico.h
+out.c

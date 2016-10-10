@@ -14,6 +14,10 @@ DISPLAY "Amigo estou "
 
 EVALUATE variavel_A
 
+IF A < 10 AND 10 > 20
+END-IF
+
+
 WHEN 1
 COMPUTE
 variavel_A = (variavel_X + variavel_A) * 5
