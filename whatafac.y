@@ -55,6 +55,7 @@ Input:
    /* Empty */
    | Input Line
    ;
+
 Line:
    END
    | INCLUDE_STDIO {printf("#include <stdio.h>\n#include <stdlib.h>\n#include <math.h>\n\n");}
@@ -72,7 +73,7 @@ Line:
    | COMPUTE {printf("\t");}Compute_variable END_COMPUTE {printf(";\n");}
    | SWITCH Switch_value Switch_function
    | CASE_SWITCH STRING {printf("case %s:\n", $<letra>2);} Case_function  {printf("}\n");}
-;
+   ;
 
 Print_variables:
   {print_variables();}
