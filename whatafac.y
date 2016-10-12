@@ -67,9 +67,9 @@ Line:
    | POINT {/* NOTHING TO DO HERE */ }
    | RETURN_0 {printf("\treturn 0;\n}\n"); exit(0);}
    | IF_TOKEN Conditional_if //If_function
-   | WHILE {printf("while(" );} While
+   | WHILE {printf("\twhile(" );} While
    | STOP {/* DO NOTHING HERE */}
-   | COMPUTE Compute_variable END_COMPUTE {printf(";\n");}
+   | COMPUTE {printf("\t");}Compute_variable END_COMPUTE {printf(";\n");}
    | SWITCH Switch_value Switch_function
    | CASE_SWITCH STRING {printf("case %s:\n", $<letra>2);} Case_function  {printf("}\n");}
 ;
@@ -96,7 +96,7 @@ StringAspas:
 
 Conditional_if:
     STRING BIGSMALL STRING {printf("\tif (%s){\n" , $<variable>1);} Conditional_if DecideIf
-    | AND_TOKEN Conditional_if {printf("\t}\n");}
+    | AND_TOKEN Conditional_if {printf("\t}\n\t");}
     | END
     ;
 
@@ -145,9 +145,9 @@ Switch_function:
     ;
 
 Case_function:
-    END CASE_SWITCH STRING {printf("break;\ncase %s:\n", $<letra>3);} Case_function
+    END CASE_SWITCH STRING {printf("\tbreak;\n\tcase %s:\n", $<letra>3);} Case_function
     | Line Case_function
-    | DEFAULT {printf("break;\ndefault:\n");} Default
+    | DEFAULT {printf("\tbreak;\n\tdefault:\n");} Default {printf("\t");}
     | END_SWITCH END
     ;
 
@@ -159,7 +159,7 @@ Default:
 
 Switch_value:
     STRING {
-    printf("switch (%s) {\n", $<letra>1);
+    printf("\tswitch (%s) {\n", $<letra>1);
     }
     ;
 
