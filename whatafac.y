@@ -23,6 +23,7 @@
 %type <letra> STRINGASPAS
 %type <letra> STRING
 %type <variableType> INTNINE
+%type <bigsmall> BIGSMALL
 
 %token WINTEIRO VALUE INTEGER_POINT
 %token INTNINE
@@ -34,7 +35,7 @@
 %token PRINT WORD
 %token RETURN_0 MAIN INCLUDE_STDIO WORKINGSTORAGE DATADIVISION
 %token COMPUTE END_COMPUTE DEFAULT CASE_SWITCH SWITCH END_SWITCH
-
+%token AND_TOKEN
 
 %token STRINGASPAS WHITE
 %token IF_TOKEN ELSE_TOKEN
@@ -55,6 +56,7 @@ Input:
    /* Empty */
    | Input Line
    ;
+
 Line:
    END
    | INCLUDE_STDIO {printf("#include <stdio.h>\n#include <stdlib.h>\n#include <math.h>\n\n");}
@@ -66,14 +68,13 @@ Line:
    | NUMBER {printf("%lf\n", $<flutuante>1);}
    | POINT {/* NOTHING TO DO HERE */ }
    | RETURN_0 {printf("\treturn 0;\n}\n"); exit(0);}
-   | IF_TOKEN Conditional_if //If_function
-   | WHILE {printf("while(" );} While
+   | IF_TOKEN Conditional_if
+   | WHILE {printf("\twhile(" );} While
    | STOP {/* DO NOTHING HERE */}
-
-   | COMPUTE Compute_variable END_COMPUTE {printf(";\n");}
+   | COMPUTE {printf("\t");}Compute_variable END_COMPUTE {printf(";\n");}
    | SWITCH Switch_value Switch_function
    | CASE_SWITCH STRING {printf("case %s:\n", $<letra>2);} Case_function  {printf("}\n");}
-;
+   ;
 
 Print_variables:
   {print_variables();}
@@ -95,30 +96,31 @@ Value:
 
 StringAspas:
      STRINGASPAS {printf("\tprintf(" );
-                  printf("%s", $<letra>1);
-                  printf(");\n"); }
+                            printf("%s", $<letra>1);
+                            printf(");\n"); }
     | END
-;
+    ;
 
 Conditional_if:
-   STRING BIGSMALL STRING {printf("if (%s){\n\t" , $<letra>1 );} DecideIf
-  ;
+    STRING BIGSMALL STRING {printf("\tif (%s){\n" , $<variable>1);} Conditional_if DecideIf
+    | AND_TOKEN {increaseQuantityOfCloses();} Conditional_if
+    | END
+    ;
 
 DecideIf:
    END  DecideIf
-  | END_IF {printf("}\n");}
-  | ELSE_TOKEN {printf("}\nelse{\n");}  DecideIf
+  | END_IF {printf("\t}\n");printQuantityOfCloses(); setZeroQuantityOfCloses();}
+  | ELSE_TOKEN {printf("\t}else{\n");}  DecideIf
   | Line DecideIf
+  | END_WHILE {printf("\t}\n");}
+  | Line
+  ;
 
 While:
   STRING BIGSMALL STRING
   {printf("%s){\n", $<letra>1 );} DecideIf
+  ;
 
-DecideIf:
-   END_WHILE {printf("}\n");}
-   | Line
-
-            //  COMPUTE
 Compute_variable:
     END Compute_variable
     | STRING EQUALS Compute_sequence {
@@ -143,32 +145,30 @@ Signs:
     | DIVIDE
     ;
 
-                // SWITCH
-    Switch_function:
-      END Switch_function
-      | Line Switch_function
-      | END_SWITCH END {printf("}\n");}
-      ;
+Switch_function:
+    END Switch_function
+    | Line Switch_function
+    | END_SWITCH END {printf("}\n");}
+    ;
 
+Case_function:
+    END CASE_SWITCH STRING {printf("\tbreak;\n\tcase %s:\n", $<letra>3);} Case_function
+    | Line Case_function
+    | DEFAULT {printf("\tbreak;\n\tdefault:\n");} Default {printf("\t");}
+    | END_SWITCH END
+    ;
 
-    Case_function:
-      END CASE_SWITCH STRING {printf("break;\ncase %s:\n", $<letra>3);} Case_function
-      | Line Case_function
-      | DEFAULT {printf("break;\ndefault:\n");} Default
-      | END_SWITCH END
-      ;
+Default:
+    END Default
+    | Line Default
+    | END_SWITCH END
+    ;
 
-    Default:
-      END Default
-      | Line Default
-      | END_SWITCH END
-      ;
-
-      Switch_value:
-        STRING {
-        printf("switch (%s) {\n", $<letra>1);
-      }
-      ;
+Switch_value:
+    STRING {
+    printf("\tswitch (%s) {\n", $<letra>1);
+    }
+    ;
 
 
 %%

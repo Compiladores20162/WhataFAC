@@ -16,6 +16,10 @@ DISPLAY "Amigo estou trabalhando"
 
 EVALUATE conta_carro
 
+IF A < 10 AND 10 > 2
+END-IF
+
+
 WHEN 1
 COMPUTE
 contador = (conta_carro + valorInicial) * 5

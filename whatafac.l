@@ -58,6 +58,7 @@ string [-_0-9a-zA-Z]+
 "END-EVALUATE" return (END_SWITCH);
 "STOP RUN."  return (STOP);
 "VALUE" return VALUE;
+"AND" return(AND_TOKEN);
 
 {stringcomaspas} {
   yylval.letra = yytext;
