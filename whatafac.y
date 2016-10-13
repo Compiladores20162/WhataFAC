@@ -67,7 +67,7 @@ Line:
    | NUMBER {printf("%lf\n", $<flutuante>1);}
    | POINT {/* NOTHING TO DO HERE */ }
    | RETURN_0 {printf("\treturn 0;\n}\n"); exit(0);}
-   | IF_TOKEN Conditional_if //If_function
+   | IF_TOKEN Conditional_if
    | WHILE {printf("\twhile(" );} While
    | STOP {/* DO NOTHING HERE */}
    | COMPUTE {printf("\t");}Compute_variable END_COMPUTE {printf(";\n");}
@@ -97,13 +97,13 @@ StringAspas:
 
 Conditional_if:
     STRING BIGSMALL STRING {printf("\tif (%s){\n" , $<variable>1);} Conditional_if DecideIf
-    | AND_TOKEN Conditional_if {printf("\t}\n\t");}
+    | AND_TOKEN {increaseQuantityOfCloses();} Conditional_if
     | END
     ;
 
 DecideIf:
    END  DecideIf
-  | END_IF {printf("\t}\n");}
+  | END_IF {printf("\t}\n");printQuantityOfCloses(); setZeroQuantityOfCloses();}
   | ELSE_TOKEN {printf("\t}else{\n");}  DecideIf
   | Line DecideIf
   | END_WHILE {printf("\t}\n");}
