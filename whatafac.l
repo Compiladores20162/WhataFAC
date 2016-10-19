@@ -9,7 +9,7 @@ digit [0-9]
 integer {digit}+
 zeroum "01"
 point "."
-biggersmaller [><][=]?
+biggersmaller [ ]?[<>][=]?[ ]?
 manystring [<>=!+()._0-9a-zA-Z ]+
 type9 "9("{integer}")"
 typeAX "A("?"X("?{integer}")"
@@ -21,6 +21,7 @@ integer_point {integer}"."
 aspas "\""
 stringcomaspas {aspas}{manystring}{aspas}
 string [-_0-9a-zA-Z]+
+conditional {string}{biggersmaller}{string}
 %%
 
 "IDENTIFICATION DIVISION." return(INCLUDE_STDIO);
@@ -31,8 +32,14 @@ string [-_0-9a-zA-Z]+
 "PROCEDURE DIVISION." return (PROCEDURE);
 {point} return(POINT);
 
+{conditional} {
+  yylval.variable = yytext;
+  return (CONDITIONAL);
+}
+
 {biggersmaller} {
   yylval.bigsmall = yytext;
+  printf("maior menor: %s\n", yylval.bigsmall);
   return (BIGSMALL);
 };
 
@@ -59,6 +66,7 @@ string [-_0-9a-zA-Z]+
 "STOP RUN."  return (STOP);
 "VALUE" return VALUE;
 "AND" return(AND_TOKEN);
+"OR" return (OR_TOKEN);
 
 {stringcomaspas} {
   yylval.letra = yytext;
