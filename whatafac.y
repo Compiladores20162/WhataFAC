@@ -14,7 +14,7 @@
    int declaration;
    char *variable;
    char *variableType;
-   char *bigsmall
+   char *bigsmall;
 }
 
 %type <flutuante> NUMBER
@@ -23,6 +23,7 @@
 %type <variable> STRING
 %type <variableType> INTNINE
 %type <bigsmall> BIGSMALL
+%type <variable> CONDITIONAL
 
 %token WINTEIRO
 %token INTNINE
@@ -34,7 +35,7 @@
 %token PRINT WORD
 %token RETURN_0 MAIN INCLUDE_STDIO WORKINGSTORAGE DATADIVISION
 %token COMPUTE END_COMPUTE DEFAULT CASE_SWITCH SWITCH END_SWITCH
-%token AND_TOKEN
+%token AND_TOKEN CONDITIONAL OR_TOKEN
 
 %token STRINGASPAS WHITE
 %token IF_TOKEN ELSE_TOKEN
@@ -68,7 +69,7 @@ Line:
    | POINT {/* NOTHING TO DO HERE */ }
    | RETURN_0 {printf("\treturn 0;\n}\n"); exit(0);}
    | IF_TOKEN Conditional_if
-   | WHILE {printf("\twhile(" );} While
+   | WHILE While
    | STOP {/* DO NOTHING HERE */}
    | COMPUTE {printf("\t");}Compute_variable END_COMPUTE {printf(";\n");}
    | SWITCH Switch_value Switch_function
@@ -81,6 +82,7 @@ Print_variables:
 
 Working:
    END WORKINGSTORAGE  Variable
+   | END
    ;
 
 Variable:
@@ -96,14 +98,15 @@ StringAspas:
     ;
 
 Conditional_if:
-    STRING BIGSMALL STRING {printf("\tif (%s){\n" , $<variable>1);} Conditional_if DecideIf
-    | AND_TOKEN {increaseQuantityOfCloses();} Conditional_if
-    | END
+    CONDITIONAL {printf("\tif (%s " , $<variable>1);} Conditional_if DecideIf
+    | AND_TOKEN {printf("&&");} CONDITIONAL  {printf(" %s " , $<variable>3);} Conditional_if
+    | OR_TOKEN {printf("||");} CONDITIONAL  {printf(" %s " , $<variable>3);} Conditional_if
+    | END {printf(") {\n");}
     ;
 
 DecideIf:
    END  DecideIf
-  | END_IF {printf("\t}\n");printQuantityOfCloses(); setZeroQuantityOfCloses();}
+  | END_IF {printf("\t}\n"); }
   | ELSE_TOKEN {printf("\t}else{\n");}  DecideIf
   | Line DecideIf
   | END_WHILE {printf("\t}\n");}
@@ -111,9 +114,11 @@ DecideIf:
   ;
 
 While:
-  STRING BIGSMALL STRING
-  {printf("%s){\n", $<letra>1 );} DecideIf
-  ;
+  CONDITIONAL {printf("\twhile (%s " , $<variable>1);} Conditional_if DecideIf
+    | AND_TOKEN {printf("&&");} CONDITIONAL  {printf(" %s " , $<variable>3);} Conditional_if
+    | OR_TOKEN {printf("||");} CONDITIONAL  {printf(" %s " , $<variable>3);} Conditional_if
+    | END {printf(") {\n");}
+    ;
 
 Compute_variable:
     END Compute_variable

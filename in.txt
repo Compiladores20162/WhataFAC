@@ -14,7 +14,7 @@ DISPLAY "Amigo estou "
 
 EVALUATE variavel_A
 
-IF A < 10 AND 10 > 2
+IF A < 10 AND 10 > 2 AND 10 <= 2 AND 10 < 2
 END-IF
 
 
@@ -32,7 +32,7 @@ DISPLAY "nem vai entrar"
 END-IF
 
 WHEN 3
-PERFORM UNTIL conta_carro < variavel_A
+PERFORM UNTIL conta_carro < variavel_A AND 10 >= 2 AND 10 < 2
 DISPLAY "aqui"
 END-PERFORM
 

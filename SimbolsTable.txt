@@ -1,0 +1,6 @@
+int conta_carro = 50;
+int mediaCarros;
+int contador = 0;
+double valorInicial = 12.500000;
+char somaTotal;
+char mediaAritmetica;
