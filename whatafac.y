@@ -74,6 +74,7 @@ Line:
    | COMPUTE {printf("\t");}Compute_variable END_COMPUTE {printf(";\n");}
    | SWITCH Switch_value Switch_function
    | CASE_SWITCH STRING {printf("case %s:\n", $<letra>2);} Case_function  {printf("}\n");}
+   | TIMES {printf("\t//");} Line
    ;
 
 Print_variables:

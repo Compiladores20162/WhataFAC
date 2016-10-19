@@ -14,9 +14,10 @@ DISPLAY "Amigo estou "
 
 EVALUATE variavel_A
 
-IF A < 10 AND 10 > 2 AND 10 <= 2 AND 10 < 2
+IF A < 10 AND 10 > 2 AND 10 <= 2 AND 10 < 2 OR 12> 11
 END-IF
 
+* DISPLAY "oi"
 
 WHEN 1
 COMPUTE
