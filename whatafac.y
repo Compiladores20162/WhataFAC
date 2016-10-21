@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <math.h>
+#include <math.h> 
 
 %}
 
@@ -42,7 +42,7 @@
 %token IF_TOKEN ELSE_TOKEN
 %token END_IF STRING
 %token WHILE END_WHILE DONOTHING
-%token BIGSMALL PROGRAMNAME PIC PROCEDURE STOP
+%token BIGSMALL PROGRAMNAME PIC PROCEDURE STOP ACCEPT
 
 %left PLUS MINUS
 %left TIMES DIVIDE
@@ -65,6 +65,7 @@ Line:
    | DATADIVISION  Working
    | PROCEDURE {/* DO NOTHING IN HERE*/}
    | MAIN  {printf("\nint main() {\n"); } Print_variables;
+   | ACCEPT {printf("scanf(\"" );} DecideVariableType
    | PRINT StringAspas
    | NUMBER {printf("%lf\n", $<flutuante>1);}
    | POINT {/* NOTHING TO DO HERE */ }
@@ -86,6 +87,10 @@ Working:
    END WORKINGSTORAGE  Variable
    | END
    ;
+
+
+DecideVariableType:
+    STRING {defineDataType($<letra>1 );}
 
 Variable: 
     WINTEIRO STRING  PIC DONOTHING {  saveNameVariables($<letra>2);} Value  END  Variable 

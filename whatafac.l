@@ -3,7 +3,7 @@
 #include "functionsLexic.c"
 #include <stdlib.h>
 #include <string.h>
-%}
+%} 
 
 digit [0-9]
 integer {digit}+
@@ -30,6 +30,8 @@ conditional {string}{biggersmaller}{string}
 "WORKING-STORAGE SECTION.\n"  return(WORKINGSTORAGE);
 "PIC" return (PIC);
 "PROCEDURE DIVISION." return (PROCEDURE);
+"ACCEPT" return(ACCEPT);
+
 {point} return(POINT);
 
 {conditional} {
