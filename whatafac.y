@@ -26,7 +26,7 @@
 %type <bigsmall> BIGSMALL
 %type <variable> CONDITIONAL
 
-%token WINTEIRO VALUE INTEGER_POINT
+%token WINTEIRO VALUE INTEGER_POINT ZEROCINCO
 %token INTNINE
 %token POINT
 %token NUMBER
@@ -50,13 +50,13 @@
 %right POWER
 
 %start Input
-
 %%
 
 Input:
    /* Empty */
    | Input Line
    ;
+
 
 Line:
    END
@@ -94,10 +94,14 @@ DecideVariableType:
 
 Variable:
     WINTEIRO STRING PIC DONOTHING {saveNameVariables($<letra>2);} Value  END  Variable
-   | WINTEIRO STRING POINT {saveNameVariables($<letra>2);} END Variable
+   | WINTEIRO STRING POINT { saveTypeVariables("struct"); saveNameVariables($<letra>2);} END StructContent { printPointComma();}  END Variable
    | /* DO NOTHING IN HERE */
    ;
 
+StructContent:
+  END
+  | ZEROCINCO STRING PIC DONOTHING {printf("%s", $<letra>2);} 
+  ;
 
 Value:
    VALUE NUMBER POINT {saveFloatDataVariables ($<flutuante>2);}

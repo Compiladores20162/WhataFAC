@@ -3,11 +3,12 @@
 #include "functionsLexic.c"
 #include <stdlib.h>
 #include <string.h>
-%} 
+%}
 
 digit [0-9]
 integer {digit}+
 zeroum "01"
+zerocinco "05"
 point "."
 biggersmaller [ ]?[<>][=]?[ ]?
 manystring [<>=!+()._0-9a-zA-Z ]+
@@ -48,6 +49,11 @@ conditional {string}{biggersmaller}{string}
 {zeroum} {
     yylval.declaration = atoi(yytext);
     return(WINTEIRO);
+};
+
+{zerocinco} {
+  yylval.declaration = atoi(yytext);
+  return(ZEROCINCO);
 };
 
 "MAIN-PROCEDURE." return(MAIN);

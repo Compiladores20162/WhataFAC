@@ -81,7 +81,7 @@ void defineDataType(char content[50])
           printf("%%lf\"" );
       } else if (strcmp(type,"char") == 0)
           printf("%%s\"");
- 
+
       printf(", &%s);\n" , name);
       break;
     }
@@ -90,7 +90,7 @@ void defineDataType(char content[50])
       if(feof(fp)){
         break;
       }
-      caracter = fgetc(fp); 
+      caracter = fgetc(fp);
     }
   }
 
