@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <math.h> 
+#include <math.h>
 
 %}
 
@@ -92,10 +92,12 @@ Working:
 DecideVariableType:
     STRING {defineDataType($<letra>1 );}
 
-Variable: 
-    WINTEIRO STRING  PIC DONOTHING {  saveNameVariables($<letra>2);} Value  END  Variable 
-   | /* DO NOTHING IN HERE */ 
+Variable:
+    WINTEIRO STRING PIC DONOTHING {saveNameVariables($<letra>2);} Value  END  Variable
+   | WINTEIRO STRING POINT {saveNameVariables($<letra>2);} END Variable
+   | /* DO NOTHING IN HERE */
    ;
+
 
 Value:
    VALUE NUMBER POINT {saveFloatDataVariables ($<flutuante>2);}
