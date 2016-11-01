@@ -101,8 +101,8 @@ Variable:
 
 TakeContentOfStruct:
   ZEROCINCO STRING PIC DONOTHING {saveNameVariables($<letra>2); } Value END TakeContentOfStruct Variable
-  | END {printCloseBrackets(); printPointComma();}
-  | {printCloseBrackets(); printPointComma();}
+  | END {printCloseBrackets(); printPointComma();} Variable
+  | {printCloseBrackets(); printPointComma();} Variable
   ;
 
 
