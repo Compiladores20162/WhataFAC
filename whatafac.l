@@ -122,6 +122,8 @@ conditional {string}{biggersmaller}{string}
     }
 };
 
+
+
 {typeAX} {
     yylval.variableType=yytext;
     if(yytext[0]=='A' || yytext[0]=='X' ){

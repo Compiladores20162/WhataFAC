@@ -93,16 +93,23 @@ DecideVariableType:
     STRING {defineDataType($<letra>1 );}
 
 Variable:
-    WINTEIRO STRING PIC DONOTHING {saveNameVariables($<letra>2);} Value  END  Variable
-   | WINTEIRO STRING POINT { saveTypeVariables("struct"); saveNameVariables($<letra>2);} END StructContent { printPointComma();}  END Variable
+   WINTEIRO STRING PIC DONOTHING {saveNameVariables($<letra>2);} Value  END  Variable
+   | ZEROCINCO STRING PIC DONOTHING {saveNameVariables($<letra>2); } Value END Variable
+   | WINTEIRO STRING POINT{saveTypeVariables("struct "); saveNameVariables($<letra>2); printPointComma();} END Variable
+   //| WINTEIRO STRING POINT { printf("To aqui :)\n");saveTypeVariables("struct "); saveNameVariables($<letra>2); } END StructContent { printPointComma();}  END Variable
    | /* DO NOTHING IN HERE */
    ;
-
+/*
 StructContent:
   END
-  | ZEROCINCO STRING PIC DONOTHING {printf("%s", $<letra>2);} 
+  | ZEROCINCO STRING {
+    char *string_com_barra_n;
+    string_com_barra_n = (char*)malloc(50*sizeof(char));
+    string_com_barra_n = strcat($<letra>2, "\n");
+    saveNameVariables(string_com_barra_n);
+  }PIC DONOTHING {printf("%s\n", $<letra>2);}
   ;
-
+*/
 Value:
    VALUE NUMBER POINT {saveFloatDataVariables ($<flutuante>2);}
    | POINT {printPointComma();}
