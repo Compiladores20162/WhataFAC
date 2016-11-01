@@ -93,17 +93,24 @@ DecideVariableType:
     STRING {defineDataType($<letra>1 );}
 
 Variable:
-   WINTEIRO STRING PIC DONOTHING {saveNameVariables($<letra>2);} Value  END  Variable
-   | ZEROCINCO STRING PIC DONOTHING {saveNameVariables($<letra>2); } Value END Variable
-   | WINTEIRO STRING POINT{saveTypeVariables("struct "); saveNameVariables($<letra>2); printOpenBrackets();} END Variable {printCloseBrackets(); printPointComma();}
-   | /* DO NOTHING IN HERE */
-   ;
+  ZEROCINCO STRING PIC DONOTHING {saveNameVariables($<letra>2); } Value END TakeContentOfStruct
+  | WINTEIRO STRING PIC DONOTHING {saveNameVariables($<letra>2);} Value  END  Variable
+  | WINTEIRO STRING POINT{saveTypeVariables("struct "); saveNameVariables($<letra>2); printOpenBrackets();} END Variable
+  | /* DO NOTHING IN HERE */
+  ;
+
+TakeContentOfStruct:
+  ZEROCINCO STRING PIC DONOTHING {saveNameVariables($<letra>2); } Value END TakeContentOfStruct Variable
+  | END {printCloseBrackets(); printPointComma();}
+  | {printCloseBrackets(); printPointComma();}
+  ;
+
 
 Value:
    VALUE NUMBER POINT {saveFloatDataVariables ($<flutuante>2);}
    | POINT {printPointComma();}
    | VALUE INTEGER_POINT {saveIntDataVariables ($<flutuante>2);}
-
+   ;
 StringAspas:
      STRINGASPAS {printf("\tprintf(" );
                             printf("%s", $<letra>1);
