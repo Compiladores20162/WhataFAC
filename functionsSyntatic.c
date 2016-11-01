@@ -137,3 +137,23 @@ void printPointComma(){
   fprintf(fp, " ;\n");
   fclose(fp);
 }
+
+void printOpenBrackets(){
+  FILE *fp;
+  fp = fopen("SimbolsTable.txt", "a+");
+  if(fp == NULL)
+      printf("\n\n\nNão abriu!\n\n\n");
+
+  fprintf(fp, " {\n");
+  fclose(fp);
+}
+
+void printCloseBrackets(){
+  FILE *fp;
+  fp = fopen("SimbolsTable.txt", "a+");
+  if(fp == NULL)
+      printf("\n\n\nNão abriu!\n\n\n");
+
+  fprintf(fp, "\n}");
+  fclose(fp);
+}
