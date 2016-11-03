@@ -19,6 +19,16 @@ void print_variables(){
       fgets(contentName, 300, simbolsTable);
       if(feof(simbolsTable))
         break;
+
+      //Dont print structs
+      if (contentName[0] == 's' && contentName[1] == 't' && contentName[2] == 'r' && contentName[3] == 'u' && contentName[4] == 'c' && contentName[5] == 't')
+      {
+        while(strcmp(contentName, "} ;\n") != 0)
+        {
+          fgets(contentName, 300, simbolsTable); 
+        }
+        fgets(contentName, 300, simbolsTable);
+      }
       printf("%s",contentName);
     }
   fclose(simbolsTable);
@@ -36,7 +46,7 @@ char* getTillLineBreak(char* sentense)
   for(count = 0; count<strlen(sentense); count++)
   {
     if (sentense[count] == '\n')
-    {
+    { 
       sentense = new_sentense;
       return sentense;
     }
