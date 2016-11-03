@@ -69,7 +69,7 @@ Line:
    | PRINT StringAspas
    | NUMBER {printf("%lf\n", $<flutuante>1);}
    | POINT {/* NOTHING TO DO HERE */ }
-   | RETURN_0 {printf("\treturn 0;\n}\n"); exit(0);}
+   | RETURN_0 {printf("\treturn 0;\n}\n"); printStruct(); exit(0);}
    | IF_TOKEN Conditional_if
    | WHILE While
    | STOP {/* DO NOTHING HERE */}

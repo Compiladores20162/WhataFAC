@@ -157,3 +157,32 @@ void printCloseBrackets(){
   fprintf(fp, "\n}");
   fclose(fp);
 }
+
+
+void printStruct()
+{ 
+  FILE *fp;
+  char content[100];
+
+  fp = fopen("SimbolsTable.txt", "r+");
+  if(fp == NULL)
+      printf("\n\n\nNão abriu!\n\n\n");
+
+  printf("\n\n");
+  while(!feof(fp))
+  {
+    fgets(content, 100, fp);
+    // printf("%s\n", content);
+
+    if (content[0] == 's' && content[1] == 't' && content[2] == 'r' && content[3] == 'u' && content[4] == 'c' && content[5] == 't')
+    {
+      printf("%s\n", content);
+      while(strcmp(content, "} ;\n") != 0)
+      {
+        fgets(content, 100, fp); 
+        printf("%s", content);
+      }
+      printf("\n\n");
+    }
+  }
+}
