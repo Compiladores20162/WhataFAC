@@ -65,7 +65,7 @@ Line:
    | DATADIVISION  Working
    | PROCEDURE {/* DO NOTHING IN HERE*/}
    | MAIN  {printf("\nint main() {\n"); } Print_variables;
-   | ACCEPT {printf("scanf(\"" );} DecideVariableType
+   | ACCEPT {printf("\tscanf(\"" );} DecideVariableType
    | PRINT StringAspas
    | NUMBER {printf("%lf\n", $<flutuante>1);}
    | POINT {/* NOTHING TO DO HERE */ }
@@ -75,7 +75,7 @@ Line:
    | STOP {/* DO NOTHING HERE */}
    | COMPUTE {printf("\t");}Compute_variable END_COMPUTE {printf(";\n");}
    | SWITCH Switch_value Switch_function
-   | CASE_SWITCH STRING {printf("case %s:\n", $<letra>2);} Case_function  {printf("}\n");}
+   | CASE_SWITCH STRING {printf("\tcase %s:\n", $<letra>2);} Case_function  {printf("}\n");}
    | TIMES {printf("\t//");} Line
    ;
 

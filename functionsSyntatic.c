@@ -25,11 +25,11 @@ void print_variables(){
       {
         while(strcmp(contentName, "} ;\n") != 0)
         {
-          fgets(contentName, 300, simbolsTable); 
+          fgets(contentName, 300, simbolsTable);
         }
         fgets(contentName, 300, simbolsTable);
       }
-      printf("%s",contentName);
+      printf("\t%s",contentName);
     }
   fclose(simbolsTable);
 }
@@ -46,7 +46,7 @@ char* getTillLineBreak(char* sentense)
   for(count = 0; count<strlen(sentense); count++)
   {
     if (sentense[count] == '\n')
-    { 
+    {
       sentense = new_sentense;
       return sentense;
     }
@@ -170,7 +170,7 @@ void printCloseBrackets(){
 
 
 void printStruct()
-{ 
+{
   FILE *fp;
   char content[100];
 
@@ -189,7 +189,7 @@ void printStruct()
       printf("%s\n", content);
       while(strcmp(content, "} ;\n") != 0)
       {
-        fgets(content, 100, fp); 
+        fgets(content, 100, fp);
         printf("%s", content);
       }
       printf("\n\n");
