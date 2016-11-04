@@ -39,7 +39,7 @@
 %token AND_TOKEN CONDITIONAL OR_TOKEN
 
 %token STRINGASPAS WHITE
-%token IF_TOKEN ELSE_TOKEN
+%token IF_TOKEN ELSE_TOKEN NOTIDENTIFIED
 %token END_IF STRING
 %token WHILE END_WHILE DONOTHING
 %token BIGSMALL PROGRAMNAME PIC PROCEDURE STOP ACCEPT
@@ -77,6 +77,8 @@ Line:
    | SWITCH Switch_value Switch_function
    | CASE_SWITCH STRING {printf("\tcase %s:\n", $<letra>2);} Case_function  {printf("}\n");}
    | TIMES {printf("\t//");} Line
+   | NOTIDENTIFIED {printf("Token não identificado");}
+   | STRING {printf("->%s<- Not Identified TOKEN\n", $<letra>1);}
    ;
 
 Print_variables:
@@ -84,7 +86,8 @@ Print_variables:
   ;
 
 Working:
-   END WORKINGSTORAGE  Variable
+   END WORKINGSTORAGE Variable
+   | END WORKINGSTORAGE
    | END
    ;
 

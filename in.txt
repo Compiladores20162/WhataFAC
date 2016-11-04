@@ -14,6 +14,7 @@ WORKING-STORAGE SECTION.
         05 cinco_3_da_struct PIC 9(5)V99999.
     01 somaTotal PIC A(6).
     01 mediaAritmetica PIC X(7).
+    01 W-ALUNO PIC 9(10).
 PROCEDURE DIVISION.
 MAIN-PROCEDURE.
 
@@ -24,11 +25,8 @@ ACCEPT mediaAritmetica
 IF conta_carro < 10 AND 10 > 2 AND 10 <= 2 AND 10 < 2 OR 12> 11
 DISPLAY "MUITO BOM"
 END-IF
-
+*u5rh3i4uh5i34uh5iu34h
 EVALUATE conta_carro
-
-
-
 * DISPLAY "oi"
 
 WHEN 1
@@ -49,7 +47,16 @@ WHEN 3
 PERFORM UNTIL conta_carro < valorInicial AND 10 >= 2 AND 10 < 2
 DISPLAY "aqui"
 END-PERFORM
+ACCEPT W-ALUNO
 
+DISPLAY "Informe o Aluno.:"
+DISPLAY "Nota 1o Bimestre:"
+DISPLAY "Nota 2o Bimestre:"
+DISPLAY "Nota 3o Bimestre:"
+DISPLAY "Nota 4o Bimestre:"
+DISPLAY "Total das Notas.:"
+DISPLAY "Media das Notas.:"
+DISPLAY "Menssagem.......:"
 
 
 WHEN OTHER

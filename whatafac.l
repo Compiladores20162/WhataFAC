@@ -11,7 +11,7 @@ zeroum "01"
 zerocinco "05"
 point "."
 biggersmaller [ ]?[<>][=]?[ ]?
-manystring [<>=!+()._0-9a-zA-Z ]+
+manystring [<>=!+()._0-9a-zA-Z: ]+
 type9 "9("{integer}")"
 typeAX "A("?"X("?{integer}")"
 type9_decimal "9("{integer}")V"[9]+
@@ -135,7 +135,7 @@ conditional {string}{biggersmaller}{string}
 
 
 "\n" return(END);
-
+[*$] return(NOTIDENTIFIED);
 
 %%
 
