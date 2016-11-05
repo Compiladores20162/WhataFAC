@@ -78,7 +78,7 @@ Line:
    | CASE_SWITCH STRING {printf("\tcase %s:\n", $<letra>2);} Case_function  {printf("}\n");}
    | TIMES {printf("\t//");} Line
    | NOTIDENTIFIED {printf("Token não identificado");}
-   | STRING {printf("->%s<- Not Identified TOKEN\n", $<letra>1);}
+   | STRING {printf("%s<- \n", $<letra>1);}
    ;
 
 Print_variables:
