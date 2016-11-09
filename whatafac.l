@@ -7,8 +7,10 @@
 
 digit [0-9]
 integer {digit}+
-zeroum "01"
-zerocinco "05"
+/*Indicates variable declaration*/
+variable_id "01"
+/*Indicates atributtes declaration*/
+atributte_id "05"
 point "."
 biggersmaller [ ]?[<>][=]?[ ]?
 manystring [<>=!+()._0-9a-zA-Z ]+
@@ -17,7 +19,6 @@ typeAX "A("?"X("?{integer}")"
 type9_decimal "9("{integer}")V"[9]+
 exponant [eE][+-]?{integer}
 real {integer}("."{integer})?{exponant}?
-
 integer_point {integer}"."
 aspas "\""
 stringcomaspas {aspas}{manystring}{aspas}
@@ -46,14 +47,14 @@ conditional {string}{biggersmaller}{string}
   return (BIGSMALL);
 };
 
-{zeroum} {
+{variable_id} {
     yylval.declaration = atoi(yytext);
-    return(WINTEIRO);
+    return(VARIABLE_ID);
 };
 
-{zerocinco} {
+{atributte_id} {
   yylval.declaration = atoi(yytext);
-  return(ZEROCINCO);
+  return(ATRIBUTTE_ID);
 };
 
 "MAIN-PROCEDURE." return(MAIN);

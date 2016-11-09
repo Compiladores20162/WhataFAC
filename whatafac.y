@@ -19,14 +19,14 @@
 }
 
 %type <flutuante> NUMBER
-%type <declaration> WINTEIRO
+%type <declaration> VARIABLE_ID
 %type <letra> STRINGASPAS
 %type <letra> STRING
 %type <variableType> INTNINE
 %type <bigsmall> BIGSMALL
 %type <variable> CONDITIONAL
 
-%token WINTEIRO VALUE INTEGER_POINT ZEROCINCO
+%token VARIABLE_ID VALUE INTEGER_POINT ATRIBUTTE_ID
 %token INTNINE
 %token POINT
 %token NUMBER
@@ -93,14 +93,14 @@ DecideVariableType:
     STRING {defineDataType($<letra>1 );}
 
 Variable:
-  ZEROCINCO STRING PIC DONOTHING {saveNameVariables($<letra>2); } Value END TakeContentOfStruct
-  | WINTEIRO STRING PIC DONOTHING {saveNameVariables($<letra>2);} Value  END  Variable
-  | WINTEIRO STRING POINT{saveTypeVariables("struct "); saveNameVariables($<letra>2); printOpenBrackets();} END Variable
+  ATRIBUTTE_ID STRING PIC DONOTHING {saveNameVariables($<letra>2); } Value END TakeContentOfStruct
+  | VARIABLE_ID STRING PIC DONOTHING {saveNameVariables($<letra>2);} Value  END  Variable
+  | VARIABLE_ID STRING POINT{saveTypeVariables("struct "); saveNameVariables($<letra>2); printOpenBrackets();} END Variable
   | /* DO NOTHING IN HERE */
   ;
 
 TakeContentOfStruct:
-  ZEROCINCO STRING PIC DONOTHING {saveNameVariables($<letra>2); } Value END TakeContentOfStruct Variable
+  ATRIBUTTE_ID STRING PIC DONOTHING {saveNameVariables($<letra>2); } Value END TakeContentOfStruct Variable
   | END {printCloseBrackets(); printPointComma();} Variable
   | {printCloseBrackets(); printPointComma();} Variable
   ;
