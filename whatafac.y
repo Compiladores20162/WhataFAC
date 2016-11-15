@@ -18,14 +18,16 @@
    char *bigsmall;
 }
 
+/*Especify tolkens types*/
 %type <flutuante> NUMBER
 %type <declaration> VARIABLE_ID
-%type <letra> STRINGASPAS
+%type <letra> STRING_QUATATION
 %type <letra> STRING
 %type <variableType> INTNINE
 %type <bigsmall> BIGSMALL
 %type <variable> CONDITIONAL
 
+/*Tolkens*/
 %token VARIABLE_ID VALUE INTEGER_POINT ATRIBUTTE_ID
 %token INTNINE
 %token POINT
@@ -38,12 +40,13 @@
 %token COMPUTE END_COMPUTE DEFAULT CASE_SWITCH SWITCH END_SWITCH
 %token AND_TOKEN CONDITIONAL OR_TOKEN
 
-%token STRINGASPAS WHITE
+%token STRING_QUATATION WHITE
 %token IF_TOKEN ELSE_TOKEN
 %token END_IF STRING
 %token WHILE END_WHILE DONOTHING
 %token BIGSMALL PROGRAMNAME PIC PROCEDURE STOP ACCEPT
 
+/*Especify Math Operator's Precedence Order*/
 %left PLUS MINUS
 %left TIMES DIVIDE
 %left NEG
@@ -60,23 +63,34 @@ Input:
 
 Line:
    END
+   /*Identification and Variables Division*/
    | INCLUDE_STDIO {printf("#include <stdio.h>\n#include <stdlib.h>\n#include <math.h>\n\n");}
    | PROGRAMNAME STRING {/* DO NOTHING HERE */}
    | DATADIVISION  Working
    | PROCEDURE {/* DO NOTHING IN HERE*/}
-   | MAIN  {printf("\nint main() {\n"); } Print_variables;
-   | ACCEPT {printf("\tscanf(\"" );} DecideVariableType
-   | PRINT StringAspas
-   | NUMBER {printf("%lf\n", $<flutuante>1);}
    | POINT {/* NOTHING TO DO HERE */ }
-   | RETURN_0 {printf("\treturn 0;\n}\n"); printStruct(); exit(0);}
+
+   /*Procedure Divistion*/
+   | MAIN  {printf("\nint main() {\n"); } Print_variables;
+
+   /*Inputs and Outputs*/
+   | ACCEPT {printf("\tscanf(\"" );} DecideVariableType
+   | PRINT String_quatation
+
+   /*Conditionals and Sequencials Algorithms*/
    | IF_TOKEN Conditional_if
    | WHILE While
    | STOP {/* DO NOTHING HERE */}
    | COMPUTE {printf("\t");}Compute_variable END_COMPUTE {printf(";\n");}
    | SWITCH Switch_value Switch_function
    | CASE_SWITCH STRING {printf("\tcase %s:\n", $<letra>2);} Case_function  {printf("}\n");}
+
+   /*Comenties*/
    | TIMES {printf("\t//");} Line
+
+   /*End Procedure Division*/
+   | RETURN_0 {printf("\treturn 0;\n}\n"); printStruct(); exit(0);}
+
    ;
 
 Print_variables:
@@ -111,8 +125,8 @@ Value:
    | POINT {printPointComma();}
    | VALUE INTEGER_POINT {saveIntDataVariables ($<flutuante>2);}
    ;
-StringAspas:
-     STRINGASPAS {printf("\tprintf(" );
+String_quatation:
+     STRING_QUATATION {printf("\tprintf(" );
                             printf("%s", $<letra>1);
                             printf(");\n"); }
     | END

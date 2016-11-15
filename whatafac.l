@@ -13,16 +13,19 @@ variable_id "01"
 atributte_id "05"
 point "."
 biggersmaller [ ]?[<>][=]?[ ]?
-manystring [<>=!+()._0-9a-zA-Z ]+
-type9 "9("{integer}")"
-typeAX "A("?"X("?{integer}")"
-type9_decimal "9("{integer}")V"[9]+
+string_with_symbols [<>=!+()._0-9a-zA-Z ]+
+type_numeric "9("{integer}")"
+type_alpha_numeric "A("?"X("?{integer}")"
+type_numeric_decimal "9("{integer}")V"[9]+
 exponant [eE][+-]?{integer}
 real {integer}("."{integer})?{exponant}?
+/*Gets number with many decimal */
 integer_point {integer}"."
-aspas "\""
-stringcomaspas {aspas}{manystring}{aspas}
+quotation_marks "\""
+/*Gets almost any string*/
+string_with_quatation {quotation_marks}{string_with_symbols}{quotation_marks}
 string [-_0-9a-zA-Z]+
+/*Gets conditional statment at ifs or whiles*/
 conditional {string}{biggersmaller}{string}
 %%
 
@@ -77,13 +80,12 @@ conditional {string}{biggersmaller}{string}
 "AND" return(AND_TOKEN);
 "OR" return (OR_TOKEN);
 
-{stringcomaspas} {
+{string_with_quatation} {
   yylval.letra = yytext;
-  return (STRINGASPAS);
+  return (STRING_QUATATION);
 };
 
 {string} {
-  int qtdLetras = strlen(yytext);
   yylval.letra = yytext;
   return(STRING);
 };
@@ -107,7 +109,7 @@ conditional {string}{biggersmaller}{string}
 ")" return(RIGHT_PARENTHESIS);
 
 
-{type9} {
+{type_numeric} {
     yylval.variableType=yytext;
     if(yytext[0]=='9'){
       saveTypeVariables("int");
@@ -115,7 +117,7 @@ conditional {string}{biggersmaller}{string}
     }
 };
 
-{type9_decimal} {
+{type_numeric_decimal} {
     yylval.variableType=yytext;
     if(yytext[0]=='9'){
       saveTypeVariables("double");
@@ -125,7 +127,7 @@ conditional {string}{biggersmaller}{string}
 
 
 
-{typeAX} {
+{type_alpha_numeric} {
     yylval.variableType=yytext;
     if(yytext[0]=='A' || yytext[0]=='X' ){
       saveTypeVariables("char");
