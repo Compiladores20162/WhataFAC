@@ -1,5 +1,6 @@
 %{
 #include "functionsSyntatic.c"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -193,39 +194,12 @@ Switch_value:
 
 %%
 
-int verifyLogErrors(){
-  FILE *fp;
-  fp = fopen("logOfErrors.txt","r+");
-  if(fp == NULL){
-    printf("Erro ao abrir o arquivo!\n");
-    return 0;
-  }
-
-  char c;
-  do{
-    c = fgetc(fp);
-    printf("%c", c);
-
-  }while(c!=EOF);
-
-  fclose(fp);
-
-  return -1;
-}
-
 int yyerror(char *s) {
    printf("%s\n",s);
 }
 
 int main(void) {
-	int haveError = 0;
-	yyparse();
-	haveError = verifyLogErrors();
-	if(haveError == 0){
 
-		system("echo Codigo compilado com sucesso!\n");
-	}else{
-		system("make clean");
-		system("echo Codigo contem erro!\n");
-	}
+	yyparse();
+
 }

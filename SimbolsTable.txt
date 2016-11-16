@@ -1,3 +1,0 @@
-double valorInicial = 12.500000;
-char somaTotal ;
-char mediaAritmetica ;

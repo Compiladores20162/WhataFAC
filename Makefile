@@ -6,6 +6,7 @@ whatafac: whatafac.l whatafac.y
 	mv whatafac.tab.c sintatico.c
 	flex whatafac.l
 	mv lex.yy.c lexico.c
+	gcc -lm -o printErrors.out printErrors.c
 	gcc -lm -o whatafac.out sintatico.c lexico.c
 
 clean:
@@ -13,3 +14,4 @@ clean:
 
 run:
 	./whatafac.out < in.txt > out.c
+	./printErrors.out
