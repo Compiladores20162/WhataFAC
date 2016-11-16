@@ -1505,7 +1505,7 @@ yyreduce:
 
   case 30:
 #line 93 "whatafac.y" /* yacc.c:1646  */
-    {defineDataType((yyvsp[0].letra) );}
+    {  defineDataType((yyvsp[0].letra) );}
 #line 1510 "whatafac.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1603,7 +1603,7 @@ yyreduce:
 
   case 57:
 #line 125 "whatafac.y" /* yacc.c:1646  */
-    {printf(") {\n");}
+    {printf(") {\n\t");}
 #line 1608 "whatafac.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1615,7 +1615,7 @@ yyreduce:
 
   case 60:
 #line 131 "whatafac.y" /* yacc.c:1646  */
-    {printf("\t}else{\n");}
+    {printf("\t}else{\n\t");}
 #line 1620 "whatafac.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1684,7 +1684,7 @@ yyreduce:
 
   case 92:
 #line 177 "whatafac.y" /* yacc.c:1646  */
-    {printf("\tbreak;\n\tdefault:\n");}
+    {printf("\tbreak;\n\tdefault: ");}
 #line 1689 "whatafac.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1934,10 +1934,39 @@ yyreturn:
 #line 194 "whatafac.y" /* yacc.c:1906  */
 
 
+int verifyLogErrors(){
+  FILE *fp;
+  fp = fopen("logOfErrors.txt","r+");
+  if(fp == NULL){
+    printf("Erro ao abrir o arquivo!\n");
+    return 0;
+  }
+
+  char c;
+  do{
+    c = fgetc(fp);
+    printf("%c", c);
+
+  }while(c!=EOF);
+
+  fclose(fp);
+
+  return -1;
+}
+
 int yyerror(char *s) {
    printf("%s\n",s);
 }
 
 int main(void) {
-   yyparse();
+	int haveError = 0;
+	yyparse();
+	haveError = verifyLogErrors();
+	if(haveError == 0){
+
+		system("echo Codigo compilado com sucesso!\n");
+	}else{
+		system("make clean");
+		system("echo Codigo contem erro!\n");
+	}
 }

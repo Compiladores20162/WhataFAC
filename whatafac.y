@@ -64,7 +64,7 @@ Line:
    | PROGRAMNAME STRING {/* DO NOTHING HERE */}
    | DATADIVISION  Working
    | PROCEDURE {/* DO NOTHING IN HERE*/}
-   | MAIN  {printf("\nint main() {\n"); } Print_variables;
+   | MAIN  {printf("\nint main() {\n"); } Print_variables ;
    | ACCEPT {printf("\tscanf(\"" );} DecideVariableType
    | PRINT StringAspas
    | NUMBER {printf("%lf\n", $<flutuante>1);}
@@ -90,7 +90,7 @@ Working:
 
 
 DecideVariableType:
-    STRING {defineDataType($<letra>1 );}
+    STRING {  defineDataType($<letra>1 );}
 
 Variable:
   ZEROCINCO STRING PIC DONOTHING {saveNameVariables($<letra>2); } Value END TakeContentOfStruct
@@ -122,13 +122,13 @@ Conditional_if:
     CONDITIONAL {printf("\tif (%s " , $<variable>1);} Conditional_if DecideIf
     | AND_TOKEN {printf("&&");} CONDITIONAL  {printf(" %s " , $<variable>3);} Conditional_if
     | OR_TOKEN {printf("||");} CONDITIONAL  {printf(" %s " , $<variable>3);} Conditional_if
-    | END {printf(") {\n");}
+    | END {printf(") {\n\t");}
     ;
 
 DecideIf:
    END  DecideIf
   | END_IF {printf("\t}\n"); }
-  | ELSE_TOKEN {printf("\t}else{\n");}  DecideIf
+  | ELSE_TOKEN {printf("\t}else{\n\t");}  DecideIf
   | Line DecideIf
   | END_WHILE {printf("\t}\n");}
   | Line
@@ -174,7 +174,7 @@ Switch_function:
 Case_function:
     END CASE_SWITCH STRING {printf("\tbreak;\n\tcase %s:\n", $<letra>3);} Case_function
     | Line Case_function
-    | DEFAULT {printf("\tbreak;\n\tdefault:\n");} Default {printf("\t");}
+    | DEFAULT {printf("\tbreak;\n\tdefault: ");} Default {printf("\t");}
     | END_SWITCH END
     ;
 
@@ -193,10 +193,39 @@ Switch_value:
 
 %%
 
+int verifyLogErrors(){
+  FILE *fp;
+  fp = fopen("logOfErrors.txt","r+");
+  if(fp == NULL){
+    printf("Erro ao abrir o arquivo!\n");
+    return 0;
+  }
+
+  char c;
+  do{
+    c = fgetc(fp);
+    printf("%c", c);
+
+  }while(c!=EOF);
+
+  fclose(fp);
+
+  return -1;
+}
+
 int yyerror(char *s) {
    printf("%s\n",s);
 }
 
 int main(void) {
-   yyparse();
+	int haveError = 0;
+	yyparse();
+	haveError = verifyLogErrors();
+	if(haveError == 0){
+
+		system("echo Codigo compilado com sucesso!\n");
+	}else{
+		system("make clean");
+		system("echo Codigo contem erro!\n");
+	}
 }

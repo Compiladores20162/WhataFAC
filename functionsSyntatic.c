@@ -15,7 +15,7 @@ void print_variables(){
 
     while(!feof(simbolsTable)){
       //fscanf(simbolsTable,"%s",contentName);
-      //fgets(contentType, 300, TypeVariables);
+      //fgets(content, 300, TypeVariables);
       fgets(contentName, 300, simbolsTable);
       if(feof(simbolsTable))
         break;
@@ -72,38 +72,49 @@ void saveNameVariables (char content[50])
   fclose(fp);
 }
 
+
+
+
 void defineDataType(char content[50])
 {
   FILE *fp;
   fp = fopen("SimbolsTable.txt" , "r+");
+  int areFinal = 0;
   if(fp == NULL)
       printf("\n\n\nNão abriu!\n\n\n");
 
   char type[10] , name[50] , caracter;
-  int barraN_ascii = 10;
-
+  int barraN_ascii = 10 , achou = 0;
   while(!feof(fp)){
     fscanf(fp , "%s %s" , type , name);
     if (strcmp(content , name) == 0){
+      achou = 1;
       if (strcmp(type,"int") == 0){
         printf("%%d\"" );
+        printf(", &%s);\n" , name);
       } else if (strcmp(type,"double") == 0){
           printf("%%lf\"" );
-      } else if (strcmp(type,"char") == 0)
+          printf(", &%s);\n" , name);
+      } else if (strcmp(type,"char") == 0){
           printf("%%s\"");
-
-      printf(", &%s);\n" , name);
-      break;
+          printf(", &%s);\n" , name);
+        }
     }
-    caracter = fgetc(fp);
-    while( caracter != barraN_ascii ){
+    do{
       if(feof(fp)){
+        areFinal = 1;
         break;
       }
       caracter = fgetc(fp);
+      
+    }while( caracter != barraN_ascii);
+    if(areFinal == 1){
+      break;   
     }
   }
-
+  if (achou == 0){
+    insertError("Variavel nao foi declarada!\n");
+  }
   fclose(fp);
 }
 
@@ -195,4 +206,34 @@ void printStruct()
       printf("\n\n");
     }
   }
+}
+
+void insertError(char error[100]){
+  FILE *fp;
+  fp = fopen("logOfErrors.txt","a+");
+  if(fp == NULL)
+    printf("Erro ao abrir o arquivo!\n");
+
+  fprintf(fp,"%s", error);
+
+  fclose(fp);
+}
+int verifyErrors(){
+  FILE *fp;
+  fp = fopen("logOfErrors.txt","r+");
+  if(fp == NULL){
+    printf("Erro ao abrir o arquivo!\n");
+    return 0;
+  }
+
+  char c;
+  do{
+    c = fgetc(fp);
+    printf("%c", c);
+
+  }while(c!=EOF);
+
+  fclose(fp);
+
+  return -1;
 }
