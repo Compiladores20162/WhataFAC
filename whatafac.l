@@ -3,6 +3,7 @@
 #include "functionsLexic.c"
 #include <stdlib.h>
 #include <string.h>
+int passo =1;
 %}
 
 digit [0-9]
@@ -40,6 +41,7 @@ conditional {string}{biggersmaller}{string}
 {point} return(POINT);
 
 {conditional} {
+  printf("%d", passo);
   yylval.variable = yytext;
   return (CONDITIONAL);
 }

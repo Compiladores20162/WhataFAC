@@ -7,6 +7,11 @@
 
 %}
 
+%{
+  extern int passo;
+  extern FILE * yyin;
+%}
+
 %union{
    int num;
    float numero;
@@ -57,14 +62,14 @@
 
 Input:
    /* Empty */
-   | Input Line
+   | Input {printf("\n\n\nCOMECOU PORRA\n\n\n");} Line
    ;
 
 
 Line:
    END
    /*Identification and Variables Division*/
-   | INCLUDE_STDIO {printf("#include <stdio.h>\n#include <stdlib.h>\n#include <math.h>\n\n");}
+   | INCLUDE_STDIO {printf("#include <stdio.h>\n#include <stdlib.h>\n#include <math.h>\n\n", passo);}
    | PROGRAMNAME STRING {/* DO NOTHING HERE */}
    | DATADIVISION  Working
    | PROCEDURE {/* DO NOTHING IN HERE*/}
@@ -233,6 +238,16 @@ int yyerror(char *s) {
    printf("%s\n",s);
 }
 
-int main(void) {
-   yyparse();
+
+int main(void) {   
+  FILE *fp = fopen("in.txt", "r+");
+  yyin = fp;
+  yyparse();
+  fclose(fp);
+
+  fp = fopen("in.txt", "r+");
+  yyin = fp;
+  passo = 2;
+  yyparse();
+  fclose(fp);
 }
