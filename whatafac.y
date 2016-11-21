@@ -19,15 +19,17 @@
    char *bigsmall;
 }
 
+/*Especify tolkens types*/
 %type <flutuante> NUMBER
-%type <declaration> WINTEIRO
-%type <letra> STRINGASPAS
+%type <declaration> VARIABLE_ID
+%type <letra> STRING_QUATATION
 %type <letra> STRING
 %type <variableType> INTNINE
 %type <bigsmall> BIGSMALL
 %type <variable> CONDITIONAL
 
-%token WINTEIRO VALUE INTEGER_POINT ZEROCINCO
+/*Tolkens*/
+%token VARIABLE_ID VALUE INTEGER_POINT ATRIBUTTE_ID
 %token INTNINE
 %token POINT
 %token NUMBER
@@ -39,12 +41,13 @@
 %token COMPUTE END_COMPUTE DEFAULT CASE_SWITCH SWITCH END_SWITCH
 %token AND_TOKEN CONDITIONAL OR_TOKEN
 
-%token STRINGASPAS WHITE
+%token STRING_QUATATION WHITE
 %token IF_TOKEN ELSE_TOKEN
 %token END_IF STRING
 %token WHILE END_WHILE DONOTHING
 %token BIGSMALL PROGRAMNAME PIC PROCEDURE STOP ACCEPT
 
+/*Especify Math Operator's Precedence Order*/
 %left PLUS MINUS
 %left TIMES DIVIDE
 %left NEG
@@ -61,136 +64,170 @@ Input:
 
 Line:
    END
+   /*Identification and Variables Division*/
    | INCLUDE_STDIO {printf("#include <stdio.h>\n#include <stdlib.h>\n#include <math.h>\n\n");}
    | PROGRAMNAME STRING {/* DO NOTHING HERE */}
    | DATADIVISION  Working
    | PROCEDURE {/* DO NOTHING IN HERE*/}
-   | MAIN  {printf("\nint main() {\n"); } Print_variables ;
-   | ACCEPT {printf("\tscanf(\"" );} DecideVariableType
-   | PRINT StringAspas
-   | NUMBER {printf("%lf\n", $<flutuante>1);}
    | POINT {/* NOTHING TO DO HERE */ }
-   | RETURN_0 {printf("\treturn 0;\n}\n"); printStruct(); exit(0);}
+
+   /*Procedure Divistion*/
+   | MAIN  {printf("\nint main() {\n"); } Print_variables;
+
+   /*Inputs and Outputs*/
+   | ACCEPT {printf("\tscanf(\"" );} DecideVariableType
+   | PRINT String_quatation
+
+   /*Conditionals and Sequencials Algorithms*/
    | IF_TOKEN Conditional_if
    | WHILE While
    | STOP {/* DO NOTHING HERE */}
    | COMPUTE {printf("\t");}Compute_variable END_COMPUTE {printf(";\n");}
    | SWITCH Switch_value Switch_function
    | CASE_SWITCH STRING {printf("\tcase %s:\n", $<letra>2);} Case_function  {printf("}\n");}
+
+   /*Comenties*/
    | TIMES {printf("\t//");} Line
+
+   /*End Procedure Division*/
+   | RETURN_0 {printf("\treturn 0;\n}\n"); printStruct(); exit(0);}
    ;
 
-Print_variables:
-  {print_variables();}
-  ;
+  /*For Initial codes*/
+  Working:
+     END WORKINGSTORAGE  Variable
+     | END
+     ;
 
-Working:
-   END WORKINGSTORAGE  Variable
-   | END
-   ;
-
-
-DecideVariableType:
-    STRING {  defineDataType($<letra>1 );}
-
-Variable:
-  ZEROCINCO STRING PIC DONOTHING {saveNameVariables($<letra>2); } Value END TakeContentOfStruct
-  | WINTEIRO STRING PIC DONOTHING {saveNameVariables($<letra>2);} Value  END  Variable
-  | WINTEIRO STRING POINT{saveTypeVariables("struct "); saveNameVariables($<letra>2); printOpenBrackets();} END Variable
-  | /* DO NOTHING IN HERE */
-  ;
-
-TakeContentOfStruct:
-  ZEROCINCO STRING PIC DONOTHING {saveNameVariables($<letra>2); } Value END TakeContentOfStruct Variable
-  | END {printCloseBrackets(); printPointComma();} Variable
-  | {printCloseBrackets(); printPointComma();} Variable
-  ;
+  /*identifies variable types*/
+  Variable:
+    ATRIBUTTE_ID STRING PIC DONOTHING {saveNameVariables($<letra>2); } Value END TakeContentOfStruct
+    | VARIABLE_ID STRING PIC DONOTHING {saveNameVariables($<letra>2);} Value  END  Variable
+    | VARIABLE_ID STRING POINT{saveTypeVariables("struct "); saveNameVariables($<letra>2); printOpenBrackets();} END Variable
+    | /* DO NOTHING IN HERE */
+    ;
 
 
-Value:
+    DecideVariableType:
+    STRING {defineDataType($<letra>1 );}
+
+
+     Print_variables:
+    {print_variables();}
+    ;
+
+  /*Variables' value*/
+  Value:
    VALUE NUMBER POINT {saveFloatDataVariables ($<flutuante>2);}
    | POINT {printPointComma();}
    | VALUE INTEGER_POINT {saveIntDataVariables ($<flutuante>2);}
    ;
-StringAspas:
-     STRINGASPAS {printf("\tprintf(" );
+
+
+   /*Catch struct's content*/
+  TakeContentOfStruct:
+    ATRIBUTTE_ID STRING PIC DONOTHING {saveNameVariables($<letra>2); } Value END TakeContentOfStruct Variable
+    | END {printCloseBrackets(); printPointComma();} Variable
+    | {printCloseBrackets(); printPointComma();} Variable
+    ;
+
+  /*Save a string with quatation marks. Important to print string values*/
+  String_quatation:
+     STRING_QUATATION {printf("\tprintf(" );
                             printf("%s", $<letra>1);
                             printf(");\n"); }
     | END
     ;
 
-Conditional_if:
-    CONDITIONAL {printf("\tif (%s " , $<variable>1);} Conditional_if DecideIf
-    | AND_TOKEN {printf("&&");} CONDITIONAL  {printf(" %s " , $<variable>3);} Conditional_if
-    | OR_TOKEN {printf("||");} CONDITIONAL  {printf(" %s " , $<variable>3);} Conditional_if
-    | END {printf(") {\n\t");}
+
+
+
+    /*If-Else Commands*/
+
+  /*Defines conditional expressions */
+  Conditional_if:
+      CONDITIONAL {printf("\tif (%s " , $<variable>1);} Conditional_if DecideIf
+      | AND_TOKEN {printf("&&");} CONDITIONAL  {printf(" %s " , $<variable>3);} Conditional_if
+      | OR_TOKEN {printf("||");} CONDITIONAL  {printf(" %s " , $<variable>3);} Conditional_if
+      | END {printf(") {\n");}
+      ;
+
+  /*Define if-else hierarchy*/
+  DecideIf:
+     END  DecideIf
+    | END_IF {printf("\t}\n"); }
+    | ELSE_TOKEN {printf("\t}else{\n");}  DecideIf
+    | Line DecideIf
+    | END_WHILE {printf("\t}\n");}
+    | Line
     ;
 
-DecideIf:
-   END  DecideIf
-  | END_IF {printf("\t}\n"); }
-  | ELSE_TOKEN {printf("\t}else{\n\t");}  DecideIf
-  | Line DecideIf
-  | END_WHILE {printf("\t}\n");}
-  | Line
-  ;
+  /*Writes expressions inside while*/
+  While:
+    CONDITIONAL {printf("\twhile (%s " , $<variable>1);} Conditional_if DecideIf
+      | AND_TOKEN {printf("&&");} CONDITIONAL  {printf(" %s " , $<variable>3);} Conditional_if
+      | OR_TOKEN {printf("||");} CONDITIONAL  {printf(" %s " , $<variable>3);} Conditional_if
+      | END {printf(") {\n");}
+      ;
 
-While:
-  CONDITIONAL {printf("\twhile (%s " , $<variable>1);} Conditional_if DecideIf
-    | AND_TOKEN {printf("&&");} CONDITIONAL  {printf(" %s " , $<variable>3);} Conditional_if
-    | OR_TOKEN {printf("||");} CONDITIONAL  {printf(" %s " , $<variable>3);} Conditional_if
-    | END {printf(") {\n");}
-    ;
 
-Compute_variable:
-    END Compute_variable
-    | STRING EQUALS Compute_sequence {
-      char* this = getTillLineBreak($<letra>1);
-      printf("%s", this);
-    }
-    ;
 
-Compute_sequence:
-    END
-    | STRING Compute_sequence
-    | NUMBER Compute_sequence
-    | Signs Compute_sequence
-    | LEFT_PARENTHESIS Compute_sequence
-    | RIGHT_PARENTHESIS Compute_sequence
-    ;
+  /*Compute Comands*/
 
-Signs:
-    PLUS
-    | MINUS
-    | TIMES
-    | DIVIDE
-    ;
 
-Switch_function:
-    END Switch_function
-    | Line Switch_function
-    | END_SWITCH END {printf("}\n");}
-    ;
+  Compute_variable:
+      END Compute_variable
+      | STRING EQUALS Compute_sequence {
+        char* this = getTillLineBreak($<letra>1);
+        printf("%s", this);
+      }
+      ;
 
-Case_function:
-    END CASE_SWITCH STRING {printf("\tbreak;\n\tcase %s:\n", $<letra>3);} Case_function
-    | Line Case_function
-    | DEFAULT {printf("\tbreak;\n\tdefault: ");} Default {printf("\t");}
-    | END_SWITCH END
-    ;
+  /*Hierarchy of calculation commands*/
+  Compute_sequence:
+      END
+      | STRING Compute_sequence
+      | NUMBER Compute_sequence
+      | Signs Compute_sequence
+      | LEFT_PARENTHESIS Compute_sequence
+      | RIGHT_PARENTHESIS Compute_sequence
+      ;
 
-Default:
-    END Default
-    | Line Default
-    | END_SWITCH END
-    ;
+  Signs:
+      PLUS
+      | MINUS
+      | TIMES
+      | DIVIDE
+      ;
 
-Switch_value:
-    STRING {
-    printf("\tswitch (%s) {\n", $<letra>1);
-    }
-    ;
 
+
+  /*Switch Commands*/
+
+  Switch_function:
+      END Switch_function
+      | Line Switch_function
+      | END_SWITCH END {printf("}\n");}
+      ;
+
+  Case_function:
+      END CASE_SWITCH STRING {printf("\tbreak;\n\tcase %s:\n", $<letra>3);} Case_function
+      | Line Case_function
+      | DEFAULT {printf("\tbreak;\n\tdefault:\n");} Default {printf("\t");}
+      | END_SWITCH END
+      ;
+
+  Default:
+      END Default
+      | Line Default
+      | END_SWITCH END
+      ;
+
+  Switch_value:
+      STRING {
+      printf("\tswitch (%s) {\n", $<letra>1);
+      }
+      ;
 
 %%
 
