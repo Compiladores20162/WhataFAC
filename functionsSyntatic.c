@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-int passo;
+int step;
 void print_variables(){
 
   FILE *simbolsTable;
@@ -59,7 +59,7 @@ char* getTillLineBreak(char* sentense)
 
 void saveNameVariables (char content[50])
 {
-  if (passo==1){
+  if (step==1){
     FILE *fp;
 
     fp = fopen("SimbolsTable.txt", "a+");
@@ -113,7 +113,7 @@ void defineDataType(char content[50])
 
 void saveFloatDataVariables (double numero)
 {
-  if (passo == 1)
+  if (step == 1)
   {
     FILE *fp;
 
@@ -131,7 +131,7 @@ void saveFloatDataVariables (double numero)
 
 void saveIntDataVariables (int numero)
 {
-  if (passo == 1){
+  if (step == 1){
   FILE *fp;
 
   fp = fopen("SimbolsTable.txt", "a+");
@@ -147,7 +147,7 @@ void saveIntDataVariables (int numero)
 }
 
 void printPointComma(){
-  if (passo == 1)
+  if (step == 1)
   {
     FILE *fp;
 
@@ -161,7 +161,7 @@ void printPointComma(){
 }
 
 void printOpenBrackets(){
-  if (passo == 1)
+  if (step == 1)
   {
     FILE *fp;
     fp = fopen("SimbolsTable.txt", "a+");
@@ -174,7 +174,7 @@ void printOpenBrackets(){
 }
 
 void printCloseBrackets(){
-  if (passo == 1)
+  if (step == 1)
   {
     FILE *fp;
     fp = fopen("SimbolsTable.txt", "a+");

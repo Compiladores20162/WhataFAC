@@ -3,7 +3,7 @@
 #include "functionsLexic.c"
 #include <stdlib.h>
 #include <string.h>
-int passo =1;
+int step =1;
 %}
 
 digit [0-9]

@@ -8,7 +8,7 @@
 %}
 
 %{
-  extern int passo;
+  extern int step;
   extern FILE * yyin;
 %}
 
@@ -72,7 +72,7 @@ Line:
 
    /*Identification and Variables Division*/
    | INCLUDE_STDIO {
-      if (passo == 2) {
+      if (step == 2) {
         printf("\n#include <stdio.h>\n#include <stdlib.h>\n#include <math.h>\n\n");
         printStruct();
       }
@@ -86,14 +86,14 @@ Line:
 
    /*Procedure Divistion*/
    | MAIN  {
-      if(passo == 2)
+      if(step == 2)
         printf("\nint main() {\n"); 
     } Print_variables;
 
 
    /*Inputs and Outputs*/
    | ACCEPT {
-      if (passo == 2)  
+      if (step == 2)  
         printf("\tscanf(\"" );
     } DecideVariableType
    
@@ -105,43 +105,43 @@ Line:
    | WHILE While
    | STOP {/* DO NOTHING HERE */}
    | COMPUTE {
-      if (passo == 2)
+      if (step == 2)
         printf("\t");
     }Compute_variable END_COMPUTE {
-      if (passo == 2)
+      if (step == 2)
         printf(";\n");
     }
    
 
    | SWITCH Switch_value Switch_function
    | CASE_SWITCH STRING {
-      if (passo == 2)
+      if (step == 2)
         printf("\tcase %s:\n", $<letra>2);
     } 
    Case_function  {
-    if (passo == 2)
+    if (step == 2)
       printf("}\n");
     }
 
    
    /*Comenties*/
    | TIMES {
-      if (passo == 2)
+      if (step == 2)
         printf("\t//");
     } Line
 
    
    /*End Procedure Division*/
    | RETURN_0 {
-                if (passo == 1)
+                if (step == 1)
                 {
-                  passo = 2;
+                  step = 2;
                   FILE *fp = fopen("in.txt", "r+");
                   yyin = fp;
                   yyrestart(fp);
                   yyparse();
                 }
-                if (passo == 2)
+                if (step == 2)
                 {
                   printf("\treturn 0;\n}\n");  
                   exit(0);  
@@ -169,14 +169,14 @@ Line:
 
     DecideVariableType:
     STRING {
-      if (passo == 2)
+      if (step == 2)
         defineDataType($<letra>1 );
     }
 
 
      Print_variables:
     {
-      if (passo == 2)
+      if (step == 2)
         print_variables();
     }
     ;
@@ -198,7 +198,7 @@ Line:
   /*Save a string with quatation marks. Important to print string values*/
   String_quatation:
      STRING_QUATATION {
-      if (passo == 2) {
+      if (step == 2) {
         printf("\tprintf(" );
         printf("%s", $<letra>1);
         printf(");\n"); 
@@ -216,28 +216,28 @@ Line:
   /*Defines conditional expressions */
   Conditional_if:
       CONDITIONAL {
-        if(passo == 2)
+        if(step == 2)
           printf("\tif (%s " , $<variable>1);
       } Conditional_if DecideIf
       
       | AND_TOKEN {
-        if (passo == 2)
+        if (step == 2)
           printf("&&");
       } CONDITIONAL  {
-        if(passo == 2)
+        if(step == 2)
           printf(" %s " , $<variable>3);
       } Conditional_if
 
       | OR_TOKEN {
-        if(passo == 2)
+        if(step == 2)
           printf("||");
       } CONDITIONAL  {
-        if (passo == 2)
+        if (step == 2)
         printf(" %s " , $<variable>3);
       } Conditional_if
 
       | END {
-        if (passo == 2)
+        if (step == 2)
           printf(") {\n");
       }
       ;
@@ -246,19 +246,19 @@ Line:
   DecideIf:
      END  DecideIf
     | END_IF {
-      if (passo == 2)
+      if (step == 2)
         printf("\t}\n");
     }
 
     | ELSE_TOKEN {
-      if (passo == 2)
+      if (step == 2)
         printf("\t}else{\n");
     }  DecideIf
     
     | Line DecideIf
     
     | END_WHILE {
-      if (passo == 2)
+      if (step == 2)
         printf("\t}\n");
     }
     
@@ -269,28 +269,28 @@ Line:
   /*Writes expressions inside while*/
   While:
       CONDITIONAL {
-        if (passo == 2)
+        if (step == 2)
           printf("\twhile (%s " , $<variable>1);
       } Conditional_if DecideIf
       
       | AND_TOKEN {
-        if (passo == 2)
+        if (step == 2)
           printf("&&");
       } CONDITIONAL  {
-        if (passo == 2)
+        if (step == 2)
           printf(" %s " , $<variable>3);
       } Conditional_if
       
       | OR_TOKEN {
-        if (passo == 2)
+        if (step == 2)
           printf("||");
       } CONDITIONAL  {
-        if (passo == 2)
+        if (step == 2)
           printf(" %s " , $<variable>3);
       } Conditional_if
       
       | END {
-        if (passo == 2)
+        if (step == 2)
           printf(") {\n");
       }
       ;
@@ -303,7 +303,7 @@ Line:
   Compute_variable:
       END Compute_variable
       | STRING EQUALS Compute_sequence {
-        if (passo == 2){
+        if (step == 2){
           char* this = getTillLineBreak($<letra>1);
           printf("%s", this);
         }
@@ -335,24 +335,24 @@ Line:
       END Switch_function
       | Line Switch_function
       | END_SWITCH END {
-        if (passo == 2)
+        if (step == 2)
           printf("}\n");
       }
       ;
 
   Case_function:
       END CASE_SWITCH STRING {
-        if (passo == 2)
+        if (step == 2)
           printf("\tbreak;\n\tcase %s:\n", $<letra>3);
       } Case_function
       
       | Line Case_function
       
       | DEFAULT {
-        if (passo == 2)
+        if (step == 2)
           printf("\tbreak;\n\tdefault:\n");
       } Default {
-        if (passo == 2)
+        if (step == 2)
           printf("\t");
       }
       
@@ -367,7 +367,7 @@ Line:
 
   Switch_value:
       STRING {
-        if (passo == 2)
+        if (step == 2)
           printf("\tswitch (%s) {\n", $<letra>1);
       }
       ;
@@ -384,7 +384,7 @@ int main(void) {
   yyin = fp;
   yyparse();
 
-  // passo = 2;
+  // step = 2;
   // fp = fopen("in.txt", "r+");
   // yyin = fp;
   // yyparse();

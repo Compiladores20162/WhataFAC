@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
-int passo;
+int step;
 
 void saveTypeVariables(char content[50])
 {
-	if (passo == 1)
+	if (step == 1)
 	{
 	  FILE *fp;
 

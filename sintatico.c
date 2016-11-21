@@ -72,7 +72,7 @@
 
 #line 10 "whatafac.y" /* yacc.c:339  */
 
-  extern int passo;
+  extern int step;
   extern FILE * yyin;
 
 #line 79 "whatafac.tab.c" /* yacc.c:339  */
@@ -1417,7 +1417,7 @@ yyreduce:
         case 5:
 #line 74 "whatafac.y" /* yacc.c:1646  */
     {
-      if (passo == 2) {
+      if (step == 2) {
         printf("\n#include <stdio.h>\n#include <stdlib.h>\n#include <math.h>\n\n");
         printStruct();
       }
@@ -1446,7 +1446,7 @@ yyreduce:
   case 10:
 #line 88 "whatafac.y" /* yacc.c:1646  */
     {
-      if(passo == 2)
+      if(step == 2)
         printf("\nint main() {\n"); 
     }
 #line 1453 "whatafac.tab.c" /* yacc.c:1646  */
@@ -1455,7 +1455,7 @@ yyreduce:
   case 12:
 #line 95 "whatafac.y" /* yacc.c:1646  */
     {
-      if (passo == 2)  
+      if (step == 2)  
         printf("\tscanf(\"" );
     }
 #line 1462 "whatafac.tab.c" /* yacc.c:1646  */
@@ -1470,7 +1470,7 @@ yyreduce:
   case 18:
 #line 107 "whatafac.y" /* yacc.c:1646  */
     {
-      if (passo == 2)
+      if (step == 2)
         printf("\t");
     }
 #line 1477 "whatafac.tab.c" /* yacc.c:1646  */
@@ -1479,7 +1479,7 @@ yyreduce:
   case 19:
 #line 110 "whatafac.y" /* yacc.c:1646  */
     {
-      if (passo == 2)
+      if (step == 2)
         printf(";\n");
     }
 #line 1486 "whatafac.tab.c" /* yacc.c:1646  */
@@ -1488,7 +1488,7 @@ yyreduce:
   case 21:
 #line 117 "whatafac.y" /* yacc.c:1646  */
     {
-      if (passo == 2)
+      if (step == 2)
         printf("\tcase %s:\n", (yyvsp[0].letra));
     }
 #line 1495 "whatafac.tab.c" /* yacc.c:1646  */
@@ -1497,7 +1497,7 @@ yyreduce:
   case 22:
 #line 121 "whatafac.y" /* yacc.c:1646  */
     {
-    if (passo == 2)
+    if (step == 2)
       printf("}\n");
     }
 #line 1504 "whatafac.tab.c" /* yacc.c:1646  */
@@ -1506,7 +1506,7 @@ yyreduce:
   case 23:
 #line 128 "whatafac.y" /* yacc.c:1646  */
     {
-      if (passo == 2)
+      if (step == 2)
         printf("\t//");
     }
 #line 1513 "whatafac.tab.c" /* yacc.c:1646  */
@@ -1515,15 +1515,15 @@ yyreduce:
   case 25:
 #line 135 "whatafac.y" /* yacc.c:1646  */
     {
-                if (passo == 1)
+                if (step == 1)
                 {
-                  passo = 2;
+                  step = 2;
                   FILE *fp = fopen("in.txt", "r+");
                   yyin = fp;
                   yyrestart(fp);
                   yyparse();
                 }
-                if (passo == 2)
+                if (step == 2)
                 {
                   printf("\treturn 0;\n}\n");  
                   exit(0);  
@@ -1557,7 +1557,7 @@ yyreduce:
   case 35:
 #line 171 "whatafac.y" /* yacc.c:1646  */
     {
-      if (passo == 2)
+      if (step == 2)
         defineDataType((yyvsp[0].letra) );
     }
 #line 1564 "whatafac.tab.c" /* yacc.c:1646  */
@@ -1566,7 +1566,7 @@ yyreduce:
   case 36:
 #line 178 "whatafac.y" /* yacc.c:1646  */
     {
-      if (passo == 2)
+      if (step == 2)
         print_variables();
     }
 #line 1573 "whatafac.tab.c" /* yacc.c:1646  */
@@ -1611,7 +1611,7 @@ yyreduce:
   case 46:
 #line 200 "whatafac.y" /* yacc.c:1646  */
     {
-      if (passo == 2) {
+      if (step == 2) {
         printf("\tprintf(" );
         printf("%s", (yyvsp[0].letra));
         printf(");\n"); 
@@ -1623,7 +1623,7 @@ yyreduce:
   case 48:
 #line 218 "whatafac.y" /* yacc.c:1646  */
     {
-        if(passo == 2)
+        if(step == 2)
           printf("\tif (%s " , (yyvsp[0].variable));
       }
 #line 1630 "whatafac.tab.c" /* yacc.c:1646  */
@@ -1632,7 +1632,7 @@ yyreduce:
   case 50:
 #line 223 "whatafac.y" /* yacc.c:1646  */
     {
-        if (passo == 2)
+        if (step == 2)
           printf("&&");
       }
 #line 1639 "whatafac.tab.c" /* yacc.c:1646  */
@@ -1641,7 +1641,7 @@ yyreduce:
   case 51:
 #line 226 "whatafac.y" /* yacc.c:1646  */
     {
-        if(passo == 2)
+        if(step == 2)
           printf(" %s " , (yyvsp[0].variable));
       }
 #line 1648 "whatafac.tab.c" /* yacc.c:1646  */
@@ -1650,7 +1650,7 @@ yyreduce:
   case 53:
 #line 231 "whatafac.y" /* yacc.c:1646  */
     {
-        if(passo == 2)
+        if(step == 2)
           printf("||");
       }
 #line 1657 "whatafac.tab.c" /* yacc.c:1646  */
@@ -1659,7 +1659,7 @@ yyreduce:
   case 54:
 #line 234 "whatafac.y" /* yacc.c:1646  */
     {
-        if (passo == 2)
+        if (step == 2)
         printf(" %s " , (yyvsp[0].variable));
       }
 #line 1666 "whatafac.tab.c" /* yacc.c:1646  */
@@ -1668,7 +1668,7 @@ yyreduce:
   case 56:
 #line 239 "whatafac.y" /* yacc.c:1646  */
     {
-        if (passo == 2)
+        if (step == 2)
           printf(") {\n");
       }
 #line 1675 "whatafac.tab.c" /* yacc.c:1646  */
@@ -1677,7 +1677,7 @@ yyreduce:
   case 58:
 #line 248 "whatafac.y" /* yacc.c:1646  */
     {
-      if (passo == 2)
+      if (step == 2)
         printf("\t}\n");
     }
 #line 1684 "whatafac.tab.c" /* yacc.c:1646  */
@@ -1686,7 +1686,7 @@ yyreduce:
   case 59:
 #line 253 "whatafac.y" /* yacc.c:1646  */
     {
-      if (passo == 2)
+      if (step == 2)
         printf("\t}else{\n");
     }
 #line 1693 "whatafac.tab.c" /* yacc.c:1646  */
@@ -1695,7 +1695,7 @@ yyreduce:
   case 62:
 #line 260 "whatafac.y" /* yacc.c:1646  */
     {
-      if (passo == 2)
+      if (step == 2)
         printf("\t}\n");
     }
 #line 1702 "whatafac.tab.c" /* yacc.c:1646  */
@@ -1704,7 +1704,7 @@ yyreduce:
   case 64:
 #line 271 "whatafac.y" /* yacc.c:1646  */
     {
-        if (passo == 2)
+        if (step == 2)
           printf("\twhile (%s " , (yyvsp[0].variable));
       }
 #line 1711 "whatafac.tab.c" /* yacc.c:1646  */
@@ -1713,7 +1713,7 @@ yyreduce:
   case 66:
 #line 276 "whatafac.y" /* yacc.c:1646  */
     {
-        if (passo == 2)
+        if (step == 2)
           printf("&&");
       }
 #line 1720 "whatafac.tab.c" /* yacc.c:1646  */
@@ -1722,7 +1722,7 @@ yyreduce:
   case 67:
 #line 279 "whatafac.y" /* yacc.c:1646  */
     {
-        if (passo == 2)
+        if (step == 2)
           printf(" %s " , (yyvsp[0].variable));
       }
 #line 1729 "whatafac.tab.c" /* yacc.c:1646  */
@@ -1731,7 +1731,7 @@ yyreduce:
   case 69:
 #line 284 "whatafac.y" /* yacc.c:1646  */
     {
-        if (passo == 2)
+        if (step == 2)
           printf("||");
       }
 #line 1738 "whatafac.tab.c" /* yacc.c:1646  */
@@ -1740,7 +1740,7 @@ yyreduce:
   case 70:
 #line 287 "whatafac.y" /* yacc.c:1646  */
     {
-        if (passo == 2)
+        if (step == 2)
           printf(" %s " , (yyvsp[0].variable));
       }
 #line 1747 "whatafac.tab.c" /* yacc.c:1646  */
@@ -1749,7 +1749,7 @@ yyreduce:
   case 72:
 #line 292 "whatafac.y" /* yacc.c:1646  */
     {
-        if (passo == 2)
+        if (step == 2)
           printf(") {\n");
       }
 #line 1756 "whatafac.tab.c" /* yacc.c:1646  */
@@ -1758,7 +1758,7 @@ yyreduce:
   case 74:
 #line 305 "whatafac.y" /* yacc.c:1646  */
     {
-        if (passo == 2){
+        if (step == 2){
           char* this = getTillLineBreak((yyvsp[-2].letra));
           printf("%s", this);
         }
@@ -1769,7 +1769,7 @@ yyreduce:
   case 87:
 #line 337 "whatafac.y" /* yacc.c:1646  */
     {
-        if (passo == 2)
+        if (step == 2)
           printf("}\n");
       }
 #line 1776 "whatafac.tab.c" /* yacc.c:1646  */
@@ -1778,7 +1778,7 @@ yyreduce:
   case 88:
 #line 344 "whatafac.y" /* yacc.c:1646  */
     {
-        if (passo == 2)
+        if (step == 2)
           printf("\tbreak;\n\tcase %s:\n", (yyvsp[0].letra));
       }
 #line 1785 "whatafac.tab.c" /* yacc.c:1646  */
@@ -1787,7 +1787,7 @@ yyreduce:
   case 91:
 #line 351 "whatafac.y" /* yacc.c:1646  */
     {
-        if (passo == 2)
+        if (step == 2)
           printf("\tbreak;\n\tdefault:\n");
       }
 #line 1794 "whatafac.tab.c" /* yacc.c:1646  */
@@ -1796,7 +1796,7 @@ yyreduce:
   case 92:
 #line 354 "whatafac.y" /* yacc.c:1646  */
     {
-        if (passo == 2)
+        if (step == 2)
           printf("\t");
       }
 #line 1803 "whatafac.tab.c" /* yacc.c:1646  */
@@ -1805,7 +1805,7 @@ yyreduce:
   case 97:
 #line 369 "whatafac.y" /* yacc.c:1646  */
     {
-        if (passo == 2)
+        if (step == 2)
           printf("\tswitch (%s) {\n", (yyvsp[0].letra));
       }
 #line 1812 "whatafac.tab.c" /* yacc.c:1646  */
@@ -2053,7 +2053,7 @@ int main(void) {
   yyin = fp;
   yyparse();
 
-  // passo = 2;
+  // step = 2;
   // fp = fopen("in.txt", "r+");
   // yyin = fp;
   // yyparse();
