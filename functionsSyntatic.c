@@ -106,10 +106,10 @@ void defineDataType(char content[50])
         break;
       }
       caracter = fgetc(fp);
-      
+
     }while( caracter != barraN_ascii);
-    if(areFinal == 1){
-      break;   
+    if(areFinal == 1 || achou == 1){
+      break;
     }
   }
   if (achou == 0){
