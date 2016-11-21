@@ -2,7 +2,7 @@ IDENTIFICATION DIVISION.
 PROGRAM-ID. MEUPROGRAMA.
 DATA DIVISION.
 WORKING-STORAGE SECTION.
-    01 conta_carro PIC 9(4) VALUE 50.
+    01 conta_carro PIC 9(4) VALUE 10.
     01 mediaCarros PIC 9(5).
     01 primeira_struct .
         05 valor_struct_1 PIC 9(5).

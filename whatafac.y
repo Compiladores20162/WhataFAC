@@ -139,10 +139,7 @@ Line:
     | END
     ;
 
-
-
-
-    /*If-Else Commands*/
+  /*If-Else Commands*/
 
   /*Defines conditional expressions */
   Conditional_if:

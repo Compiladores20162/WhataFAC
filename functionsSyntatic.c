@@ -113,7 +113,9 @@ void defineDataType(char content[50])
     }
   }
   if (achou == 0){
-    insertError("Variavel nao foi declarada!\n");
+    insertError("-> A variável ");
+    insertError(content);
+    insertError(" não foi declarada!\n");
   }
   fclose(fp);
 }
@@ -126,7 +128,11 @@ void saveFloatDataVariables (double numero)
   if(fp == NULL)
       printf("\n\n\nNão abriu!\n\n\n");
 
-
+  if(numero > 100){
+    insertError("-> Overflow da variavel float utilizada!\n");
+  }else if(numero < -100){
+    insertError("-> Underflow da variavel float utilizada!\n");
+  }
   fprintf(fp, " = %lf", numero);
 
   fprintf(fp, ";\n");
@@ -141,7 +147,11 @@ void saveIntDataVariables (int numero)
   if(fp == NULL)
       printf("\n\n\nNão abriu!\n\n\n");
 
-
+  if(numero > 100){
+    insertError("-> Overflow da variavel int utilizada!\n");
+  }else if(numero < -100){
+    insertError("-> Underflow da variavel int utilizada!\n");
+  }
   fprintf(fp, " = %d", numero);
 
   fprintf(fp, ";\n");
@@ -228,9 +238,8 @@ int verifyErrors(){
 
   char c;
   do{
-    c = fgetc(fp);
     printf("%c", c);
-
+    c = fgetc(fp);
   }while(c!=EOF);
 
   fclose(fp);

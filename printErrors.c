@@ -8,10 +8,10 @@ int main(){
 
   haveError = verifyLogErrors();
   if(haveError == 0){
-    printf("\nCódigo compilado com sucesso!\n");
+    printf("-> Código compilado com sucesso!\n");
   }else{
     system("make clean -w");
-    printf("\nFalha ao compilar.\n");
+    printf("\n-> Falha ao compilar.\n");
   }
   return 0;
 }
@@ -19,12 +19,16 @@ int verifyLogErrors(){
   FILE *fp;
   char c;
   fp = fopen("logOfErrors.txt","r");
+  printf("\n");
   if(fp == NULL){
     return 0;
   }else{
     do{
-      c = fgetc(fp);
       printf("%c", c);
+      c = fgetc(fp);
+      if(c == '\n'){
+        printf("\n");
+      }
     }while(c!=EOF);
     return -1;
   }
