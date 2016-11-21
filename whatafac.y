@@ -94,9 +94,19 @@ Line:
    | TIMES {printf("\t//");} Line
 
    /*End Procedure Division*/
-   | RETURN_0 {printf("\treturn 0;\n}\n"); 
-              printStruct(); 
-             
+   | RETURN_0 {printf("\treturn 0;\n}\n");  
+                printStruct();
+
+              if (passo == 1)
+              {
+                passo = 2;
+                FILE *fp = fopen("in.txt", "r+");
+                yyin = fp;
+                yyrestart(fp);
+                yyparse();
+              }
+              if (passo == 2)
+                exit(0);  
             }
    ;
 
@@ -246,18 +256,10 @@ int main(void) {
   FILE *fp = fopen("in.txt", "r+");
   yyin = fp;
   yyparse();
-  // fclose(fp);
 
-   // FILE *fp = fopen("in.txt", "r+");
-  // yyrestart(fp);  
-  passo = 2;
-  fp = fopen("in.txt", "r+");
-  yyin = fp;
-  yyparse();
-  fclose(fp);
-  exit(0);
-
-
-  
-  // printf("\n\n\n\npassou aqui\n\n\n\n\n");
+  // passo = 2;
+  // fp = fopen("in.txt", "r+");
+  // yyin = fp;
+  // yyparse();
+  // exit(0);
 }
