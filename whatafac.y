@@ -68,6 +68,8 @@ Input:
 
 Line:
    END
+
+
    /*Identification and Variables Division*/
    | INCLUDE_STDIO {
       if (passo == 2) {
@@ -75,10 +77,12 @@ Line:
         printStruct();
       }
     }
+   
    | PROGRAMNAME STRING {/* DO NOTHING HERE */}
    | DATADIVISION  Working
    | PROCEDURE {/* DO NOTHING IN HERE*/}
    | POINT {/* NOTHING TO DO HERE */ }
+
 
    /*Procedure Divistion*/
    | MAIN  {
@@ -86,11 +90,14 @@ Line:
         printf("\nint main() {\n"); 
     } Print_variables;
 
+
    /*Inputs and Outputs*/
    | ACCEPT {
       if (passo == 2)  
         printf("\tscanf(\"" );
     } DecideVariableType
+   
+
    | PRINT String_quatation
 
    /*Conditionals and Sequencials Algorithms*/
@@ -104,6 +111,8 @@ Line:
       if (passo == 2)
         printf(";\n");
     }
+   
+
    | SWITCH Switch_value Switch_function
    | CASE_SWITCH STRING {
       if (passo == 2)
@@ -114,12 +123,14 @@ Line:
       printf("}\n");
     }
 
+   
    /*Comenties*/
    | TIMES {
       if (passo == 2)
         printf("\t//");
     } Line
 
+   
    /*End Procedure Division*/
    | RETURN_0 {
                 if (passo == 1)
@@ -149,11 +160,9 @@ Line:
     ATRIBUTTE_ID STRING PIC DONOTHING {saveNameVariables($<letra>2); } Value END TakeContentOfStruct
     | VARIABLE_ID STRING PIC DONOTHING {saveNameVariables($<letra>2);} Value  END  Variable
     | VARIABLE_ID STRING POINT{
-      if (passo == 1) {
           saveTypeVariables("struct "); 
           saveNameVariables($<letra>2); 
           printOpenBrackets();
-        }
     } END Variable
     | /* DO NOTHING IN HERE */
     ;

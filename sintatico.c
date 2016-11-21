@@ -496,16 +496,16 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,    63,    63,    65,    70,    72,    78,    79,    80,    81,
-      84,    84,    90,    90,    94,    97,    98,    99,   100,   100,
-     107,   108,   108,   118,   118,   124,   143,   144,   149,   149,
-     150,   150,   151,   151,   158,   162,   169,   177,   178,   179,
-     184,   184,   185,   185,   186,   186,   191,   198,   209,   209,
-     214,   217,   214,   222,   225,   222,   230,   238,   239,   244,
-     244,   249,   251,   256,   262,   262,   267,   270,   267,   275,
-     278,   275,   283,   295,   296,   306,   307,   308,   309,   310,
-     311,   315,   316,   317,   318,   326,   327,   328,   335,   335,
-     340,   342,   342,   350,   354,   355,   356,   360
+       0,    63,    63,    65,    70,    74,    81,    82,    83,    84,
+      88,    88,    95,    95,   101,   104,   105,   106,   107,   107,
+     116,   117,   117,   128,   128,   135,   154,   155,   160,   160,
+     161,   161,   162,   162,   167,   171,   178,   186,   187,   188,
+     193,   193,   194,   194,   195,   195,   200,   207,   218,   218,
+     223,   226,   223,   231,   234,   231,   239,   247,   248,   253,
+     253,   258,   260,   265,   271,   271,   276,   279,   276,   284,
+     287,   284,   292,   304,   305,   315,   316,   317,   318,   319,
+     320,   324,   325,   326,   327,   335,   336,   337,   344,   344,
+     349,   351,   351,   359,   363,   364,   365,   369
 };
 #endif
 
@@ -1415,7 +1415,7 @@ yyreduce:
   switch (yyn)
     {
         case 5:
-#line 72 "whatafac.y" /* yacc.c:1646  */
+#line 74 "whatafac.y" /* yacc.c:1646  */
     {
       if (passo == 2) {
         printf("\n#include <stdio.h>\n#include <stdlib.h>\n#include <math.h>\n\n");
@@ -1426,25 +1426,25 @@ yyreduce:
     break;
 
   case 6:
-#line 78 "whatafac.y" /* yacc.c:1646  */
+#line 81 "whatafac.y" /* yacc.c:1646  */
     {/* DO NOTHING HERE */}
 #line 1432 "whatafac.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 80 "whatafac.y" /* yacc.c:1646  */
+#line 83 "whatafac.y" /* yacc.c:1646  */
     {/* DO NOTHING IN HERE*/}
 #line 1438 "whatafac.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 81 "whatafac.y" /* yacc.c:1646  */
+#line 84 "whatafac.y" /* yacc.c:1646  */
     {/* NOTHING TO DO HERE */ }
 #line 1444 "whatafac.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 84 "whatafac.y" /* yacc.c:1646  */
+#line 88 "whatafac.y" /* yacc.c:1646  */
     {
       if(passo == 2)
         printf("\nint main() {\n"); 
@@ -1453,7 +1453,7 @@ yyreduce:
     break;
 
   case 12:
-#line 90 "whatafac.y" /* yacc.c:1646  */
+#line 95 "whatafac.y" /* yacc.c:1646  */
     {
       if (passo == 2)  
         printf("\tscanf(\"" );
@@ -1462,13 +1462,13 @@ yyreduce:
     break;
 
   case 17:
-#line 99 "whatafac.y" /* yacc.c:1646  */
+#line 106 "whatafac.y" /* yacc.c:1646  */
     {/* DO NOTHING HERE */}
 #line 1468 "whatafac.tab.c" /* yacc.c:1646  */
     break;
 
   case 18:
-#line 100 "whatafac.y" /* yacc.c:1646  */
+#line 107 "whatafac.y" /* yacc.c:1646  */
     {
       if (passo == 2)
         printf("\t");
@@ -1477,7 +1477,7 @@ yyreduce:
     break;
 
   case 19:
-#line 103 "whatafac.y" /* yacc.c:1646  */
+#line 110 "whatafac.y" /* yacc.c:1646  */
     {
       if (passo == 2)
         printf(";\n");
@@ -1486,7 +1486,7 @@ yyreduce:
     break;
 
   case 21:
-#line 108 "whatafac.y" /* yacc.c:1646  */
+#line 117 "whatafac.y" /* yacc.c:1646  */
     {
       if (passo == 2)
         printf("\tcase %s:\n", (yyvsp[0].letra));
@@ -1495,7 +1495,7 @@ yyreduce:
     break;
 
   case 22:
-#line 112 "whatafac.y" /* yacc.c:1646  */
+#line 121 "whatafac.y" /* yacc.c:1646  */
     {
     if (passo == 2)
       printf("}\n");
@@ -1504,7 +1504,7 @@ yyreduce:
     break;
 
   case 23:
-#line 118 "whatafac.y" /* yacc.c:1646  */
+#line 128 "whatafac.y" /* yacc.c:1646  */
     {
       if (passo == 2)
         printf("\t//");
@@ -1513,7 +1513,7 @@ yyreduce:
     break;
 
   case 25:
-#line 124 "whatafac.y" /* yacc.c:1646  */
+#line 135 "whatafac.y" /* yacc.c:1646  */
     {
                 if (passo == 1)
                 {
@@ -1533,85 +1533,83 @@ yyreduce:
     break;
 
   case 28:
-#line 149 "whatafac.y" /* yacc.c:1646  */
+#line 160 "whatafac.y" /* yacc.c:1646  */
     {saveNameVariables((yyvsp[-2].letra)); }
 #line 1539 "whatafac.tab.c" /* yacc.c:1646  */
     break;
 
   case 30:
-#line 150 "whatafac.y" /* yacc.c:1646  */
+#line 161 "whatafac.y" /* yacc.c:1646  */
     {saveNameVariables((yyvsp[-2].letra));}
 #line 1545 "whatafac.tab.c" /* yacc.c:1646  */
     break;
 
   case 32:
-#line 151 "whatafac.y" /* yacc.c:1646  */
+#line 162 "whatafac.y" /* yacc.c:1646  */
     {
-      if (passo == 1) {
           saveTypeVariables("struct "); 
           saveNameVariables((yyvsp[-1].letra)); 
           printOpenBrackets();
-        }
     }
-#line 1557 "whatafac.tab.c" /* yacc.c:1646  */
+#line 1555 "whatafac.tab.c" /* yacc.c:1646  */
     break;
 
   case 35:
-#line 162 "whatafac.y" /* yacc.c:1646  */
+#line 171 "whatafac.y" /* yacc.c:1646  */
     {
       if (passo == 2)
         defineDataType((yyvsp[0].letra) );
     }
-#line 1566 "whatafac.tab.c" /* yacc.c:1646  */
+#line 1564 "whatafac.tab.c" /* yacc.c:1646  */
     break;
 
   case 36:
-#line 169 "whatafac.y" /* yacc.c:1646  */
+#line 178 "whatafac.y" /* yacc.c:1646  */
     {
       if (passo == 2)
         print_variables();
     }
-#line 1575 "whatafac.tab.c" /* yacc.c:1646  */
+#line 1573 "whatafac.tab.c" /* yacc.c:1646  */
     break;
 
   case 37:
-#line 177 "whatafac.y" /* yacc.c:1646  */
+#line 186 "whatafac.y" /* yacc.c:1646  */
     {saveFloatDataVariables ((yyvsp[-1].flutuante));}
-#line 1581 "whatafac.tab.c" /* yacc.c:1646  */
+#line 1579 "whatafac.tab.c" /* yacc.c:1646  */
     break;
 
   case 38:
-#line 178 "whatafac.y" /* yacc.c:1646  */
+#line 187 "whatafac.y" /* yacc.c:1646  */
     {printPointComma();}
-#line 1587 "whatafac.tab.c" /* yacc.c:1646  */
+#line 1585 "whatafac.tab.c" /* yacc.c:1646  */
     break;
 
   case 39:
-#line 179 "whatafac.y" /* yacc.c:1646  */
+#line 188 "whatafac.y" /* yacc.c:1646  */
     {saveIntDataVariables ((yyvsp[0].flutuante));}
-#line 1593 "whatafac.tab.c" /* yacc.c:1646  */
+#line 1591 "whatafac.tab.c" /* yacc.c:1646  */
     break;
 
   case 40:
-#line 184 "whatafac.y" /* yacc.c:1646  */
+#line 193 "whatafac.y" /* yacc.c:1646  */
     {saveNameVariables((yyvsp[-2].letra)); }
-#line 1599 "whatafac.tab.c" /* yacc.c:1646  */
+#line 1597 "whatafac.tab.c" /* yacc.c:1646  */
     break;
 
   case 42:
-#line 185 "whatafac.y" /* yacc.c:1646  */
+#line 194 "whatafac.y" /* yacc.c:1646  */
     {printCloseBrackets(); printPointComma();}
-#line 1605 "whatafac.tab.c" /* yacc.c:1646  */
+#line 1603 "whatafac.tab.c" /* yacc.c:1646  */
     break;
 
   case 44:
-#line 186 "whatafac.y" /* yacc.c:1646  */
+#line 195 "whatafac.y" /* yacc.c:1646  */
     {printCloseBrackets(); printPointComma();}
-#line 1611 "whatafac.tab.c" /* yacc.c:1646  */
+#line 1609 "whatafac.tab.c" /* yacc.c:1646  */
     break;
 
   case 46:
-#line 191 "whatafac.y" /* yacc.c:1646  */
+#line 200 "whatafac.y" /* yacc.c:1646  */
     {
       if (passo == 2) {
         printf("\tprintf(" );
@@ -1619,202 +1617,202 @@ yyreduce:
         printf(");\n"); 
       }
     }
-#line 1623 "whatafac.tab.c" /* yacc.c:1646  */
+#line 1621 "whatafac.tab.c" /* yacc.c:1646  */
     break;
 
   case 48:
-#line 209 "whatafac.y" /* yacc.c:1646  */
+#line 218 "whatafac.y" /* yacc.c:1646  */
     {
         if(passo == 2)
           printf("\tif (%s " , (yyvsp[0].variable));
       }
-#line 1632 "whatafac.tab.c" /* yacc.c:1646  */
+#line 1630 "whatafac.tab.c" /* yacc.c:1646  */
     break;
 
   case 50:
-#line 214 "whatafac.y" /* yacc.c:1646  */
+#line 223 "whatafac.y" /* yacc.c:1646  */
     {
         if (passo == 2)
           printf("&&");
       }
-#line 1641 "whatafac.tab.c" /* yacc.c:1646  */
+#line 1639 "whatafac.tab.c" /* yacc.c:1646  */
     break;
 
   case 51:
-#line 217 "whatafac.y" /* yacc.c:1646  */
+#line 226 "whatafac.y" /* yacc.c:1646  */
     {
         if(passo == 2)
           printf(" %s " , (yyvsp[0].variable));
       }
-#line 1650 "whatafac.tab.c" /* yacc.c:1646  */
+#line 1648 "whatafac.tab.c" /* yacc.c:1646  */
     break;
 
   case 53:
-#line 222 "whatafac.y" /* yacc.c:1646  */
+#line 231 "whatafac.y" /* yacc.c:1646  */
     {
         if(passo == 2)
           printf("||");
       }
-#line 1659 "whatafac.tab.c" /* yacc.c:1646  */
+#line 1657 "whatafac.tab.c" /* yacc.c:1646  */
     break;
 
   case 54:
-#line 225 "whatafac.y" /* yacc.c:1646  */
+#line 234 "whatafac.y" /* yacc.c:1646  */
     {
         if (passo == 2)
         printf(" %s " , (yyvsp[0].variable));
       }
-#line 1668 "whatafac.tab.c" /* yacc.c:1646  */
+#line 1666 "whatafac.tab.c" /* yacc.c:1646  */
     break;
 
   case 56:
-#line 230 "whatafac.y" /* yacc.c:1646  */
+#line 239 "whatafac.y" /* yacc.c:1646  */
     {
         if (passo == 2)
           printf(") {\n");
       }
-#line 1677 "whatafac.tab.c" /* yacc.c:1646  */
+#line 1675 "whatafac.tab.c" /* yacc.c:1646  */
     break;
 
   case 58:
-#line 239 "whatafac.y" /* yacc.c:1646  */
+#line 248 "whatafac.y" /* yacc.c:1646  */
     {
       if (passo == 2)
         printf("\t}\n");
     }
-#line 1686 "whatafac.tab.c" /* yacc.c:1646  */
+#line 1684 "whatafac.tab.c" /* yacc.c:1646  */
     break;
 
   case 59:
-#line 244 "whatafac.y" /* yacc.c:1646  */
+#line 253 "whatafac.y" /* yacc.c:1646  */
     {
       if (passo == 2)
         printf("\t}else{\n");
     }
-#line 1695 "whatafac.tab.c" /* yacc.c:1646  */
+#line 1693 "whatafac.tab.c" /* yacc.c:1646  */
     break;
 
   case 62:
-#line 251 "whatafac.y" /* yacc.c:1646  */
+#line 260 "whatafac.y" /* yacc.c:1646  */
     {
       if (passo == 2)
         printf("\t}\n");
     }
-#line 1704 "whatafac.tab.c" /* yacc.c:1646  */
+#line 1702 "whatafac.tab.c" /* yacc.c:1646  */
     break;
 
   case 64:
-#line 262 "whatafac.y" /* yacc.c:1646  */
+#line 271 "whatafac.y" /* yacc.c:1646  */
     {
         if (passo == 2)
           printf("\twhile (%s " , (yyvsp[0].variable));
       }
-#line 1713 "whatafac.tab.c" /* yacc.c:1646  */
+#line 1711 "whatafac.tab.c" /* yacc.c:1646  */
     break;
 
   case 66:
-#line 267 "whatafac.y" /* yacc.c:1646  */
+#line 276 "whatafac.y" /* yacc.c:1646  */
     {
         if (passo == 2)
           printf("&&");
       }
-#line 1722 "whatafac.tab.c" /* yacc.c:1646  */
+#line 1720 "whatafac.tab.c" /* yacc.c:1646  */
     break;
 
   case 67:
-#line 270 "whatafac.y" /* yacc.c:1646  */
+#line 279 "whatafac.y" /* yacc.c:1646  */
     {
         if (passo == 2)
           printf(" %s " , (yyvsp[0].variable));
       }
-#line 1731 "whatafac.tab.c" /* yacc.c:1646  */
+#line 1729 "whatafac.tab.c" /* yacc.c:1646  */
     break;
 
   case 69:
-#line 275 "whatafac.y" /* yacc.c:1646  */
+#line 284 "whatafac.y" /* yacc.c:1646  */
     {
         if (passo == 2)
           printf("||");
       }
-#line 1740 "whatafac.tab.c" /* yacc.c:1646  */
+#line 1738 "whatafac.tab.c" /* yacc.c:1646  */
     break;
 
   case 70:
-#line 278 "whatafac.y" /* yacc.c:1646  */
+#line 287 "whatafac.y" /* yacc.c:1646  */
     {
         if (passo == 2)
           printf(" %s " , (yyvsp[0].variable));
       }
-#line 1749 "whatafac.tab.c" /* yacc.c:1646  */
+#line 1747 "whatafac.tab.c" /* yacc.c:1646  */
     break;
 
   case 72:
-#line 283 "whatafac.y" /* yacc.c:1646  */
+#line 292 "whatafac.y" /* yacc.c:1646  */
     {
         if (passo == 2)
           printf(") {\n");
       }
-#line 1758 "whatafac.tab.c" /* yacc.c:1646  */
+#line 1756 "whatafac.tab.c" /* yacc.c:1646  */
     break;
 
   case 74:
-#line 296 "whatafac.y" /* yacc.c:1646  */
+#line 305 "whatafac.y" /* yacc.c:1646  */
     {
         if (passo == 2){
           char* this = getTillLineBreak((yyvsp[-2].letra));
           printf("%s", this);
         }
       }
-#line 1769 "whatafac.tab.c" /* yacc.c:1646  */
+#line 1767 "whatafac.tab.c" /* yacc.c:1646  */
     break;
 
   case 87:
-#line 328 "whatafac.y" /* yacc.c:1646  */
+#line 337 "whatafac.y" /* yacc.c:1646  */
     {
         if (passo == 2)
           printf("}\n");
       }
-#line 1778 "whatafac.tab.c" /* yacc.c:1646  */
+#line 1776 "whatafac.tab.c" /* yacc.c:1646  */
     break;
 
   case 88:
-#line 335 "whatafac.y" /* yacc.c:1646  */
+#line 344 "whatafac.y" /* yacc.c:1646  */
     {
         if (passo == 2)
           printf("\tbreak;\n\tcase %s:\n", (yyvsp[0].letra));
       }
-#line 1787 "whatafac.tab.c" /* yacc.c:1646  */
+#line 1785 "whatafac.tab.c" /* yacc.c:1646  */
     break;
 
   case 91:
-#line 342 "whatafac.y" /* yacc.c:1646  */
+#line 351 "whatafac.y" /* yacc.c:1646  */
     {
         if (passo == 2)
           printf("\tbreak;\n\tdefault:\n");
       }
-#line 1796 "whatafac.tab.c" /* yacc.c:1646  */
+#line 1794 "whatafac.tab.c" /* yacc.c:1646  */
     break;
 
   case 92:
-#line 345 "whatafac.y" /* yacc.c:1646  */
+#line 354 "whatafac.y" /* yacc.c:1646  */
     {
         if (passo == 2)
           printf("\t");
       }
-#line 1805 "whatafac.tab.c" /* yacc.c:1646  */
+#line 1803 "whatafac.tab.c" /* yacc.c:1646  */
     break;
 
   case 97:
-#line 360 "whatafac.y" /* yacc.c:1646  */
+#line 369 "whatafac.y" /* yacc.c:1646  */
     {
         if (passo == 2)
           printf("\tswitch (%s) {\n", (yyvsp[0].letra));
       }
-#line 1814 "whatafac.tab.c" /* yacc.c:1646  */
+#line 1812 "whatafac.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1818 "whatafac.tab.c" /* yacc.c:1646  */
+#line 1816 "whatafac.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -2042,7 +2040,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 366 "whatafac.y" /* yacc.c:1906  */
+#line 375 "whatafac.y" /* yacc.c:1906  */
 
 
 int yyerror(char *s) {
