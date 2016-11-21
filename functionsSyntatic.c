@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+int passo;
 void print_variables(){
 
   FILE *simbolsTable;
@@ -58,72 +59,79 @@ char* getTillLineBreak(char* sentense)
 
 void saveNameVariables (char content[50])
 {
-  FILE *fp;
+  if (passo==1){
+    FILE *fp;
 
-  fp = fopen("SimbolsTable.txt", "a+");
-  if(fp == NULL)
-      printf("\n\n\nNão abriu!\n\n\n");
+    fp = fopen("SimbolsTable.txt", "a+");
+    if(fp == NULL)
+        printf("\n\n\nNão abriu!\n\n\n");
 
-  int qtdLetras = 0;
-  while(content[qtdLetras] != ' '){
-    fprintf(fp, "%c", content[qtdLetras]);
-    qtdLetras++;
+    int qtdLetras = 0;
+    while(content[qtdLetras] != ' '){
+      fprintf(fp, "%c", content[qtdLetras]);
+      qtdLetras++;
+    }
+    fclose(fp);
+    
   }
-  fclose(fp);
 }
 
 void defineDataType(char content[50])
 {
-  FILE *fp;
-  fp = fopen("SimbolsTable.txt" , "r+");
-  if(fp == NULL)
-      printf("\n\n\nNão abriu!\n\n\n");
+    FILE *fp;
+    fp = fopen("SimbolsTable.txt" , "r+");
+    if(fp == NULL)
+        printf("\n\n\nNão abriu!\n\n\n");
 
-  char type[10] , name[50] , caracter;
-  int barraN_ascii = 10;
+    char type[10] , name[50] , caracter;
+    int barraN_ascii = 10;
 
-  while(!feof(fp)){
-    fscanf(fp , "%s %s" , type , name);
-    if (strcmp(content , name) == 0){
-      if (strcmp(type,"int") == 0){
-        printf("%%d\"" );
-      } else if (strcmp(type,"double") == 0){
-          printf("%%lf\"" );
-      } else if (strcmp(type,"char") == 0)
-          printf("%%s\"");
+    while(!feof(fp)){
+      fscanf(fp , "%s %s" , type , name);
+      if (strcmp(content , name) == 0){
+        if (strcmp(type,"int") == 0){
+          printf("%%d\"" );
+        } else if (strcmp(type,"double") == 0){
+            printf("%%lf\"" );
+        } else if (strcmp(type,"char") == 0)
+            printf("%%s\"");
 
-      printf(", &%s);\n" , name);
-      break;
-    }
-    caracter = fgetc(fp);
-    while( caracter != barraN_ascii ){
-      if(feof(fp)){
+        printf(", &%s);\n" , name);
         break;
       }
       caracter = fgetc(fp);
+      while( caracter != barraN_ascii ){
+        if(feof(fp)){
+          break;
+        }
+        caracter = fgetc(fp);
+      }
     }
-  }
 
-  fclose(fp);
+    fclose(fp);
 }
 
 void saveFloatDataVariables (double numero)
 {
-  FILE *fp;
+  if (passo == 1)
+  {
+    FILE *fp;
 
-  fp = fopen("SimbolsTable.txt", "a+");
-  if(fp == NULL)
-      printf("\n\n\nNão abriu!\n\n\n");
+    fp = fopen("SimbolsTable.txt", "a+");
+    if(fp == NULL)
+        printf("\n\n\nNão abriu!\n\n\n");
 
 
-  fprintf(fp, " = %lf", numero);
+    fprintf(fp, " = %lf", numero);
 
-  fprintf(fp, ";\n");
-  fclose(fp);
+    fprintf(fp, ";\n");
+    fclose(fp);
+  }
 }
 
 void saveIntDataVariables (int numero)
 {
+  if (passo == 1){
   FILE *fp;
 
   fp = fopen("SimbolsTable.txt", "a+");
@@ -135,37 +143,47 @@ void saveIntDataVariables (int numero)
 
   fprintf(fp, ";\n");
   fclose(fp);
+  }
 }
 
 void printPointComma(){
-  FILE *fp;
+  if (passo == 1)
+  {
+    FILE *fp;
 
-  fp = fopen("SimbolsTable.txt", "a+");
-  if(fp == NULL)
-      printf("\n\n\nNão abriu!\n\n\n");
+    fp = fopen("SimbolsTable.txt", "a+");
+    if(fp == NULL)
+        printf("\n\n\nNão abriu!\n\n\n");
 
-  fprintf(fp, " ;\n");
-  fclose(fp);
+    fprintf(fp, " ;\n");
+    fclose(fp);
+  }
 }
 
 void printOpenBrackets(){
-  FILE *fp;
-  fp = fopen("SimbolsTable.txt", "a+");
-  if(fp == NULL)
-      printf("\n\n\nNão abriu!\n\n\n");
+  if (passo == 1)
+  {
+    FILE *fp;
+    fp = fopen("SimbolsTable.txt", "a+");
+    if(fp == NULL)
+        printf("\n\n\nNão abriu!\n\n\n");
 
-  fprintf(fp, " {\n");
-  fclose(fp);
+    fprintf(fp, " {\n");
+    fclose(fp);
+  }
 }
 
 void printCloseBrackets(){
-  FILE *fp;
-  fp = fopen("SimbolsTable.txt", "a+");
-  if(fp == NULL)
-      printf("\n\n\nNão abriu!\n\n\n");
+  if (passo == 1)
+  {
+    FILE *fp;
+    fp = fopen("SimbolsTable.txt", "a+");
+    if(fp == NULL)
+        printf("\n\n\nNão abriu!\n\n\n");
 
-  fprintf(fp, "\n}");
-  fclose(fp);
+    fprintf(fp, "\n}");
+    fclose(fp);
+    }
 }
 
 
