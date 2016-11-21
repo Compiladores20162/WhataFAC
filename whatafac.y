@@ -62,7 +62,7 @@
 
 Input:
    /* Empty */
-   | Input {printf("\n\n\nCOMECOU PORRA\n\n\n");} Line
+   | Input Line
    ;
 
 
@@ -94,7 +94,10 @@ Line:
    | TIMES {printf("\t//");} Line
 
    /*End Procedure Division*/
-   | RETURN_0 {printf("\treturn 0;\n}\n"); printStruct(); exit(0);}
+   | RETURN_0 {printf("\treturn 0;\n}\n"); 
+              printStruct(); 
+             
+            }
    ;
 
   /*For Initial codes*/
@@ -103,7 +106,7 @@ Line:
      | END
      ;
 
-  /*identifies variable types*/   
+  /*identifies variable types*/
   Variable:
     ATRIBUTTE_ID STRING PIC DONOTHING {saveNameVariables($<letra>2); } Value END TakeContentOfStruct
     | VARIABLE_ID STRING PIC DONOTHING {saveNameVariables($<letra>2);} Value  END  Variable
@@ -114,7 +117,7 @@ Line:
     DecideVariableType:
     STRING {defineDataType($<letra>1 );}
 
-    
+
      Print_variables:
     {print_variables();}
     ;
@@ -141,7 +144,7 @@ Line:
     | END
     ;
 
-   
+
 
 
     /*If-Else Commands*/
@@ -204,7 +207,7 @@ Line:
       ;
 
 
-  
+
   /*Switch Commands*/
 
   Switch_function:
@@ -239,15 +242,22 @@ int yyerror(char *s) {
 }
 
 
-int main(void) {   
+int main(void) {
   FILE *fp = fopen("in.txt", "r+");
   yyin = fp;
   yyparse();
-  fclose(fp);
+  // fclose(fp);
 
+   // FILE *fp = fopen("in.txt", "r+");
+  // yyrestart(fp);  
+  passo = 2;
   fp = fopen("in.txt", "r+");
   yyin = fp;
-  passo = 2;
   yyparse();
   fclose(fp);
+  exit(0);
+
+
+  
+  // printf("\n\n\n\npassou aqui\n\n\n\n\n");
 }

@@ -30,7 +30,7 @@ string [-_0-9a-zA-Z]+
 conditional {string}{biggersmaller}{string}
 %%
 
-"IDENTIFICATION DIVISION." return(INCLUDE_STDIO);
+"IDENTIFICATION DIVISION." return(INCLUDE_STDIO); printf("%d", passo);
 "PROGRAM-ID." return (PROGRAMNAME);
 "DATA DIVISION."  return(DATADIVISION);
 "WORKING-STORAGE SECTION.\n"  return(WORKINGSTORAGE);
@@ -41,7 +41,6 @@ conditional {string}{biggersmaller}{string}
 {point} return(POINT);
 
 {conditional} {
-  printf("%d", passo);
   yylval.variable = yytext;
   return (CONDITIONAL);
 }
