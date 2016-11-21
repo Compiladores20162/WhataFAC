@@ -69,44 +69,72 @@ Input:
 Line:
    END
    /*Identification and Variables Division*/
-   | INCLUDE_STDIO {printf("#include <stdio.h>\n#include <stdlib.h>\n#include <math.h>\n\n", passo);}
+   | INCLUDE_STDIO {
+      if (passo == 2) {
+        printf("\n#include <stdio.h>\n#include <stdlib.h>\n#include <math.h>\n\n");
+        printStruct();
+      }
+    }
    | PROGRAMNAME STRING {/* DO NOTHING HERE */}
    | DATADIVISION  Working
    | PROCEDURE {/* DO NOTHING IN HERE*/}
    | POINT {/* NOTHING TO DO HERE */ }
 
    /*Procedure Divistion*/
-   | MAIN  {printf("\nint main() {\n"); } Print_variables;
+   | MAIN  {
+      if(passo == 2)
+        printf("\nint main() {\n"); 
+    } Print_variables;
 
    /*Inputs and Outputs*/
-   | ACCEPT {printf("\tscanf(\"" );} DecideVariableType
+   | ACCEPT {
+      if (passo == 2)  
+        printf("\tscanf(\"" );
+    } DecideVariableType
    | PRINT String_quatation
 
    /*Conditionals and Sequencials Algorithms*/
    | IF_TOKEN Conditional_if
    | WHILE While
    | STOP {/* DO NOTHING HERE */}
-   | COMPUTE {printf("\t");}Compute_variable END_COMPUTE {printf(";\n");}
+   | COMPUTE {
+      if (passo == 2)
+        printf("\t");
+    }Compute_variable END_COMPUTE {
+      if (passo == 2)
+        printf(";\n");
+    }
    | SWITCH Switch_value Switch_function
-   | CASE_SWITCH STRING {printf("\tcase %s:\n", $<letra>2);} Case_function  {printf("}\n");}
+   | CASE_SWITCH STRING {
+      if (passo == 2)
+        printf("\tcase %s:\n", $<letra>2);
+    } 
+   Case_function  {
+    if (passo == 2)
+      printf("}\n");
+    }
 
    /*Comenties*/
-   | TIMES {printf("\t//");} Line
+   | TIMES {
+      if (passo == 2)
+        printf("\t//");
+    } Line
 
    /*End Procedure Division*/
-   | RETURN_0 {printf("\treturn 0;\n}\n");  
-                printStruct();
-
-              if (passo == 1)
-              {
-                passo = 2;
-                FILE *fp = fopen("in.txt", "r+");
-                yyin = fp;
-                yyrestart(fp);
-                yyparse();
-              }
-              if (passo == 2)
-                exit(0);  
+   | RETURN_0 {
+                if (passo == 1)
+                {
+                  passo = 2;
+                  FILE *fp = fopen("in.txt", "r+");
+                  yyin = fp;
+                  yyrestart(fp);
+                  yyparse();
+                }
+                if (passo == 2)
+                {
+                  printf("\treturn 0;\n}\n");  
+                  exit(0);  
+                }
             }
    ;
 
@@ -120,16 +148,28 @@ Line:
   Variable:
     ATRIBUTTE_ID STRING PIC DONOTHING {saveNameVariables($<letra>2); } Value END TakeContentOfStruct
     | VARIABLE_ID STRING PIC DONOTHING {saveNameVariables($<letra>2);} Value  END  Variable
-    | VARIABLE_ID STRING POINT{saveTypeVariables("struct "); saveNameVariables($<letra>2); printOpenBrackets();} END Variable
+    | VARIABLE_ID STRING POINT{
+      if (passo == 1) {
+          saveTypeVariables("struct "); 
+          saveNameVariables($<letra>2); 
+          printOpenBrackets();
+        }
+    } END Variable
     | /* DO NOTHING IN HERE */
     ;
 
     DecideVariableType:
-    STRING {defineDataType($<letra>1 );}
+    STRING {
+      if (passo == 2)
+        defineDataType($<letra>1 );
+    }
 
 
      Print_variables:
-    {print_variables();}
+    {
+      if (passo == 2)
+        print_variables();
+    }
     ;
 
   /*Variables' value*/
@@ -148,9 +188,13 @@ Line:
 
   /*Save a string with quatation marks. Important to print string values*/
   String_quatation:
-     STRING_QUATATION {printf("\tprintf(" );
-                            printf("%s", $<letra>1);
-                            printf(");\n"); }
+     STRING_QUATATION {
+      if (passo == 2) {
+        printf("\tprintf(" );
+        printf("%s", $<letra>1);
+        printf(");\n"); 
+      }
+    }
     | END
     ;
 
@@ -162,28 +206,84 @@ Line:
 
   /*Defines conditional expressions */
   Conditional_if:
-      CONDITIONAL {printf("\tif (%s " , $<variable>1);} Conditional_if DecideIf
-      | AND_TOKEN {printf("&&");} CONDITIONAL  {printf(" %s " , $<variable>3);} Conditional_if
-      | OR_TOKEN {printf("||");} CONDITIONAL  {printf(" %s " , $<variable>3);} Conditional_if
-      | END {printf(") {\n");}
+      CONDITIONAL {
+        if(passo == 2)
+          printf("\tif (%s " , $<variable>1);
+      } Conditional_if DecideIf
+      
+      | AND_TOKEN {
+        if (passo == 2)
+          printf("&&");
+      } CONDITIONAL  {
+        if(passo == 2)
+          printf(" %s " , $<variable>3);
+      } Conditional_if
+
+      | OR_TOKEN {
+        if(passo == 2)
+          printf("||");
+      } CONDITIONAL  {
+        if (passo == 2)
+        printf(" %s " , $<variable>3);
+      } Conditional_if
+
+      | END {
+        if (passo == 2)
+          printf(") {\n");
+      }
       ;
 
   /*Define if-else hierarchy*/
   DecideIf:
      END  DecideIf
-    | END_IF {printf("\t}\n"); }
-    | ELSE_TOKEN {printf("\t}else{\n");}  DecideIf
+    | END_IF {
+      if (passo == 2)
+        printf("\t}\n");
+    }
+
+    | ELSE_TOKEN {
+      if (passo == 2)
+        printf("\t}else{\n");
+    }  DecideIf
+    
     | Line DecideIf
-    | END_WHILE {printf("\t}\n");}
+    
+    | END_WHILE {
+      if (passo == 2)
+        printf("\t}\n");
+    }
+    
     | Line
     ;
 
+
   /*Writes expressions inside while*/
   While:
-    CONDITIONAL {printf("\twhile (%s " , $<variable>1);} Conditional_if DecideIf
-      | AND_TOKEN {printf("&&");} CONDITIONAL  {printf(" %s " , $<variable>3);} Conditional_if
-      | OR_TOKEN {printf("||");} CONDITIONAL  {printf(" %s " , $<variable>3);} Conditional_if
-      | END {printf(") {\n");}
+      CONDITIONAL {
+        if (passo == 2)
+          printf("\twhile (%s " , $<variable>1);
+      } Conditional_if DecideIf
+      
+      | AND_TOKEN {
+        if (passo == 2)
+          printf("&&");
+      } CONDITIONAL  {
+        if (passo == 2)
+          printf(" %s " , $<variable>3);
+      } Conditional_if
+      
+      | OR_TOKEN {
+        if (passo == 2)
+          printf("||");
+      } CONDITIONAL  {
+        if (passo == 2)
+          printf(" %s " , $<variable>3);
+      } Conditional_if
+      
+      | END {
+        if (passo == 2)
+          printf(") {\n");
+      }
       ;
 
 
@@ -194,8 +294,10 @@ Line:
   Compute_variable:
       END Compute_variable
       | STRING EQUALS Compute_sequence {
-        char* this = getTillLineBreak($<letra>1);
-        printf("%s", this);
+        if (passo == 2){
+          char* this = getTillLineBreak($<letra>1);
+          printf("%s", this);
+        }
       }
       ;
 
@@ -223,13 +325,28 @@ Line:
   Switch_function:
       END Switch_function
       | Line Switch_function
-      | END_SWITCH END {printf("}\n");}
+      | END_SWITCH END {
+        if (passo == 2)
+          printf("}\n");
+      }
       ;
 
   Case_function:
-      END CASE_SWITCH STRING {printf("\tbreak;\n\tcase %s:\n", $<letra>3);} Case_function
+      END CASE_SWITCH STRING {
+        if (passo == 2)
+          printf("\tbreak;\n\tcase %s:\n", $<letra>3);
+      } Case_function
+      
       | Line Case_function
-      | DEFAULT {printf("\tbreak;\n\tdefault:\n");} Default {printf("\t");}
+      
+      | DEFAULT {
+        if (passo == 2)
+          printf("\tbreak;\n\tdefault:\n");
+      } Default {
+        if (passo == 2)
+          printf("\t");
+      }
+      
       | END_SWITCH END
       ;
 
@@ -241,7 +358,8 @@ Line:
 
   Switch_value:
       STRING {
-      printf("\tswitch (%s) {\n", $<letra>1);
+        if (passo == 2)
+          printf("\tswitch (%s) {\n", $<letra>1);
       }
       ;
 

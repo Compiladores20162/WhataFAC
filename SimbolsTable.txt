@@ -16,13 +16,11 @@ char somaTotal ;
 char mediaAritmetica ;
 int conta_carro = 50;
 int mediaCarros ;
-struct  primeira_struct {
 int valor_struct_1 ;
 
 } ;
 int contador = 0;
 double valorInicial = 12.500000;
-struct  segunda_struct {
 int cinco_da_struct ;
 int cinco_2_da_struct ;
 double cinco_3_da_struct ;
