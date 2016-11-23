@@ -77,7 +77,7 @@ Line:
         printStruct();
       }
     }
-   
+
    | PROGRAMNAME STRING {/* DO NOTHING HERE */}
    | DATADIVISION  Working
    | PROCEDURE {/* DO NOTHING IN HERE*/}
@@ -87,16 +87,16 @@ Line:
    /*Procedure Divistion*/
    | MAIN  {
       if(step == 2)
-        printf("\nint main() {\n"); 
+        printf("\nint main() {\n");
     } Print_variables;
 
 
    /*Inputs and Outputs*/
    | ACCEPT {
-      if (step == 2)  
+      if (step == 2)
         printf("\tscanf(\"" );
     } DecideVariableType
-   
+
 
    | PRINT String_quatation
 
@@ -111,26 +111,26 @@ Line:
       if (step == 2)
         printf(";\n");
     }
-   
+
 
    | SWITCH Switch_value Switch_function
    | CASE_SWITCH STRING {
       if (step == 2)
         printf("\tcase %s:\n", $<letra>2);
-    } 
+    }
    Case_function  {
     if (step == 2)
       printf("}\n");
     }
 
-   
+
    /*Comenties*/
    | TIMES {
       if (step == 2)
         printf("\t//");
     } Line
 
-   
+
    /*End Procedure Division*/
    | RETURN_0 {
                 if (step == 1)
@@ -143,8 +143,8 @@ Line:
                 }
                 if (step == 2)
                 {
-                  printf("\treturn 0;\n}\n");  
-                  exit(0);  
+                  printf("\treturn 0;\n}\n");
+                  exit(0);
                 }
             }
    ;
@@ -160,8 +160,8 @@ Line:
     ATRIBUTTE_ID STRING PIC DONOTHING {saveNameVariables($<letra>2); } Value END TakeContentOfStruct
     | VARIABLE_ID STRING PIC DONOTHING {saveNameVariables($<letra>2);} Value  END  Variable
     | VARIABLE_ID STRING POINT{
-          saveTypeVariables("struct "); 
-          saveNameVariables($<letra>2); 
+          saveTypeVariables("struct ");
+          saveNameVariables($<letra>2);
           printOpenBrackets();
     } END Variable
     | /* DO NOTHING IN HERE */
@@ -201,7 +201,7 @@ Line:
       if (step == 2) {
         printf("\tprintf(" );
         printf("%s", $<letra>1);
-        printf(");\n"); 
+        printf(");\n");
       }
     }
     | END
@@ -219,7 +219,7 @@ Line:
         if(step == 2)
           printf("\tif (%s " , $<variable>1);
       } Conditional_if DecideIf
-      
+
       | AND_TOKEN {
         if (step == 2)
           printf("&&");
@@ -254,14 +254,14 @@ Line:
       if (step == 2)
         printf("\t}else{\n");
     }  DecideIf
-    
+
     | Line DecideIf
-    
+
     | END_WHILE {
       if (step == 2)
         printf("\t}\n");
     }
-    
+
     | Line
     ;
 
@@ -272,7 +272,7 @@ Line:
         if (step == 2)
           printf("\twhile (%s " , $<variable>1);
       } Conditional_if DecideIf
-      
+
       | AND_TOKEN {
         if (step == 2)
           printf("&&");
@@ -280,7 +280,7 @@ Line:
         if (step == 2)
           printf(" %s " , $<variable>3);
       } Conditional_if
-      
+
       | OR_TOKEN {
         if (step == 2)
           printf("||");
@@ -288,7 +288,7 @@ Line:
         if (step == 2)
           printf(" %s " , $<variable>3);
       } Conditional_if
-      
+
       | END {
         if (step == 2)
           printf(") {\n");
@@ -345,9 +345,9 @@ Line:
         if (step == 2)
           printf("\tbreak;\n\tcase %s:\n", $<letra>3);
       } Case_function
-      
+
       | Line Case_function
-      
+
       | DEFAULT {
         if (step == 2)
           printf("\tbreak;\n\tdefault:\n");
@@ -355,7 +355,7 @@ Line:
         if (step == 2)
           printf("\t");
       }
-      
+
       | END_SWITCH END
       ;
 
@@ -384,9 +384,4 @@ int main(void) {
   yyin = fp;
   yyparse();
 
-  // step = 2;
-  // fp = fopen("in.txt", "r+");
-  // yyin = fp;
-  // yyparse();
-  // exit(0);
 }
