@@ -3,6 +3,7 @@
 #include "functionsLexic.c"
 #include <stdlib.h>
 #include <string.h>
+int step =1;
 %}
 
 digit [0-9]
@@ -29,7 +30,7 @@ string [-_0-9a-zA-Z]+
 conditional {string}{biggersmaller}{string}
 %%
 
-"IDENTIFICATION DIVISION." return(INCLUDE_STDIO);
+"IDENTIFICATION DIVISION."  return(INCLUDE_STDIO); 
 "PROGRAM-ID." return (PROGRAMNAME);
 "DATA DIVISION."  return(DATADIVISION);
 "WORKING-STORAGE SECTION.\n"  return(WORKINGSTORAGE);

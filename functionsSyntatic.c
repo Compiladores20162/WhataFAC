@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+int step;
 void print_variables(){
 
   FILE *simbolsTable;
@@ -58,21 +59,51 @@ char* getTillLineBreak(char* sentense)
 
 void saveNameVariables (char content[50])
 {
-  FILE *fp;
+  if (step==1){
+    FILE *fp;
 
-  fp = fopen("SimbolsTable.txt", "a+");
-  if(fp == NULL)
-      printf("\n\n\nNão abriu!\n\n\n");
+    fp = fopen("SimbolsTable.txt", "a+");
+    if(fp == NULL)
+        printf("\n\n\nNão abriu!\n\n\n");
 
-  int qtdLetras = 0;
-  while(content[qtdLetras] != ' '){
-    fprintf(fp, "%c", content[qtdLetras]);
-    qtdLetras++;
+    int qtdLetras = 0;
+    while(content[qtdLetras] != ' '){
+      fprintf(fp, "%c", content[qtdLetras]);
+      qtdLetras++;
+    }
+    fclose(fp);
+    
   }
-  fclose(fp);
 }
 
+void insertError(char error[100]){
+  FILE *fp;
+  fp = fopen("logOfErrors.txt","a+");
+  if(fp == NULL)
+    printf("Erro ao abrir o arquivo!\n");
 
+  fprintf(fp,"%s", error);
+
+  fclose(fp);
+}
+int verifyErrors(){
+  FILE *fp;
+  fp = fopen("logOfErrors.txt","r+");
+  if(fp == NULL){
+    printf("Erro ao abrir o arquivo!\n");
+    return 0;
+  }
+
+  char c;
+  do{
+    printf("%c", c);
+    c = fgetc(fp);
+  }while(c!=EOF);
+
+  fclose(fp);
+
+  return -1;
+}
 
 
 void defineDataType(char content[50])
@@ -122,11 +153,13 @@ void defineDataType(char content[50])
 
 void saveFloatDataVariables (double numero)
 {
-  FILE *fp;
+  if (step == 1)
+  {
+    FILE *fp;
 
-  fp = fopen("SimbolsTable.txt", "a+");
-  if(fp == NULL)
-      printf("\n\n\nNão abriu!\n\n\n");
+    fp = fopen("SimbolsTable.txt", "a+");
+    if(fp == NULL)
+        printf("\n\n\nNão abriu!\n\n\n");
 
   if(numero > 100){
     insertError("-> Overflow da variavel float utilizada!\n");
@@ -135,12 +168,14 @@ void saveFloatDataVariables (double numero)
   }
   fprintf(fp, " = %lf", numero);
 
-  fprintf(fp, ";\n");
-  fclose(fp);
+    fprintf(fp, ";\n");
+    fclose(fp);
+  }
 }
 
 void saveIntDataVariables (int numero)
 {
+  if (step == 1){
   FILE *fp;
 
   fp = fopen("SimbolsTable.txt", "a+");
@@ -156,37 +191,47 @@ void saveIntDataVariables (int numero)
 
   fprintf(fp, ";\n");
   fclose(fp);
+  }
 }
 
 void printPointComma(){
-  FILE *fp;
+  if (step == 1)
+  {
+    FILE *fp;
 
-  fp = fopen("SimbolsTable.txt", "a+");
-  if(fp == NULL)
-      printf("\n\n\nNão abriu!\n\n\n");
+    fp = fopen("SimbolsTable.txt", "a+");
+    if(fp == NULL)
+        printf("\n\n\nNão abriu!\n\n\n");
 
-  fprintf(fp, " ;\n");
-  fclose(fp);
+    fprintf(fp, " ;\n");
+    fclose(fp);
+  }
 }
 
 void printOpenBrackets(){
-  FILE *fp;
-  fp = fopen("SimbolsTable.txt", "a+");
-  if(fp == NULL)
-      printf("\n\n\nNão abriu!\n\n\n");
+  if (step == 1)
+  {
+    FILE *fp;
+    fp = fopen("SimbolsTable.txt", "a+");
+    if(fp == NULL)
+        printf("\n\n\nNão abriu!\n\n\n");
 
-  fprintf(fp, " {\n");
-  fclose(fp);
+    fprintf(fp, " {\n");
+    fclose(fp);
+  }
 }
 
 void printCloseBrackets(){
-  FILE *fp;
-  fp = fopen("SimbolsTable.txt", "a+");
-  if(fp == NULL)
-      printf("\n\n\nNão abriu!\n\n\n");
+  if (step == 1)
+  {
+    FILE *fp;
+    fp = fopen("SimbolsTable.txt", "a+");
+    if(fp == NULL)
+        printf("\n\n\nNão abriu!\n\n\n");
 
-  fprintf(fp, "\n}");
-  fclose(fp);
+    fprintf(fp, "\n}");
+    fclose(fp);
+    }
 }
 
 
@@ -216,33 +261,4 @@ void printStruct()
       printf("\n\n");
     }
   }
-}
-
-void insertError(char error[100]){
-  FILE *fp;
-  fp = fopen("logOfErrors.txt","a+");
-  if(fp == NULL)
-    printf("Erro ao abrir o arquivo!\n");
-
-  fprintf(fp,"%s", error);
-
-  fclose(fp);
-}
-int verifyErrors(){
-  FILE *fp;
-  fp = fopen("logOfErrors.txt","r+");
-  if(fp == NULL){
-    printf("Erro ao abrir o arquivo!\n");
-    return 0;
-  }
-
-  char c;
-  do{
-    printf("%c", c);
-    c = fgetc(fp);
-  }while(c!=EOF);
-
-  fclose(fp);
-
-  return -1;
 }
